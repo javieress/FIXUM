@@ -1,3 +1,4 @@
+import './database/connection'
 const express = require('express')
 const config = require('./config')
 const path = require('path')
