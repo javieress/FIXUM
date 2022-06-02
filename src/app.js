@@ -1,4 +1,5 @@
-import './database/connection'
+import activosRoutes from './routes/activos.routes'
+
 const express = require('express')
 const config = require('./config')
 const path = require('path')
@@ -13,6 +14,7 @@ app.set('views',path.join(__dirname,'views'))
 
 // routs
 app.use(require('./routes/index'))
+app.use(activosRoutes)
 
 // static files
 app.use(express.static(path.join(__dirname,'public')))
