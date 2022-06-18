@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head') %>
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('partials/navigation') %>
+    <div class="container py-5 h-100" style="align-items: cente; max-width: 400px;">
+        <h2>Perfil usuario</h2>
+    </div>
+    <div class="container py-5 h-100" style="max-width: 400px;">
+        <div class="row d-flex justify-content-center align-items-center h-100" >
+            <div class="btn-group-vertical p-4" role="group" aria-label="Basic example">
+                <a class="btn btn-primary bg-dark" href="/user-register">Agregar usuario</a>
+                <a class="btn btn-primary bg-dark" href="/place-register">Agregar ubicación</a>
+                <a class="btn btn-primary bg-dark" href="/asset-type-register">Agregar tipo de activo</a>
+            </div>
+        </div>
+    </div>
+    <div class="container py-5 h-100" style="max-width: 400px;">
+        <div class="input-group " style="max-width: 500px;">
+            <span class="input-group-text" >usuario</span>
+            <input type="text" class="form-control" placeholder="usuario">
+            <button class="btn btn-primary">modificar</button>
+        </div>
+        <div class="input-group " style="max-width: 500px;">
+            <span class="input-group-text" >ubicación</span>
+            <input type="text" class="form-control" placeholder="ubicación">
+            <button class="btn btn-primary">modificar</button>
+        </div>
+        <div class="input-group " style="max-width: 500px;">
+            <span class="input-group-text" >tipo de usuario</span>
+            <input type="text" class="form-control" placeholder="tipo de usuario">
+            <button class="btn btn-primary">modificar</button>
+        </div>
+    </div>
+    
+</body>
+<%- include('partials/footer') %>
+</html>
