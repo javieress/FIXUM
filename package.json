@@ -4,7 +4,8 @@
   "description": "Control y Gestion de Activos Fijos",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.js --exec babel-node"
+    "dev": "nodemon src/app.js --exec babel-node",
+    "start": "node src/app.js"
   },
   "author": "AdInfinitum",
   "license": "ISC",
