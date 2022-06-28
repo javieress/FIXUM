@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('partials/head') %>
+    <%- include('../partials/head') %>
     <title><%= title %></title>
 </head>
 <body>
-    <%- include('partials/navigation') %>
+    <%- include('../partials/navigation') %>
     <div class="container h-100 justify-content-center" style="max-width: 600px;">
         <div class="card mt-5">
             <div class="card-header p-4">
@@ -16,14 +16,14 @@
             </div>
             <div class="card-body">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark" href="/asset-register" style="max-width: 300px;">Agregar activo</a>
+                    <a class="btn btn-dark" href="/register/asset" style="max-width: 300px;">Agregar activo</a>
                 </div>
                 <hr class="mx-n3">
                 <div class="row align-items-center justify-content-center m-2">
                     <div class="btn-group-vertical" role="group" style="max-width: 300px;">
-                        <a class="btn btn-dark mt-1" href="/user-register">Agregar usuario</a>
-                        <a class="btn btn-dark mt-1" href="/place-register">Agregar ubicación</a>
-                        <a class="btn btn-dark mt-1" href="/asset-type-register">Agregar tipo de activo</a>
+                        <a class="btn btn-dark mt-1" href="/register/user">Agregar usuario</a>
+                        <a class="btn btn-dark mt-1" href="/register/location">Agregar ubicación</a>
+                        <a class="btn btn-dark mt-1" href="/register/asset-type">Agregar tipo de activo</a>
                     </div>
                 </div>
                 <hr class="mx-n3">
@@ -49,5 +49,5 @@
        
     </div>
 </body>
-<%- include('partials/footer') %>
+<%- include('../partials/footer') %>
 </html>
