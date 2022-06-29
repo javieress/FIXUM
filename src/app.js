@@ -1,3 +1,4 @@
+import { getUbicacion } from './controller/ubicacion.controller'
 import activosRoutes from './routes/activos.routes'
 
 const express = require('express')
@@ -7,7 +8,7 @@ const {Auth, isAuthenticated} = require('./auth/auth.controller.js')
 
 const app = express()
 
-
+app.use(getUbicacion);
 // settings
 app.set('port', config.port) 
 app.set('view engine','ejs')
