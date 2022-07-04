@@ -10,6 +10,7 @@ const app = express()
 const indexRouter = require('./routes/index')
 const registerRouter = require('./routes/registers')
 const reportsRouter = require('./routes/reports')
+const detailsRouter = require('./routes/details')
 const { builtinModules } = require('module')
 
 // settings
@@ -25,6 +26,8 @@ app.use(bodyParser.json())
 app.use('/',indexRouter)
 app.use('/register',registerRouter)
 app.use('/reports',reportsRouter)
+app.use('/details',detailsRouter)
+
 
 
 // app.use(express.urlencoded()); 

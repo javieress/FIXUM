@@ -5,7 +5,7 @@ let assetList = [
         'assetType': 'Electrónico',
         'location': '40',
         'userInCharge': 'Javier',
-        'Descripción': 'Computador Lenovo xyz, comprado el 2020'
+        'description': 'Computador Lenovo xyz, comprado el 2020'
     },
     {
         'id': 'A2',
@@ -13,7 +13,7 @@ let assetList = [
         'assetType': 'Mobiliario',
         'location': 'Sala 41',
         'userInCharge': 'Javier',
-        'Descripción': 'Escritorio con la pata coja'
+        'description': 'Escritorio con la pata coja'
     },
     {
         'id': 'A3',
@@ -67,5 +67,15 @@ module.exports = {
         else {
             return assetList
         }
+    },
+    get: function(req,res){
+        const {id} = req.params
+        console.log(id)
+        for (let i = 0; i < assetList.length; i++) {
+            if(assetList[i].id == id){
+                return assetList[i]
+            }
+        }
+        return null
     }
 }

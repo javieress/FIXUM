@@ -27,5 +27,8 @@ module.exports={
     },
     last10Added: function (){
         return asset.last10Added()
+    },
+    get: function(req,res){
+        return asset.get(req,res)
     }
 }

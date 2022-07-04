@@ -10,7 +10,4 @@ router.get('/last-10-added',(req,res,next) => {
     res.render('./reports/last-10-added.ejs',{title: ' | Reportes', last10AssetAdded: asset.last10Added()})
 })
 
-
-
-
 module.exports = router

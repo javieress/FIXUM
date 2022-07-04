@@ -18,6 +18,6 @@ module.exports={
         else{
             message+= req.body['new-asset-type-name'].toUpperCase() + "' ya existe."
         }
-        res.render('./register/asset-type-register.ejs',{title: 'FIXUM',message: message})
+        res.render('./register/asset-type-register.ejs',{title: ' | Tipos de Activos',message: message})
     }
 }

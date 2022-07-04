@@ -6,7 +6,6 @@ const assetController = require('../controllers/asset.controller')
 const assetTypeController = require('../controllers/asset-type.controller')
 const locationController = require('../controllers/location.controller')
 
-
 router.get('/user',userController.index)
 router.post('/user',userController.post)
 

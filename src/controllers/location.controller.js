@@ -18,6 +18,6 @@ module.exports={
         else{
             message+= req.body['new-location-name'].toUpperCase() + "' ya existe."
         }
-        res.render('./register/location-register.ejs',{title: 'FIXUM',message: message})
+        res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: message})
     }
 }

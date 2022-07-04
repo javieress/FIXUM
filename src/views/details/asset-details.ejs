@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head') %>
+        <title>
+            <%= title %>
+        </title>
+</head>
+
+<body>
+    <%- include('../partials/navigation') %>
+        <div class="container mt-5">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-header p-4 justify-content-center align-items-center">
+                    <h3>Activo</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-2">
+                        <div class="col-md-3">
+                            <h6 class="mb-0">ID:</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <h6>
+                                <%= asset.id %>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row align-items-center m-2">
+                        <div class="col-md-3">
+                            <h6 class="mb-0">Nombre del activo:</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <h6>
+                                <%= asset.name %>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row align-items-center m-2">
+                        <div class="col-md-3">
+                            <h6 class="mb-0">Tipo de Activo:</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <h6>
+                                <%= asset.assetType %>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row align-items-center m-2">
+                        <div class="col-md-3">
+                            <h6 class="mb-0">Ubicación:</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <h6>
+                                <%= asset.location %>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row align-items-center m-2">
+                        <div class="col-md-3">
+                            <h6 class="mb-0">Encargado:</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <h6>
+                                <%= asset.userInCharge %>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="row align-items-center m-2">
+                        <div class="col-md-3">
+                            <h6 class="mb-0">Descripción:</h6>
+                        </div>
+                        <div class="col-md-9">
+                            <h6>
+                                <%= asset.description %>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mx-n3">
+                <div class="row m-2">
+                    <div class="col-md-3">
+                        <div class="px-2 py-4">
+                            <button type="submit" class="btn btn-dark btn-lg">Modificar</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="px-2 py-4">
+                            <button type="submit" class="btn btn-danger btn-lg">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<%- include('../partials/footer') %>
+
+</html>

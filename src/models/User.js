@@ -50,6 +50,15 @@ module.exports = {
         return true
 
     },
+    get: function(username) {
+        const userList = user.list()
+        for (let i = 0; i < userList.length; i++) {
+            if (userList[i].username == username) {
+                return userList[i]
+            }           
+        }
+        return null
+    },
     update: function (req, res) {
 
     },

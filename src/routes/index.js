@@ -19,6 +19,7 @@ router.get('/contact',(req,res,next) => {
 
 
 
+
 // solo prueba del creador de qr
 router.get('/qr-generator',(req,res,next) => {
     // res.render('qr-code-generator.ejs',{title: 'FIXUM'})

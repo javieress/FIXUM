@@ -19,5 +19,8 @@ module.exports={
             message+= req.body['new-user-username'] + "' ya existe."
         }
         res.render('./register/user-register.ejs',{title: 'FIXUM',message: message})
+    },
+    get: function(username){
+        user.get(username)
     }
 }
