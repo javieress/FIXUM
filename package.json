@@ -2,19 +2,24 @@
   "name": "pr-contro-y-gestion-de-activos-fijos",
   "version": "1.0.0",
   "description": "Control y Gestion de Activos Fijos",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.js --exec babel-node"
+    "dev": "nodemon src/app.js --exec babel-node",
+    "start": "node src/app.js"
   },
   "author": "AdInfinitum",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "corss": "^2.8.5",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "instascan": "^1.0.0",
+    "express-jwt": "^7.7.5",
+    "jsonwebtoken": "^8.5.1",
     "modules": "^0.4.0",
+    "mongoose": "^6.3.5",
     "morgan": "^1.10.0",
     "mssql": "^8.1.2",
     "nodemon": "^2.0.16",

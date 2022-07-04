@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>QR-code-generator</title>
+    <%- include('partials/head') %>
+    <!-- <script defer src="qr-generator.controller.js"></script> -->
+</head>
+<body>
+    <%- include('partials/navigation') %>
+        <div class="container mg-2">
+            <form action="" id="formulario" class="form">
+                <input type="text" id="link" placeholder="Escribe el texto o URL" />
+                <button class="btn btn-dark">Generar QR</button>
+            </form>
+
+            <div id="contenedorQR" class="contenedorQR"></div>
+        </div>
+</body>
+<%- include('partials/footer') %>
+
+    </html>
