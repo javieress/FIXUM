@@ -16,7 +16,7 @@ router.get('/user-profile',(req,res,next) => {
 router.get('/contact',(req,res,next) => {
     res.render('contact.ejs',{title: ' | Contacto'})
 })
-router.get('/QR_Reader',(req,res,next) => {
+router.get('/scan',(req,res,next) => {
     res.render('prueba_LectorQR.ejs',{title: 'Lector QR'})
 })
 

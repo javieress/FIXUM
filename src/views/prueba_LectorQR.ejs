@@ -11,21 +11,20 @@
   <body>
     <%- include('partials/navigation') %>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <video id="preview" width="100%"></video>
-        </div>
-        <div class="col-md-6">
-          <label>SCAN QR CODE</label>
-          <input
-            type="text"
-            name="text"
-            id="text"
-            readonly=""
-            placeholder="scan qr code"
-            class="form-control"
-          />
+    <div class="container h-100 mt-5">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <div class="col-md-12">
+              <video id="preview" width="100%"></video>
+            </div>
+            <div class="col-md-12">
+              <label center>Resultado de escaneo</label>
+              <form action="#" method="post" name="Resultado">
+                <input type="text" name="text" id="text" readonly="" placeholder="Resultado" class="form-control"/>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,6 +38,7 @@
       });
       scanner.addListener("scan", function (c) {
         document.getElementById("text").value = c;
+        document.Resultado.submit();
       });
       Instascan.Camera.getCameras()
         .then(function (cameras) {
