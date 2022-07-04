@@ -1,23 +1,34 @@
-import { getUbicacion } from './controller/ubicacion.controller'
-import activosRoutes from './routes/activos.routes'
-
 const express = require('express')
 const config = require('./config')
 const path = require('path')
+const bodyParser = require('body-parser')
+
 const {Auth, isAuthenticated} = require('./auth/auth.controller.js')
 
 const app = express()
 
-app.use(getUbicacion);
+const indexRouter = require('./routes/index')
+const registerRouter = require('./routes/registers')
+const reportsRouter = require('./routes/reports')
+const { builtinModules } = require('module')
+
 // settings
 app.set('port', config.port) 
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'views'))
 // controllers
 
+
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
 // routs
-app.use(require('./routes/index'))
-app.use(activosRoutes)
+app.use('/',indexRouter)
+app.use('/register',registerRouter)
+app.use('/reports',reportsRouter)
+
+
+// app.use(express.urlencoded()); 
+// app.use(express.json());  
 
 app.post('/user-register',Auth.register)
 

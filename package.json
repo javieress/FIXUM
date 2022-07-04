@@ -4,12 +4,14 @@
   "description": "Control y Gestion de Activos Fijos",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.js --exec babel-node"
+    "dev": "nodemon src/app.js --exec babel-node",
+    "start": "node src/app.js"
   },
   "author": "AdInfinitum",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "corss": "^2.8.5",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",

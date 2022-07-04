@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head') %>
+        <title>
+            <%= title %>
+        </title>
+</head>
+
+<body>
+    <%- include('../partials/navigation') %>
+        <div class="container h-100 mt-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-9">
+                    <form action="/register/user" method="post">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-header p-4">
+                                <h3>Registrar nuevo usuario</h3>
+                            </div>
+                            <div class="card-body">
+                    
+                                <div class="row align-items-center pt-4 pb-3">
+                                    <div class="col-md-3 ps-5">
+                    
+                                        <h6 class="mb-0">Nombre de usuario:</h6>
+                    
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                    
+                                        <input type="text" class="form-control form-control-lg" name="new-user-username"/>
+                    
+                                    </div>
+                                </div>
+                    
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+                    
+                                        <h6 class="mb-0">Nombre</h6>
+                    
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                    
+                                        <input type="text" class="form-control form-control-lg" name="new-user-name"/>
+                    
+                                    </div>
+                                </div>
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+                    
+                                        <h6 class="mb-0">Apellido</h6>
+                    
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                    
+                                        <input type="text" class="form-control form-control-lg" name="new-user-lastName"/>
+                    
+                                    </div>
+                                </div>
+                    
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+                    
+                                        <h6 class="mb-0">Contraseña</h6>
+                    
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                    
+                                        <input type="text" class="form-control form-control-lg" name="new-user-password"/>
+                    
+                                    </div>
+                                </div>
+                    
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+                    
+                                        <h6 class="mb-0">Cargo</h6>
+                    
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                    
+                                        <select class="form-select" aria-label="Default select example" name="new-user-position">
+                                            <option selected>Elija una opción</option>
+                                            <option value="Profesor">Profesor</option>
+                                            <option value="Auxiliar">Auxiliar</option>
+                                            <option value="Guardia">Guardia</option>
+                                        </select>
+                    
+                                    </div>
+                                </div>
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+                    
+                                        <h6 class="mb-0">Tipo de usuario</h6>
+                    
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                    
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="new-user-userType" id="admin" value='admin'>
+                                            <label class="form-check-label" for="Administrador">
+                                                Administrador
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="new-user-userType" id="user" value='user'>
+                                            <label class="form-check-label" for="Administrador">
+                                                Usuario
+                                            </label>
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                                <hr class="mx-n3">
+                                <div class="px-5 py-4">
+                                    <button type="submit" class="btn btn-dark btn-lg">Registrar</button>
+                                </div>
+                                <div class="px-5 py-4"><%-message%></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</body>
+<%- include('../partials/footer') %>
+
+</html>
