@@ -8,3 +8,5 @@ const db= new Sequelize('Activos', 'SanFer', 'fer123', {
 
 
 export default db;
+
+
