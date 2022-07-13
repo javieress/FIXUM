@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import db from "../database/conection2";
 
 
-const locations=db.define('Location', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
+const locations=db.define('PRUEBA', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
     cod_ubi:{
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -30,13 +30,16 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
 
 module.exports = {
     list: async function(){
-        const ubi=await locations.findAll({
-            attributes: ['ubicacion']})
+        const ubi = await locations.findAll({
+            attributes: ['nombre']})//<--
 
-        for(let i=0;i<ubi.length;i++){
-            console.log(ubi[i].ubicacion)
-        
+        for (let i in ubi){
+            // console.log(ubi[i].dataValues.nombre)
         }
+        // for(let i=0;i<ubi.length;i++){
+        //     console.log(ubi[i].ubicacion + i) 
+        
+        // }
     
     return ubi;
         
