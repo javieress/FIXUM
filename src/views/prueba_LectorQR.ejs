@@ -7,11 +7,9 @@
     <%- include('partials/head') %>
     <title><%= title %></title>
     <!--<script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>-->
-    <script src="path/to/qr-scanner.umd.min.js"></script>
   </head>
   <body>
     <%- include('partials/navigation') %>
-
     <div class="container h-100 mt-5">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
@@ -88,9 +86,8 @@
       <span id="file-qr-result">None</span>
 
     <script type="module">
- 
-      const QrScanner = require('path/to/qr-scanner.umd.min.js');
-      
+      import QrScanner from "/js/qr-scanner.min.js";
+
       const video = document.getElementById('qr-video');
       const videoContainer = document.getElementById('video-container');
       const camHasCamera = document.getElementById('cam-has-camera');
