@@ -4,7 +4,7 @@ import db from "../database/conection2";
 
 const locations=db.define('Location', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
     cod_ubi:{
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
@@ -29,8 +29,19 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
 
 
 module.exports = {
-    list: function(){
-        return locationList
+    list: async function(){
+        const ubi=await locations.findAll({
+            attributes: ['ubicacion']})
+
+        for(let i=0;i<ubi.length;i++){
+            console.log(ubi[i].ubicacion)
+        
+        }
+    
+    return ubi;
+        
+
+
     },
     post: async function(req,res){
         let ubication = req.body['new-location-name'].toLowerCase()

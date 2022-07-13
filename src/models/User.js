@@ -2,6 +2,9 @@ import { DataTypes } from "sequelize";
 import db from "../database/conection2";
 
 
+
+
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -37,7 +40,8 @@ const users=db.define('Usuario', {
     }
 )
 
-
+let userList=['ddddd','djdjdjd'
+]
 
 
 module.exports = {
