@@ -9,8 +9,8 @@ const userController = require('../controllers/user.controller')
 
 
 module.exports={
-    index:async function(req,res){
-        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
+    index:function(req,res){
+        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
     },
     list:function(){
         return asset.list()

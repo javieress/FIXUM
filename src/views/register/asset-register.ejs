@@ -52,9 +52,9 @@
                                 <select class="form-select" aria-label="Default select example" id="placesOptions"
                                     name="new-asset-location">
                                     <option selected>Elija una opción</option>
-                                    <% for( let i in location ) { %>
-                                        <option value="<%=location[i].dataValues.nombre%> ">
-                                            <%=location[i].dataValues.nombre%>
+                                    <% for( let i=0; i < location.length; i++ ) { %>
+                                        <option value="<%=location[i].ubicacion%> ">
+                                            <%=location[i].ubicacion%>
                                         </option>
                                         <% } %>
                                 </select>
