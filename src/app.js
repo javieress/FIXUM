@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index')
 const registerRouter = require('./routes/registers')
 const reportsRouter = require('./routes/reports')
 const detailsRouter = require('./routes/details')
+const qrRouter = require('./routes/qr')
 const { builtinModules } = require('module')
 
 // settings
@@ -27,6 +28,7 @@ app.use('/',indexRouter)
 app.use('/register',registerRouter)
 app.use('/reports',reportsRouter)
 app.use('/details',detailsRouter)
+app.use('/qr',qrRouter)
 
 
 

@@ -1,6 +1,9 @@
-import { DataTypes } from "sequelize";
-import db from "../database/conection2";
 
+// import { DataTypes } from 'sequelize';
+// import db from "../database/conection2";
+
+const {DataTypes} = require('sequelize');
+const db = require("../database/conection2")
 
 
 
@@ -9,47 +12,58 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
-const users=db.define('Usuario', {
-
-    id_usuario: {
+const users=db.define('User', {
+    
+    id_users: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey:true
     },
-    passwordd: {
+    pwd: {
         type: DataTypes.STRING,
         allowNull:false
     },
-    nombre: {
+    nameUser: {
         type: DataTypes.STRING,
         allowNull:false
     },
-    apellido: {
+    last_name: {
         type: DataTypes.STRING,
         allowNull:false
     },
-    cargo: {
-        type: DataTypes.STRING,
-        allowNull:false
-    },
-    tipo: {
+    id_position: {
         type: DataTypes.INTEGER,
         allowNull:false
     },
-
+    typeUser: {
+        type: DataTypes.INTEGER,
+        allowNull:false
+    },
+    UserName: {
+        type: DataTypes.STRING,
+        allowNull:false
+    },
+   
+    },
+    {
+        timestamps: false,
+        createdAt: false,
+        updatedAt: false
     }
 )
 
-let userList=['ddddd','djdjdjd'
-]
+
 
 
 module.exports = {
-    list: function () {
-        return userList
+    list: async function () {
+
+        const userList=await users.findAll({attributes:['UserName','nameUser','last_name']})    
+        return  userList
     },
     post: async function(req, res) {
-        let username = req.body['new-user-username']  // poner que sea el rut
+        let username = req.body['new-user-username']  
+        let rut=req.body['new-user-rut']
 
         let name = req.body['new-user-name'].toLowerCase()
         name = name.charAt(0).toUpperCase() + name.slice(1)
@@ -68,11 +82,8 @@ module.exports = {
         let tipo_user=0;
         if(userType=='admin'){
             tipo_user=1;
-        }else{
-            if(userType=='user'){
-                tipo_user=2;
-            }
         }
+        
 
         /** encripto contraseña */
         const password1= await bcrypt.hash(password, saltRounds);
@@ -82,12 +93,13 @@ module.exports = {
         /** inserto datos usando el modelo users  */
         try {
             await users.create(
-                {   id_usuario : username, 
-                    passwordd: password1,
-                    nombre:name,
-                    apellido:lastName,
-                    cargo:position,
-                    tipo:tipo_user
+                {   id_users : rut, 
+                    UserName:username,
+                    pwd: password1,
+                    nameUser:name,
+                    last_name:lastName,
+                    id_position:position,
+                    typeUser:tipo_user
                 }
             );
             
@@ -106,9 +118,13 @@ module.exports = {
 
 
     },
-    findOne:async function (req,res) {
-        const user_Creado= await users.findOne({ where: { id_usuario:req.body['new-user-username']}});
+    findOneRut:async function (req,res) {
+        const user_Creado= await users.findOne({ where: { id_users:req.body['new-user-rut']}});
         return user_Creado;
+    },
+    findOneUserName:async function (req,res) {
+        const userss= await users.findOne({ where: { UserName:req.body['new-user-username']}});
+        return userss;
     },
     get: function(username) {
         const userList = user.list()

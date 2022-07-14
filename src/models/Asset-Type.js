@@ -1,9 +1,10 @@
 
 
-import { DataTypes } from "sequelize";
-import db from "../database/conection2"
+// import { DataTypes } from "sequelize";
+// import db from "../database/conection2"
 
-
+const {DataTypes} = require('sequelize');
+const db = require("../database/conection2")
 
 const assetTypes=db.define('categ_Activo', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
     cod_categ:{

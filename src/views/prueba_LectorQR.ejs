@@ -6,52 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('partials/head') %>
     <title><%= title %></title>
-    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
   </head>
   <body>
     <%- include('partials/navigation') %>
-
     <div class="container h-100 mt-5">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
-            <div class="col-md-12">
-              <video id="preview" width="100%"></video>
+            <div id="video-container" class="col-md-12">
+              <video id="qr-video" width="100%"></video>
             </div>
+            <div class="px-5 py-4"><%-message%></div>
             <div class="col-md-12">
               <label center>Resultado de escaneo</label>
-              <form action="#" method="post" name="Resultado">
-                <input type="text" name="text" id="text" readonly="" placeholder="Resultado" class="form-control"/>
+              <form action="/qr/scan" method="post" name="Resultado">
+                <input type="text" name="qr-result" id="qr-result" readonly="" placeholder="Resultado" class="form-control"/>
               </form>
+            </div>
+            <div class="col-md-12">
+              <label center>Cámara</label>
+              <select id="cam-list" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                  <option value="environment" selected>Default</option>
+                  <option value="user">User Facing</option>
+              </select>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <script type="text/javascript">
-      let scanner = new Instascan.Scanner({
-        video: document.getElementById("preview"),
-      });
-      scanner.addListener("scan", function (content) {
-        console.log(content);
-      });
-      scanner.addListener("scan", function (c) {
-        document.getElementById("text").value = c;
+    <script type="module">
+      import QrScanner from "/js/qr-scanner.min.js";
+
+      const video = document.getElementById('qr-video');
+      const camHasCamera = document.getElementById('cam-has-camera');
+      const camList = document.getElementById('cam-list');
+      const camQrResult = document.getElementById('cam-qr-result');
+      const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
+  
+      function setResult(label, result) {
+        scanner.stop();
+        document.getElementById('qr-result').value=result.data;
         document.Resultado.submit();
+      }
+  
+      // ####### Web Cam Scanning #######
+  
+      const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
+          highlightScanRegion: true,
+          highlightCodeOutline: true,
       });
-      Instascan.Camera.getCameras()
-        .then(function (cameras) {
-          if (cameras.length > 0) {
-            scanner.start(cameras[0]);
-          } else {
-            console.error("No cameras found.");
-          }
-        })
-        .catch(function (e) {
-          console.error(e);
-        });
-    </script>
+  
+      scanner.start().then(() => {
+          QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
+              const option = document.createElement('option');
+              option.value = camera.id;
+              option.text = camera.label;
+              camList.add(option);
+          }));
+      });
+  
+      camList.addEventListener('change', event => {
+          scanner.setCamera(event.target.value).then(updateFlashAvailability);
+      });
+  </script>
   </body>
   <%- include('partials/footer') %>
 </html>

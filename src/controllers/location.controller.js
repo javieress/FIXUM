@@ -13,13 +13,12 @@ module.exports={
     },
     post:function (req,res) {
         let message = "La ubicación '"
-
-        if(req.body['new-location-in-charge']!=null){
-            console.log('paso null')
-            location.post(req,res)
+        if(location.post(req,res)){
             message+= req.body['new-location-name'].toUpperCase() + "' se guardó con éxito."
         }
-             
-        res.render('./register/location-register.ejs',{title: 'FIXUM',message: message})
+        else{
+            message+= req.body['new-location-name'].toUpperCase() + "' ya existe."
+        }
+        res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: message})
     }
 }
