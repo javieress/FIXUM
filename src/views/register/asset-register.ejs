@@ -36,9 +36,9 @@
                                 <select class="form-select" aria-label="Default select example"
                                     name="new-asset-assetType">
                                     <option selected>Elija una opción</option>
-                                    <% for( let i=0; i < assetType.length; i++ ) { %>
-                                        <option value="<%= assetType[i] %> ">
-                                            <%= assetType[i] %>
+                                    <% for( let i in assetType) { %>
+                                        <option value="<%= assetType[i].dataValues.assetType %> ">
+                                            <%= assetType[i].dataValues.assetType %>
                                         </option>
                                         <% } %>
                                 </select>
@@ -52,9 +52,9 @@
                                 <select class="form-select" aria-label="Default select example" id="placesOptions"
                                     name="new-asset-location">
                                     <option selected>Elija una opción</option>
-                                    <% for( let i=0; i < location.length; i++ ) { %>
-                                        <option value="<%=location[i].ubicacion%> ">
-                                            <%=location[i].ubicacion%>
+                                    <% for( let i in location) { %>
+                                        <option value="<%=location[i].dataValues.locations%> ">
+                                            <%=location[i].dataValues.locations%>
                                         </option>
                                         <% } %>
                                 </select>
@@ -69,9 +69,9 @@
                                 <select class="form-select" aria-label="Default select example"
                                     name="new-asset-userInCharge">
                                     <option selected>Elija una opción</option>
-                                    <% for( let i=0; i < user.length; i++ ) { %>
-                                        <option value="<%= user[i].username%> ">
-                                            <%= user[i].username + ' | ' + user[i].name + ' ' + user[i].lastName %>
+                                    <% for(let i in user) { %>
+                                        <option value="<%= user[i].dataValues.UserName%> ">
+                                            <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' ' + user[i].dataValues.last_name %>
                                         </option>
                                         <% } %>
                                 </select>
