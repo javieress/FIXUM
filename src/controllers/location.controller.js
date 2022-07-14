@@ -18,6 +18,10 @@ module.exports={
         else{
             message+= req.body['new-location-name'].toUpperCase() + "' ya existe."
         }
+<<<<<<< HEAD
         res.render('./register/location-register.ejs',{title: 'FIXUM',message: message})
+=======
+        res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: message})
+>>>>>>> parent of 792c249 (Merge branch 'alexi2020')
     }
 }
