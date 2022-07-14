@@ -11,6 +11,8 @@ const saltRounds = 10;
 
 const users=db.define('User', {
 
+    
+
     id_users: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -40,7 +42,12 @@ const users=db.define('User', {
         type: DataTypes.STRING,
         allowNull:false
     },
-
+   
+    },
+    {
+        timestamps: false,
+        createdAt: false,
+        updatedAt: false
     }
 )
 
