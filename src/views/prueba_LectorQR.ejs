@@ -20,7 +20,7 @@
             <div class="col-md-12">
               <label center>Resultado de escaneo</label>
               <form action="/qr/scan" method="post" name="Resultado">
-                <input type="text" name="qr-result" id="qr-result" readonly="" placeholder="Resultado" class="form-control"/>
+                <input type="text" name="qrResult" id="qrResult" readonly="" placeholder="Resultado" class="form-control"/>
               </form>
             </div>
             <div class="col-md-12">
@@ -46,7 +46,7 @@
   
       function setResult(label, result) {
         scanner.stop();
-        document.getElementById('qr-result').value=result.data;
+        document.getElementById('qrResult').value=result.data;
         document.Resultado.submit();
       }
   
