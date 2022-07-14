@@ -1,6 +1,8 @@
-import { DataTypes } from "sequelize";
-import db from "../database/conection2";
+// import { DataTypes } from "sequelize";
+// import db from "../database/conection2";
 
+const {DataTypes} = require('sequelize');
+const db = require('../database/conection2')
 
 const locations=db.define('Location', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
     id:{

@@ -1,6 +1,9 @@
-import { DataTypes } from "sequelize";
-import db from "../database/conection2";
 
+// import { DataTypes } from 'sequelize';
+// import db from "../database/conection2";
+
+const {DataTypes} = require('sequelize');
+const db = require("../database/conection2")
 
 
 
@@ -10,9 +13,7 @@ const saltRounds = 10;
 
 
 const users=db.define('User', {
-
     
-
     id_users: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -1,7 +1,8 @@
-import { DataTypes } from "sequelize";
-import db from "../database/conection2";
+// import { DataTypes } from "sequelize";
+// import db from "../database/conection2";
 
-
+const {DataTypes} = require('sequelize');
+const db = require("../database/conection2")
 
 const userPosition=db.define('UserPosition', {
 
