@@ -21,7 +21,7 @@ module.exports = {
     list: function () {
         return userList
     },
-    post: function (req, res) {
+    post: async function (req, res) {
         let username = req.body['new-user-username']
 
         let name = req.body['new-user-name'].toLowerCase()
@@ -49,6 +49,40 @@ module.exports = {
         console.log(userList)
         return true
 
+        /** encripto contraseña */
+        const password1= await bcrypt.hash(password, saltRounds);
+         
+
+
+        try {
+            await users.create(
+                {   id_usuario : username, 
+                    passwordd: password1,
+                    nombre:name,
+                    apellido:lastName,
+                    cargo:position,
+                    tipo:tipo_user
+                }
+            );
+            
+        } catch (error) {
+            console.log(error.message);
+            
+        }
+        
+        
+        return true;
+    
+
+
+       
+     
+
+
+    },
+    findOne:async function (req,res) {
+        const user_Creado= await users.findOne({ where: { id_usuario:req.body['new-user-username']}});
+        return user_Creado;
     },
     get: function(username) {
         const userList = user.list()
