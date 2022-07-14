@@ -1,60 +1,17 @@
-import { DataTypes } from "sequelize";
-import db from "../database/conection2";
-
-
-const locations=db.define('Location', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
-    cod_ubi:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    ubicacion: {
-        type: DataTypes.STRING,
-        allowNull: false,
-       
-    },
-    encargado: {
-        type: DataTypes.STRING,
-        allowNull:true,
-    },
-
-    }
-)
-
-
-
-
-
-
+let locationList = ['40','Sala 41','Sala 42']
 
 module.exports = {
     list: function(){
         return locationList
     },
-    post: async function(req,res){
-        let ubication = req.body['new-location-name'].toLowerCase()
-        ubication = ubication.charAt(0).toUpperCase() + ubication.slice(1)
-
-       
-
-        try {
-            await locations.create(
-
-                {
-                    ubicacion : ubication,
-                    encargardo: req.body['new-location-in-charge']
-                    
-                }
-            );
-            
-        } catch (error) {
-            console.log(error.message);
-            
+    post: function(req,res){
+        let name = req.body['new-location-name'].toLowerCase()
+        name = name.charAt(0).toUpperCase() + name.slice(1)
+        const exist = locationList.includes(name)
+        if (!exist){
+            locationList.push(name)
         }
-
-        
-        return true;
+        return !exist
     },
     update: function(req,res){
 

@@ -75,7 +75,6 @@ module.exports = {
          
 
 
-        /** inserto datos usando el modelo users  */
         try {
             await users.create(
                 {   id_usuario : username, 
