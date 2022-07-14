@@ -21,7 +21,7 @@ module.exports = {
     list: function () {
         return userList
     },
-    post: function (req, res) {
+    post: async function (req, res) {
         let username = req.body['new-user-username']
 
         let name = req.body['new-user-name'].toLowerCase()
@@ -49,7 +49,6 @@ module.exports = {
         console.log(userList)
         return true
 
-<<<<<<< HEAD
         /** encripto contraseña */
         const password1= await bcrypt.hash(password, saltRounds);
          
@@ -84,8 +83,6 @@ module.exports = {
     findOne:async function (req,res) {
         const user_Creado= await users.findOne({ where: { id_usuario:req.body['new-user-username']}});
         return user_Creado;
-=======
->>>>>>> parent of 792c249 (Merge branch 'alexi2020')
     },
     get: function(username) {
         const userList = user.list()
