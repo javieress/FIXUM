@@ -1,4 +1,4 @@
-
+const assetController = require('../controllers/asset.controller')
 
 module.exports={
 
@@ -7,9 +7,9 @@ module.exports={
         const text = JSON.stringify(req.body.qrResult);
         var id = "";
         if (text.includes('localhost') || text.includes('herokuapp')){
-            var lines = text.split("/");
-            lines = lines[-1]
-            lines = lines.split('"')
+            var lines = text.split('/');
+            lines = lines[lines.length-1];
+            lines = lines.split('"');
             id = lines[0];
             check = true;
         }
@@ -21,7 +21,7 @@ module.exports={
         }
         else{ //si la busqueda es inválida
             const message = "QR inválido"
-            res.render('prueba_LectorQR.ejs',{title: ' | Registro de Activo', message: id})
+            res.render('prueba_LectorQR.ejs',{title: ' | Registro de Activo', message: message})
         }
         
     },index:function(req,res){
