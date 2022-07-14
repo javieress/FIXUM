@@ -9,53 +9,47 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
-const users=db.define('User', {
+const users=db.define('Usuario', {
 
-    id_users: {
+    id_usuario: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey:true
     },
-    pwd: {
+    passwordd: {
         type: DataTypes.STRING,
         allowNull:false
     },
-    nameUser: {
+    nombre: {
         type: DataTypes.STRING,
         allowNull:false
     },
-    last_name: {
+    apellido: {
         type: DataTypes.STRING,
         allowNull:false
     },
-    id_position: {
+    cargo: {
+        type: DataTypes.STRING,
+        allowNull:false
+    },
+    tipo: {
         type: DataTypes.INTEGER,
-        allowNull:false
-    },
-    typeUser: {
-        type: DataTypes.INTEGER,
-        allowNull:false
-    },
-    UserName: {
-        type: DataTypes.STRING,
         allowNull:false
     },
 
     }
 )
 
-
+let userList=['ddddd','djdjdjd'
+]
 
 
 module.exports = {
-    list: async function () {
-
-        const userList=await users.findAll({attributes:['UserName','nameUser','last_name']})    
-        return  userList
+    list: function () {
+        return userList
     },
     post: async function(req, res) {
-        let username = req.body['new-user-username']  
-        let rut=req.body['new-user-rut']
+        let username = req.body['new-user-username']  // poner que sea el rut
 
         let name = req.body['new-user-name'].toLowerCase()
         name = name.charAt(0).toUpperCase() + name.slice(1)
@@ -74,8 +68,11 @@ module.exports = {
         let tipo_user=0;
         if(userType=='admin'){
             tipo_user=1;
+        }else{
+            if(userType=='user'){
+                tipo_user=2;
+            }
         }
-        
 
         /** encripto contraseña */
         const password1= await bcrypt.hash(password, saltRounds);
@@ -85,13 +82,12 @@ module.exports = {
         /** inserto datos usando el modelo users  */
         try {
             await users.create(
-                {   id_users : rut, 
-                    UserName:username,
-                    pwd: password1,
-                    nameUser:name,
-                    last_name:lastName,
-                    id_position:position,
-                    typeUser:tipo_user
+                {   id_usuario : username, 
+                    passwordd: password1,
+                    nombre:name,
+                    apellido:lastName,
+                    cargo:position,
+                    tipo:tipo_user
                 }
             );
             
@@ -110,13 +106,9 @@ module.exports = {
 
 
     },
-    findOneRut:async function (req,res) {
-        const user_Creado= await users.findOne({ where: { id_users:req.body['new-user-rut']}});
+    findOne:async function (req,res) {
+        const user_Creado= await users.findOne({ where: { id_usuario:req.body['new-user-username']}});
         return user_Creado;
-    },
-    findOneUserName:async function (req,res) {
-        const userss= await users.findOne({ where: { UserName:req.body['new-user-username']}});
-        return userss;
     },
     get: function(username) {
         const userList = user.list()

@@ -3,18 +3,18 @@ import db from "../database/conection2";
 
 
 const locations=db.define('Location', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
-    id:{
+    cod_ubi:{
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    locations: {
+    ubicacion: {
         type: DataTypes.STRING,
         allowNull: false,
        
     },
-    inCharge: {
+    encargado: {
         type: DataTypes.STRING,
         allowNull:true,
     },
@@ -31,8 +31,12 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
 module.exports = {
     list: async function(){
         const ubi=await locations.findAll({
-            attributes: ['locations']})
+            attributes: ['ubicacion']})
 
+        for(let i=0;i<ubi.length;i++){
+            console.log(ubi[i].ubicacion)
+        
+        }
     
     return ubi;
         

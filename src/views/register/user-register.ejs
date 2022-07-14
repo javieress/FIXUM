@@ -22,20 +22,6 @@
                                 <h3>Registrar nuevo usuario</h3>
                             </div>
                             <div class="card-body">
-                                <div class="row align-items-center py-3">
-                                    <div class="col-md-3 ps-5">
-                    
-                                        <h6 class="mb-0">RUT</h6>
-                    
-                                    </div>
-                                    <div class="col-md-9 pe-5">
-                    
-                                        <input type="text" class="form-control form-control-lg" name="new-user-rut"
-                                        maxlength="10" placeholder="ej: 111111111-1"
-                                        />
-                                        
-                    
-                                    </div>
                     
                                 <div class="row align-items-center pt-4 pb-3">
                                     <div class="col-md-3 ps-5">
@@ -46,7 +32,7 @@
                                     <div class="col-md-9 pe-5">
                     
                                         <input type="text" class="form-control form-control-lg" name="new-user-username"
-                                        class="form-control"  maxlength="40"
+                                        class="form-control" placeholder="ej: 111111111-1" maxlength="10"
                                         />
                     
                                     </div>
@@ -66,7 +52,6 @@
                                         
                     
                                     </div>
-                                
                                 </div>
                                 <div class="row align-items-center py-3">
                                     <div class="col-md-3 ps-5">
@@ -105,18 +90,13 @@
                     
                                     </div>
                                     <div class="col-md-9 pe-5">
-
-                                        <select class="form-select" aria-label="Default select example"
-                                            name="new-user-position">
-                                            <option selected>Elija una opción</option>
-                                            <% for( let i in User_Position_List) { %>
-                                                <option value="<%= User_Position_List[i].dataValues.id %> ">
-                                                    <%=User_Position_List[i].dataValues.position %>
-                                                </option>
-                                                <% } %>
-                                        </select>
-
                     
+                                        <select class="form-select" aria-label="Default select example" name="new-user-position">
+                                            <option selected>Elija una opción</option>
+                                            <option value="Profesor">Profesor</option>
+                                            <option value="Auxiliar">Auxiliar</option>
+                                            <option value="Guardia">Guardia</option>
+                                        </select>
                     
                                     </div>
                                 </div>

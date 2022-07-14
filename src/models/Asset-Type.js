@@ -5,14 +5,14 @@ import db from "../database/conection2"
 
 
 
-const assetTypes=db.define('AssetTypes', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
-    id:{
+const assetTypes=db.define('categ_Activo', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
+    cod_categ:{
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    assetType: {
+    categoria: {
         type: DataTypes.STRING,
         allowNull: false,
        
@@ -20,15 +20,21 @@ const assetTypes=db.define('AssetTypes', {     // el modelo asume que la tabla d
 
     }
 )
+let assetTypeList = ['hola']
 
+async function Categorias(){
+    const cat=await assetTypes.findAll({
+        attributes: ['categoria']})
 
-
+    for(let i=0;i<cat.length;i++){
+        console.log(cat[i].categoria)
+        assetTypeList.push(cat[i].categoria)   
+    }
+    
+}
 
 module.exports = {
-    list:async function(){
-
-        const assetTypeList=await assetTypes.findAll({attributes:['assetType']})
-
+    list:function(){
         return assetTypeList;
         
     },
