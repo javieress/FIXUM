@@ -3,12 +3,13 @@ const sql = require('mssql')
 const location = require('../models/Location')
 const bodyParser = require('body-parser')
 
+
 module.exports={
     index:function(req,res){
         res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: ''})
     },
-    list:function(){
-        return location.list()
+    list:async function(){
+        return await location.list()
     },
     post:function (req,res) {
         let message = "La ubicación '"
