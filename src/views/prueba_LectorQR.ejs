@@ -45,8 +45,9 @@
       const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
   
       function setResult(label, result) {
-          document.getElementById('qr-result').value=result.data
-          document.Resultado.submit();
+        scanner.stop();
+        document.getElementById('qr-result').value=result.data;
+        document.Resultado.submit();
       }
   
       // ####### Web Cam Scanning #######
