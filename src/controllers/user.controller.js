@@ -65,7 +65,7 @@ module.exports={
 
 
 
-        res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,User_Position_List: await UserPositionList.list()})
+        res.render('./register/user-register.ejs',{title: 'FIXUM',message: message})
     },
     get: function(username){
         user.get(username)
