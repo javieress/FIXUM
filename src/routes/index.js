@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const qrController = require('../controllers/qr-reader.controller')
+
 router.get('/',(req,res,next) => {
     res.render('index.ejs',{title: '  FIXUM'})
 })
@@ -16,9 +18,7 @@ router.get('/user-profile',(req,res,next) => {
 router.get('/contact',(req,res,next) => {
     res.render('contact.ejs',{title: ' | Contacto'})
 })
-router.get('/scan',(req,res,next) => {
-    res.render('prueba_LectorQR.ejs',{title: 'Lector QR'})
-})
+router.get('/scan',qrController.index)
 
 
 
