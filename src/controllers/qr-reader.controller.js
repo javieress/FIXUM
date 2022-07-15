@@ -21,7 +21,7 @@ module.exports={
         }
         else{ //si la busqueda es inválida
             const message = "QR inválido"
-            res.render('prueba_LectorQR.ejs',{title: ' | Registro de Activo', message: message})
+            res.render('prueba_LectorQR.ejs',{title: ' | Lector QR', message: message})
         }
         
     },index:function(req,res){

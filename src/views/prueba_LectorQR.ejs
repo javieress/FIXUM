@@ -10,26 +10,45 @@
   <body>
     <%- include('partials/navigation') %>
     <div class="container h-100 mt-5">
+
       <div class="row d-flex justify-content-center align-items-center h-100">
+
         <div class="card bg-dark text-white" style="border-radius: 1rem;">
+
           <div class="card-body p-5 text-center">
+
             <div id="video-container" class="col-md-12">
+
               <video id="qr-video" width="100%"></video>
+
             </div>
-            <div class="px-5 py-4"><%-message%></div>
+
+            <div class="col-md-12 px-5 py-4"><%-message%></div>      
+
             <div class="col-md-12">
-              <label center>Resultado de escaneo</label>
-              <form action="/qr/scan" method="post" name="Resultado">
-                <input type="text" name="qrResult" id="qrResult" readonly="" placeholder="Resultado" class="form-control"/>
-              </form>
-            </div>
-            <div class="col-md-12">
+
               <label center>Cámara</label>
-              <select id="cam-list" class="form-select form-select-sm" aria-label=".form-select-sm example">
+
+              <select id="cam-list" class="form-select">
+
                   <option value="environment" selected>Default</option>
                   <option value="user">User Facing</option>
+
               </select>
             </div>
+            
+            <div class="col-md-12 py-4">
+
+              <label center>Resultado de escaneo</label>
+
+              <form action="/qr/scan" method="post" name="Resultado">
+
+                <input type="text" name="qrResult" id="qrResult" readonly="" placeholder="Resultado" class="form-control"/>
+
+              </form>
+              
+            </div>
+            
           </div>
         </div>
       </div>
