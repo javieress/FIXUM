@@ -155,7 +155,7 @@
 
 
 
-    function fill_table(lista_datos){
+    function fill_table(<%- JSON.stringify(lista_datos) %>){
         var tabla = document.getElementById("tabla_activos");
 
         datos = lista_datos;
