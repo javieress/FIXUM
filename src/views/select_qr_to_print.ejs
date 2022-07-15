@@ -38,10 +38,10 @@
                         <th scope="row"><%= assetList[i].dataValues.asset_name %></th>
                         <td><%= assetList[i].dataValues.id_assetType %></td>
                         <td><%= assetList[i].dataValues.location %></td>
-                        <td><input type='checkbox' id='id' value= <%= assetList[i].dataValues.id %> </td>
+                        <td><input type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>'/> </td>
                     </tr>
 
-                    <% } %>
+                <% } %>
 
 
             
