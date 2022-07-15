@@ -5,18 +5,18 @@ const {DataTypes} = require('sequelize');
 const db = require('../database/conection2')
 
 const locations=db.define('Location', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
-    cod_ubi:{
+    id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    ubicacion: {
+    locations: {
         type: DataTypes.STRING,
         allowNull: false,
        
     },
-    encargado: {
+    inCharge: {
         type: DataTypes.STRING,
         allowNull:true,
     },
@@ -24,40 +24,24 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
     }
 )
 
-
-
-
-
-
-
 module.exports = {
     list: async function(){
-        const ubi=await locations.findAll({
-            attributes: ['ubicacion']})
-
-        for(let i=0;i<ubi.length;i++){
-            console.log(ubi[i].ubicacion)
-        
-        }
-    
+        const ubi = await locations.findAll()
     return ubi;
         
 
 
     },
     post: async function(req,res){
-        let ubication = req.body['new-location-name'].toLowerCase()
-        ubication = ubication.charAt(0).toUpperCase() + ubication.slice(1)
-
-       
+        let locationName = req.body['new-location-name'].toLowerCase()
+        locationName = locationName.charAt(0).toUpperCase() + locationName.slice(1)
 
         try {
             await locations.create(
 
                 {
-                    ubicacion : ubication,
-                    encargardo: req.body['new-location-in-charge']
-                    
+                    locations : locationName,  
+                    inCharge: 'Nadie'
                 }
             );
             

@@ -8,8 +8,8 @@ module.exports={
     index:function(req,res){
         res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: ''})
     },
-    list:function(){
-        return location.list()
+    list: async function(){
+        return await location.list()
     },
     post:function (req,res) {
         let message = "La ubicación '"

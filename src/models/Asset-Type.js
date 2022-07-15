@@ -1,19 +1,17 @@
-
-
 // import { DataTypes } from "sequelize";
 // import db from "../database/conection2"
 
 const {DataTypes} = require('sequelize');
 const db = require("../database/conection2")
 
-const assetTypes=db.define('categ_Activo', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
-    cod_categ:{
+const assetTypes = db.define('assetType', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
+    id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    categoria: {
+    assetType: {
         type: DataTypes.STRING,
         allowNull: false,
        
@@ -21,11 +19,11 @@ const assetTypes=db.define('categ_Activo', {     // el modelo asume que la tabla
 
     }
 )
-let assetTypeList = ['hola']
+//let assetTypeList = ['hola']
 
 async function Categorias(){
     const cat=await assetTypes.findAll({
-        attributes: ['categoria']})
+        attributes: ['assetType']})
 
     for(let i=0;i<cat.length;i++){
         console.log(cat[i].categoria)
@@ -35,30 +33,26 @@ async function Categorias(){
 }
 
 module.exports = {
-    list:function(){
+    list: async function(){
+        const assetTypeList = await assetTypes.findAll()
+        console.log(assetTypeList)
         return assetTypeList;
         
     },
     post: async function(req,res){
-        let categori = req.body['new-asset-type-name'].toLowerCase()
-        categori = categori.charAt(0).toUpperCase() + categori.slice(1)
-
-       
+        let assetTypeName = req.body['new-asset-type-name'].toLowerCase()
+        assetTypeName = assetTypeName.charAt(0).toUpperCase() + assetTypeName.slice(1)
+        console.log(assetTypeName)
         try {
              await assetTypes.create(
-
                 {
-                    categoria: categori
-                    
+                    assetType: assetTypeName
                 }
             );
             
         } catch (error) {
-            console.log(error.message);
-            
+            console.log(error.message);  
         }
-
-        
         return true;
     },
     update: function(req,res){

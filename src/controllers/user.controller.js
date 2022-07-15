@@ -3,6 +3,8 @@ const sql = require('mssql')
 const user = require('../models/User')
 const bodyParser = require('body-parser')
 
+const userPositionList = require('./userPosition.controller')
+
 const Fn = {
 	// Valida el rut con su cadena completa "XXXXXXXX-X"
 	validaRut : function (rutCompleto) {
@@ -28,19 +30,19 @@ const Fn = {
 
 
 module.exports={
-    index:function(req,res){
-        res.render('./register/user-register.ejs',{title: ' | Usuarios',message: ''})
+    index: async function(req,res){
+        res.render('./register/user-register.ejs',{title: ' | Usuarios',message: '',userPosition: await userPositionList.list()})
     },
-    list:function(){
-        return user.list()
+    list: async function(){
+        return await user.list()
     },
     post:async function (req,res) {
         let message = "El usuario '"
-        
 
-        if(Fn.validaRut(req.body['new-user-username']) && (req.body['new-user-username'].length==10 || req.body['new-user-username'].length==9)){
+        if(Fn.validaRut(req.body['new-user-rut']) && (req.body['new-user-username'].length==10 || req.body['new-user-username'].length==9)){
 
-            const user_esta = await user.findOne(req,res);
+            const user_esta = await user.findOneRut(req,res) || await user.findOneUserName(req,res);
+            console.log(user_esta)
             if(user_esta!=null){
                 message+=req.body['new-user-username']+ "'ya existe.";
             }
@@ -53,11 +55,8 @@ module.exports={
             message+=req.body['new-user-username']+ "'no es valido";
             
         }
-    
 
-
-
-        res.render('./register/user-register.ejs',{title: 'FIXUM',message: message})
+        res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,userPosition: await userPositionList.list()})
     },
     get: function(username){
         user.get(username)

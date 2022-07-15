@@ -9,13 +9,13 @@ const userController = require('../controllers/user.controller')
 
 
 module.exports={
-    index:function(req,res){
-        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
+    index: async function(req,res){
+        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list()})
     },
-    list:function(){
-        return asset.list()
+    list: async function(){
+        return await asset.list()
     },
-    post:function (req,res) {
+    post: async function (req,res) {
         let message = "El tipo de activo '"
         if(asset.post(req,res)){
             message+= req.body['new-asset-name'].toUpperCase() + "' se guardó con éxito."
@@ -25,8 +25,8 @@ module.exports={
         }
         res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
     },
-    last10Added: function (){
-        return asset.last10Added()
+    last10Added: async function (){
+        return await asset.last10Added()
     },
     get: function(req,res){
         return asset.get(req,res)
