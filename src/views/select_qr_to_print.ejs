@@ -155,13 +155,14 @@
 
 
 
-    function fill_table(){
+    function fill_table(lista_datos){
         var tabla = document.getElementById("tabla_activos");
-        var total_datos = 50;
+
+        datos = lista_datos;
+        var total_datos = datos.length;
 
         //Creamos las filas
-
-        /*
+        
         for (var j = 0; j < total_datos; j++){
             console.log("Hola");
             //Crea una fila
@@ -173,57 +174,13 @@
             var celda_ubicacion = fila.insertCell(2);
             var celda_seleccionar = fila.insertCell(3);
 
-            celda_nombre.innerHTML = "holi";
-            celda_tipo.innerHTML = "holi";
-            celda_ubicacion.innerHTML = "XD";
+            celda_nombre.innerHTML = datos[i].dataValues.asset_name;
+            celda_tipo.innerHTML = datos[i].dataValues.id_assetType;
+            celda_ubicacion.innerHTML = datos[i].dataValues.location;
             celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value="+j+"> ";
         }
-        */
-
-        //Crea una fila
-        var fila = tabla.insertRow(1);
-        fila.setAttribute("border", "1");
-        
-        var celda_nombre = fila.insertCell(0);
-        var celda_tipo = fila.insertCell(1);
-        var celda_ubicacion = fila.insertCell(2);
-        var celda_seleccionar = fila.insertCell(3);
-
-        celda_nombre.innerHTML = "nombre1";
-        celda_tipo.innerHTML = "A";
-        celda_ubicacion.innerHTML = "Sala";
-        celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value=1> ";
-
-        //Crea una fila
-        var fila = tabla.insertRow(2);
-        fila.setAttribute("border", "1");
-        
-        var celda_nombre = fila.insertCell(0);
-        var celda_tipo = fila.insertCell(1);
-        var celda_ubicacion = fila.insertCell(2);
-        var celda_seleccionar = fila.insertCell(3);
-
-        celda_nombre.innerHTML = "nombre2";
-        celda_tipo.innerHTML = "A";
-        celda_ubicacion.innerHTML = "Sala";
-        celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value=2> ";
-
-        //Crea una fila
-        var fila = tabla.insertRow(3);
-        fila.setAttribute("border", "1");
-        
-        var celda_nombre = fila.insertCell(0);
-        var celda_tipo = fila.insertCell(1);
-        var celda_ubicacion = fila.insertCell(2);
-        var celda_seleccionar = fila.insertCell(3);
-
-        celda_nombre.innerHTML = "nombre3";
-        celda_tipo.innerHTML = "B";
-        celda_ubicacion.innerHTML = "Casino";
-        celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value=3> ";
-
     }
 
-    fill_table();
+    fill_table(assetList);
 
 </script>
