@@ -1,12 +1,10 @@
-
-
 // import { DataTypes } from "sequelize";
 // import db from "../database/conection2"
 
 const {DataTypes} = require('sequelize');
 const db = require("../database/conection2")
 
-const assetTypes=db.define('AssetTypes', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
+const assetTypes = db.define('assetType', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
     id:{
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -21,38 +19,40 @@ const assetTypes=db.define('AssetTypes', {     // el modelo asume que la tabla d
 
     }
 )
+//let assetTypeList = ['hola']
 
+async function Categorias(){
+    const cat=await assetTypes.findAll({
+        attributes: ['assetType']})
 
-
+    for(let i=0;i<cat.length;i++){
+        console.log(cat[i].categoria)
+        assetTypeList.push(cat[i].categoria)   
+    }
+    
+}
 
 module.exports = {
-    list:async function(){
-
-        const assetTypeList=await assetTypes.findAll({attributes:['assetType']})
-
+    list: async function(){
+        const assetTypeList = await assetTypes.findAll()
+        console.log(assetTypeList)
         return assetTypeList;
         
     },
     post: async function(req,res){
-        let categori = req.body['new-asset-type-name'].toLowerCase()
-        categori = categori.charAt(0).toUpperCase() + categori.slice(1)
-
-       
+        let assetTypeName = req.body['new-asset-type-name'].toLowerCase()
+        assetTypeName = assetTypeName.charAt(0).toUpperCase() + assetTypeName.slice(1)
+        console.log(assetTypeName)
         try {
              await assetTypes.create(
-
                 {
-                    categoria: categori
-                    
+                    assetType: assetTypeName
                 }
             );
             
         } catch (error) {
-            console.log(error.message);
-            
+            console.log(error.message);  
         }
-
-        
         return true;
     },
     update: function(req,res){

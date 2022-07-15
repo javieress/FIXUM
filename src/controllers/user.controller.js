@@ -1,8 +1,9 @@
 const config = require('../config/dbconfig')
 const sql = require('mssql')
 const user = require('../models/User')
-const UserPositionList=require('../controllers/userPosition.controller')
 const bodyParser = require('body-parser')
+
+const userPositionList = require('./userPosition.controller')
 
 const Fn = {
 	// Valida el rut con su cadena completa "XXXXXXXX-X"
@@ -29,43 +30,33 @@ const Fn = {
 
 
 module.exports={
-    index:async function(req,res){
-        res.render('./register/user-register.ejs',{title: ' | Usuarios',message: '',User_Position_List: await UserPositionList.list()})
+    index: async function(req,res){
+        res.render('./register/user-register.ejs',{title: ' | Usuarios',message: '',userPosition: await userPositionList.list()})
     },
     list: async function(){
         return await user.list()
     },
     post:async function (req,res) {
         let message = "El usuario '"
-        
 
-        if(Fn.validaRut(req.body['new-user-rut']) && (req.body['new-user-rut'].length==10 || req.body['new-user-rut'].length==9)){
+        if(Fn.validaRut(req.body['new-user-rut']) && (req.body['new-user-username'].length==10 || req.body['new-user-username'].length==9)){
 
-            const user_esta = await user.findOneRut(req,res);
-            const username_esta=await user.findOneUserName(req,res);
+            const user_esta = await user.findOneRut(req,res) || await user.findOneUserName(req,res);
+            console.log(user_esta)
             if(user_esta!=null){
-                message+=req.body['new-user-rut']+ "'ya existe.";
+                message+=req.body['new-user-username']+ "'ya existe.";
             }
             else{
-                if(username_esta!=null){
-                    message+=req.body['new-user-username']+ "'ya existe.";
-
-                }
-                else{
                 user.post(req,res)//llamo a funcion post para que cree usuario
                 message+= req.body['new-user-username'] + "' se guardó con éxito."
             
-                }
             }
         }else{
             message+=req.body['new-user-username']+ "'no es valido";
             
         }
-    
 
-
-
-        res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,User_Position_List: await UserPositionList.list()})
+        res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,userPosition: await userPositionList.list()})
     },
     get: function(username){
         user.get(username)

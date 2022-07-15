@@ -24,36 +24,24 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
     }
 )
 
-
-
-
-
-
-
 module.exports = {
     list: async function(){
-        const ubi=await locations.findAll({
-            attributes: ['locations']})
-
-    
+        const ubi = await locations.findAll()
     return ubi;
         
 
 
     },
     post: async function(req,res){
-        let ubication = req.body['new-location-name'].toLowerCase()
-        ubication = ubication.charAt(0).toUpperCase() + ubication.slice(1)
-
-       
+        let locationName = req.body['new-location-name'].toLowerCase()
+        locationName = locationName.charAt(0).toUpperCase() + locationName.slice(1)
 
         try {
             await locations.create(
 
                 {
-                    ubicacion : ubication,
-                    encargardo: req.body['new-location-in-charge']
-                    
+                    locations : locationName,  
+                    inCharge: 'Nadie'
                 }
             );
             

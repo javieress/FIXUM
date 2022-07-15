@@ -30,13 +30,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for( let i=last10AssetAdded.length-1; i >= 0; i-- ) { %>
+                            <% for( let i in last10AssetAdded) { %>
                                 <tr>
-                                    <th scope="row"><%= last10AssetAdded[i].id %></th>
-                                    <td><%= last10AssetAdded[i].name %></td>
-                                    <td><%= last10AssetAdded[i].assetType %></td>
+                                    <th scope="row"><%= last10AssetAdded[i].dataValues.id %></th>
+                                    <td><%= last10AssetAdded[i].dataValues.asset_name %></td>
+                                    <td><%= last10AssetAdded[i].dataValues.id_assetType %></td>
                                     <!-- <td><%= //last10AssetAdded[i].location %></td> -->
-                                    <td><%= last10AssetAdded[i].userInCharge %></td>
+                                    <td><%= last10AssetAdded[i].dataValues.id_users_in_charge %></td>
                                 </tr>
 
                                 <% } %>
