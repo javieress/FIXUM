@@ -174,10 +174,10 @@
             var celda_ubicacion = fila.insertCell(2);
             var celda_seleccionar = fila.insertCell(3);
 
-            celda_nombre.innerHTML = datos[i].dataValues.asset_name;
-            celda_tipo.innerHTML = datos[i].dataValues.id_assetType;
-            celda_ubicacion.innerHTML = datos[i].dataValues.location;
-            celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value="+j+"> ";
+            celda_nombre.innerHTML = datos[j].dataValues.asset_name;
+            celda_tipo.innerHTML = datos[j].dataValues.id_assetType;
+            celda_ubicacion.innerHTML = datos[j].dataValues.location;
+            celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value="+datos[j].dataValues.id;+"> ";
         }
     }
 
