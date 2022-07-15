@@ -20,7 +20,7 @@ module.exports={
  
     var mailOptions = {
       from: '"Soporte Fixum" <pitsasafras2@gmail.com>', // sender address
-      to: "nicolas.hernandez@alumnos.ucn.cl", // list of receivers cristhian.rabi@alumnos.ucn.cl javier.rojas04@alumnos.ucn.cl nicolas.hernandez@alumnos.ucn.cl
+      to: "pablo.rios@alumnos.ucn.cl, cristhian.rabi@alumnos.ucn.cl, javier.rojas04@alumnos.ucn.cl, nicolas.hernandez@alumnos.ucn.cl", // list of receivers cristhian.rabi@alumnos.ucn.cl javier.rojas04@alumnos.ucn.cl nicolas.hernandez@alumnos.ucn.cl pablo.rios@alumnos.ucn.cl
       subject: formSubject, // Subject line
       text: formMessage, // plain text body
     };
