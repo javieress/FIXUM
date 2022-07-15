@@ -32,6 +32,18 @@
                 <th id = "2">Ubicación</th>
                 <th>Seleccionar</th>
 
+                <% for( let i in assetList { %>
+
+                    <tr>
+                        <th scope="row"><%= assetList[i].dataValues.asset_name %></th>
+                        <td><%= assetList[i].dataValues.id_assetType %></td>
+                        <td><%= assetList[i].dataValues.location %></td>
+                        <td><input type='checkbox' id='id' value= <%= assetList[i].dataValues.id %> </td>
+                    </tr>
+
+                    <% } %>
+
+
             
             </table>
             <div class="px-5 py-4">
@@ -155,10 +167,11 @@
 
 
 
-    function fill_table(<%- JSON.stringify(lista_datos) %>){
+    function fill_table(){
+
         var tabla = document.getElementById("tabla_activos");
 
-        datos = lista_datos;
+        
         var total_datos = datos.length;
 
         //Creamos las filas
