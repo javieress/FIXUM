@@ -8,7 +8,7 @@ module.exports={
         res.render('./register/asset-type-register.ejs',{title: ' | Tipos de Activos',message: ''})
     },
     list:async function(){
-        return  await assetType.list()
+        return await assetType.list()
     },
     post:function (req,res) {
         let message = "El tipo de activo '"
