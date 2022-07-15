@@ -11,19 +11,219 @@
 <body>
     <%- include('partials/navigation') %>
 
-    <form action="imprimir">
+    <div id = "barra_filtros">
+        <form>
+        <input id = "filtro_nombre" type="text" onkeyup="buscar();">
+        <select id="filtro_tipo" onchange="refresh('filtro_tipo',1)"></select>
+        <select id="filtro_ubicacion" onchange="refresh('filtro_ubicacion',2)">
+        
+            
+        </select>
+        </form>
+    </div>
 
-        <div class="px-5 py-4">
-            <button type="submit" class="btn btn-dark btn-lg">Imprimir</button>
+
+    <form action="/print" method = "POST">
+
+        <div>
+            <table border = "2" frame = "box" id = "tabla_activos">
+                <th id = "0">Nombre activo</th>
+                <th id = "1">Tipo</th>
+                <th id = "2">Ubicación</th>
+                <th>Seleccionar</th>
+
+            
+            </table>
+            <div class="px-5 py-4">
+                <button type="submit" class="btn btn-dark btn-lg">Imprimir</button>
+            </div>
+
         </div>
+        
         
     </form>
 
-    <script>
-    document.write(window.location.pathname)
-    </script>
 
 </body>
 
 <%- include('partials/footer') %>
 </html>
+
+<script>
+
+    function refresh(id_filtro,indice_columna){
+        
+        var tabla = document.getElementById('tabla_activos');
+
+        var busqueda = document.getElementById(id_filtro).value.toLowerCase();
+        var celda_comparar = "";
+        
+
+        for (var i = 1; i < tabla.rows.length; i++) {
+            
+            celda_comparar = tabla.rows[i].getElementsByTagName('td')[indice_columna];
+            
+            //document.write(busqueda + " - " + celda_comparar.innerHTML.toLowerCase());
+            if (busqueda == celda_comparar.innerHTML.toLowerCase()){
+                //Revisar esto.
+
+                //Si cumple con el criterio y no está siendo mostrada, se muestra.
+                if (tabla.rows[i].style.display == 'none'){
+                    tabla.rows[i].style.display  = '';
+                }
+
+            }
+            else{ //Si no cumple con el criterio
+
+                //y está siendo mostrada
+                if (tabla.rows[i].style.display == ''){
+                    tabla.rows[i].style.display = 'none';
+                }
+            }
+            
+        }
+        
+    }
+
+    function fill_options_select(id_filtro){
+        const $select = document.getElementById(id_filtro);
+
+        cantidad_opciones = 5;
+        /*
+        for (var j = 0; j < cantidad_opciones; j++){
+            const option = document.createElement('option');
+            //const valor = "Opcion " + j;
+            const valor = "XD";
+            option.value = valor;
+            option.text = valor;
+
+            $select.appendChild(option);
+        }
+        */
+        var option = document.createElement('option');
+            //const valor = "Opcion " + j;
+            var valor = "Sala";
+            option.value = valor;
+            option.text = valor;
+
+            $select.appendChild(option);
+
+            var option = document.createElement('option');
+
+            valor = "Casino";
+            option.value = valor;
+            option.text = valor;
+
+            $select.appendChild(option);
+    }
+
+    fill_options_select("filtro_ubicacion");
+
+    fill_options_select("filtro_tipo");
+
+    function buscar(){
+        var tabla = document.getElementById('tabla_activos');
+            var busqueda = document.getElementById('filtro_nombre').value.toLowerCase();
+            var cellsOfRow="";
+            var found=false;
+            var compareWith="";
+            for (var i = 1; i < tabla.rows.length; i++) {
+                cellsOfRow = tabla.rows[i].getElementsByTagName('td');
+                found = false;
+                for (var j = 0; j < cellsOfRow.length && !found; j++) { compareWith = cellsOfRow[j].innerHTML.toLowerCase(); if (busqueda.length == 0 || (compareWith.indexOf(busqueda) > -1))
+                    {
+                        found = true;
+                    }
+                }
+                if(found)
+                {
+                    //Si no está siendo mostrada, se cambia
+                    if (tabla.rows[i].style.display == 'none'){
+                        tabla.rows[i].style.display = '';
+                    }
+                    
+                } else {
+                    //Si está siendo mostrada, se quita
+
+                    if (tabla.rows[i].style.display == ''){
+                        tabla.rows[i].style.display = 'none';
+                    }            
+                }
+            }
+    }
+
+
+
+
+    function fill_table(){
+        var tabla = document.getElementById("tabla_activos");
+        var total_datos = 50;
+
+        //Creamos las filas
+
+        /*
+        for (var j = 0; j < total_datos; j++){
+            console.log("Hola");
+            //Crea una fila
+            var fila = tabla.insertRow(j+1);
+            fila.setAttribute("border", "1");
+            
+            var celda_nombre = fila.insertCell(0);
+            var celda_tipo = fila.insertCell(1);
+            var celda_ubicacion = fila.insertCell(2);
+            var celda_seleccionar = fila.insertCell(3);
+
+            celda_nombre.innerHTML = "holi";
+            celda_tipo.innerHTML = "holi";
+            celda_ubicacion.innerHTML = "XD";
+            celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value="+j+"> ";
+        }
+        */
+
+        //Crea una fila
+        var fila = tabla.insertRow(1);
+        fila.setAttribute("border", "1");
+        
+        var celda_nombre = fila.insertCell(0);
+        var celda_tipo = fila.insertCell(1);
+        var celda_ubicacion = fila.insertCell(2);
+        var celda_seleccionar = fila.insertCell(3);
+
+        celda_nombre.innerHTML = "nombre1";
+        celda_tipo.innerHTML = "A";
+        celda_ubicacion.innerHTML = "Sala";
+        celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value=1> ";
+
+        //Crea una fila
+        var fila = tabla.insertRow(2);
+        fila.setAttribute("border", "1");
+        
+        var celda_nombre = fila.insertCell(0);
+        var celda_tipo = fila.insertCell(1);
+        var celda_ubicacion = fila.insertCell(2);
+        var celda_seleccionar = fila.insertCell(3);
+
+        celda_nombre.innerHTML = "nombre2";
+        celda_tipo.innerHTML = "A";
+        celda_ubicacion.innerHTML = "Sala";
+        celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value=2> ";
+
+        //Crea una fila
+        var fila = tabla.insertRow(3);
+        fila.setAttribute("border", "1");
+        
+        var celda_nombre = fila.insertCell(0);
+        var celda_tipo = fila.insertCell(1);
+        var celda_ubicacion = fila.insertCell(2);
+        var celda_seleccionar = fila.insertCell(3);
+
+        celda_nombre.innerHTML = "nombre3";
+        celda_tipo.innerHTML = "B";
+        celda_ubicacion.innerHTML = "Casino";
+        celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value=3> ";
+
+    }
+
+    fill_table();
+
+</script>
