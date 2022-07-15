@@ -1,20 +1,22 @@
-import { DataTypes } from "sequelize";
-import db from "../database/conection2";
+// import { DataTypes } from "sequelize";
+// import db from "../database/conection2";
 
+const {DataTypes} = require('sequelize');
+const db = require('../database/conection2')
 
 const locations=db.define('Location', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
-    cod_ubi:{
-        type: DataTypes.STRING,
+    id:{
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    ubicacion: {
+    locations: {
         type: DataTypes.STRING,
         allowNull: false,
        
     },
-    encargado: {
+    inCharge: {
         type: DataTypes.STRING,
         allowNull:true,
     },
@@ -29,8 +31,15 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
 
 
 module.exports = {
-    list: function(){
-        return locationList
+    list: async function(){
+        const ubi=await locations.findAll({
+            attributes: ['locations']})
+
+    
+    return ubi;
+        
+
+
     },
     post: async function(req,res){
         let ubication = req.body['new-location-name'].toLowerCase()

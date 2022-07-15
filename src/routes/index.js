@@ -2,6 +2,8 @@ const express = require('express')
 const printerController = require('../controllers/printer.controller')
 const router = express.Router()
 
+const qrController = require('../controllers/qr-reader.controller')
+
 router.get('/',(req,res,next) => {
     res.render('index.ejs',{title: '  FIXUM'})
 })
@@ -24,6 +26,7 @@ router.get('/print',(req,res,next) => {
     res.render('select_qr_to_print.ejs',{title: ' | Seleccionar Items para Imprimir'})
 })
 router.post('/print',printerController.create_qr_download)
+router.get('/scan',qrController.index)
 
 
 

@@ -1,17 +1,59 @@
-let assetTypeList = ['Libro','Mobiliario','Electrónico']
+
+
+// import { DataTypes } from "sequelize";
+// import db from "../database/conection2"
+
+const {DataTypes} = require('sequelize');
+const db = require("../database/conection2")
+
+const assetTypes=db.define('AssetTypes', {     // el modelo asume que la tabla de la base de datos esta en pluran(termina en s)
+    id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    assetType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+       
+    }
+
+    }
+)
+
+
+
 
 module.exports = {
-    list: function(){
-        return assetTypeList
+    list:async function(){
+
+        const assetTypeList=await assetTypes.findAll({attributes:['assetType']})
+
+        return assetTypeList;
+        
     },
-    post: function(req,res){
-        let name = req.body['new-asset-type-name'].toLowerCase()
-        name = name.charAt(0).toUpperCase() + name.slice(1)
-        const exist = assetTypeList.includes(name)
-        if (!exist){
-            assetTypeList.push(name)
+    post: async function(req,res){
+        let categori = req.body['new-asset-type-name'].toLowerCase()
+        categori = categori.charAt(0).toUpperCase() + categori.slice(1)
+
+       
+        try {
+             await assetTypes.create(
+
+                {
+                    categoria: categori
+                    
+                }
+            );
+            
+        } catch (error) {
+            console.log(error.message);
+            
         }
-        return !exist
+
+        
+        return true;
     },
     update: function(req,res){
 
