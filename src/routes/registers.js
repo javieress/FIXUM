@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const userController = require('../controllers/user.controller')
+const mailController = require('../controllers/mail.controller')
 const assetController = require('../controllers/asset.controller')
 const assetTypeController = require('../controllers/asset-type.controller')
 const locationController = require('../controllers/location.controller')
@@ -17,5 +18,7 @@ router.post('/location',locationController.post)
 
 router.get('/asset-type',assetTypeController.index)
 router.post('/asset-type',assetTypeController.post)
+
+router.post('/contact',mailController.post)
 
 module.exports = router
