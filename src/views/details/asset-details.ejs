@@ -84,12 +84,14 @@
                 <div class="row m-2">
                     <div class="col-md-3">
                         <div class="px-2 py-4">
-                            <button type="submit" class="btn btn-dark btn-lg">Modificar</button>
+                            <!-- <button type="submit" class="btn btn-dark btn-lg">çModificar</button> -->
+                            <a href="/register/asset-edit/<%=asset[0].dataValues.id%>" class="btn btn-dark">Modificar</a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="px-2 py-4">
-                            <button type="submit" class="btn btn-danger btn-lg">Eliminar</button>
+                            <!-- <button type="submit" class="btn btn-danger btn-lg">Eliminar</button> -->
+                            <a href="/register/asset-delete/<%=asset[0].dataValues.id%>" class="btn btn-danger">Eliminar</a>
                         </div>
                     </div>
                 </div>

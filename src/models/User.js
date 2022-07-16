@@ -104,17 +104,37 @@ module.exports = {
         const userss= await users.findOne({ where: { UserName:req.body['new-user-username']}});
         return userss;
     },
-    get: function(username) {
-        const userList = user.list()
-        for (let i = 0; i < userList.length; i++) {
-            if (userList[i].username == username) {
-                return userList[i]
-            }           
-        }
-        return null
-    },
-    update: function (req, res) {
+    get: async function(req,res){
+        const {id} = req.params
+        const userFound = await users.findAll({
+            where: {
+                id_users: id
+            }
+        })
 
+        return userFound
+    },
+    update: async function(req,res){
+        console.log('poto');
+        console.log(req.body);
+        try{
+            await users.update({ 
+                nameUser: req.body['new-user-name'],
+                last_name: req.body['new-user-lastName'],
+                typeUser: req.body['new-user-userType'],
+                id_position: req.body['new-user-position'],
+                UserName: req.body['new-user-username'],
+             }, 
+             {
+                where: {
+                    id_users: req.body['new-user-rut']
+                }
+              })
+            return true
+        }catch(err){
+            console.log(err)
+            return false
+        }
     },
     delete: function (req, res) {
         // const name = req.body['user-name']
