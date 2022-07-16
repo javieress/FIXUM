@@ -25,14 +25,15 @@
 
         <label for="filtro_ubicacion">Ubicación</label>
         <select id="filtro_ubicacion" onchange="refresh('filtro_ubicacion',2)"></select>
-        
-  
-        
+
         </form>
+        
+        <label for="seleccionar_todo">Seleccionar todo</label>
+        <button id = "seleccionar_todo" onclick="select_all()"></button>
     </div>
 
 
-    <form action="/print" method = "POST">
+    <form name = "formulario_tabla" action="/print" method = "POST">
 
         <div>
             <table border = "2" frame = "box" id = "tabla_activos">
@@ -51,23 +52,16 @@
                     </tr>
 
                 <% } %>
-
-
-            
             </table>
             <div class="px-5 py-4">
                 <button type="submit" class="btn btn-dark btn-lg">Imprimir</button>
             </div>
-
-        </div>
-        
-        
+        </div>     
     </form>
-
-
 </body>
 
 <%- include('partials/footer') %>
+
 </html>
 
 <script>
@@ -162,6 +156,23 @@
                 }
             }
     }
-    
 
+    function select_all(){
+
+        var tabla = document.getElementById('tabla_activos');
+
+        for (var j = 1; j < tabla.rows.length; j++){
+            var celda = tabla.rows[j].getElementsByTagName('td')[3];
+            var box = celda.checked;
+            
+            console.log(box);
+            
+            if (tabla.rows[j].style.display == ''){
+                celda.checked = true;
+            }
+        } 
+    }
+
+    
+    
 </script>
