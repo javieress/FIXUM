@@ -13,13 +13,21 @@
 
     
     <div id = "barra_filtros">
+        <div id = "titulo_barra_filtros">
+            <h4>Filtros de búsqueda</h4>
+        </div>
         <form>
+        <label for="filtro_nombre">Texto</label>
         <input id = "filtro_nombre" type="text" onkeyup="buscar();">
+
+        <label for="filtro_tipo">Tipo</label>
         <select id="filtro_tipo" onchange="refresh('filtro_tipo',1)"></select>
-        <select id="filtro_ubicacion" onchange="refresh('filtro_ubicacion',2)">
+
+        <label for="filtro_ubicacion">Ubicación</label>
+        <select id="filtro_ubicacion" onchange="refresh('filtro_ubicacion',2)"></select>
         
   
-        </select>
+        
         </form>
     </div>
 
