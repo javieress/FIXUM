@@ -30,6 +30,14 @@ router.post('/print',printerController.create_qr_download)
 router.get('/scan',qrController.index)
 
 
+router.get('/homeA',(req,res,next) => {
+    res.render('home/homeAdmin.ejs',{title: ' | Home Admin'})
+})
+router.get('/homeU',(req,res,next) => {
+    res.render('home/homeUser.ejs',{title: ' | Home'})
+})
+
+
 
 
 // solo prueba del creador de qr
