@@ -23,7 +23,7 @@ router.get('/contact',(req,res,next) => {
 router.get('/scan',(req,res,next) => {
     res.render('prueba_LectorQR.ejs',{title: 'Lector QR'})
 })
-router.get('/print',(req,res,next) => {
+router.get('/print',async(req,res,next) => {
     res.render('select_qr_to_print.ejs',{title: ' | Seleccionar Items para Imprimir', assetList: await asset.list()})
 })
 router.post('/print',printerController.create_qr_download)

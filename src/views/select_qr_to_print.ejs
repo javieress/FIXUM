@@ -11,13 +11,14 @@
 <body>
     <%- include('partials/navigation') %>
 
+    
     <div id = "barra_filtros">
         <form>
         <input id = "filtro_nombre" type="text" onkeyup="buscar();">
         <select id="filtro_tipo" onchange="refresh('filtro_tipo',1)"></select>
         <select id="filtro_ubicacion" onchange="refresh('filtro_ubicacion',2)">
         
-            
+  
         </select>
         </form>
     </div>
@@ -32,10 +33,10 @@
                 <th id = "2">Ubicación</th>
                 <th>Seleccionar</th>
 
-                <% for( let i in assetList { %>
+                <% for( let i in assetList) { %>
 
                     <tr>
-                        <th scope="row"><%= assetList[i].dataValues.asset_name %></th>
+                        <td><%= assetList[i].dataValues.asset_name %></td>
                         <td><%= assetList[i].dataValues.id_assetType %></td>
                         <td><%= assetList[i].dataValues.location %></td>
                         <td><input type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>'/> </td>
@@ -62,7 +63,7 @@
 </html>
 
 <script>
-
+    
     function refresh(id_filtro,indice_columna){
         
         var tabla = document.getElementById('tabla_activos');
@@ -97,41 +98,40 @@
         
     }
 
-    function fill_options_select(id_filtro){
+    function fill_options_select(id_filtro, indice_columna){
         const $select = document.getElementById(id_filtro);
 
-        cantidad_opciones = 5;
-        /*
-        for (var j = 0; j < cantidad_opciones; j++){
-            const option = document.createElement('option');
-            //const valor = "Opcion " + j;
-            const valor = "XD";
+        const primera_vacia = document.createElement('option');
+        primera_vacia.value = '';
+        primera_vacia.text = '';
+        primera_vacia.setAttribute("selected","selected");
+        $select.appendChild(primera_vacia);
+
+        const tabla = document.getElementById('tabla_activos');
+
+        const valores_unicos = new Set();
+        
+        for (var j = 1; j < tabla.rows.length; j++){
+            celda = tabla.rows[j].getElementsByTagName('td')[indice_columna].innerHTML;
+            valores_unicos.add(celda);
+        } 
+        
+
+        for (let item of valores_unicos.keys()){
+            var option = document.createElement('option');
+            var valor = item;
+            console.log(valor);
             option.value = valor;
             option.text = valor;
-
             $select.appendChild(option);
         }
-        */
-        var option = document.createElement('option');
-            //const valor = "Opcion " + j;
-            var valor = "Sala";
-            option.value = valor;
-            option.text = valor;
-
-            $select.appendChild(option);
-
-            var option = document.createElement('option');
-
-            valor = "Casino";
-            option.value = valor;
-            option.text = valor;
-
-            $select.appendChild(option);
+            
+         
     }
 
-    fill_options_select("filtro_ubicacion");
+    fill_options_select("filtro_tipo",1);
 
-    fill_options_select("filtro_ubicacion");
+    fill_options_select("filtro_ubicacion",2);
 
     function buscar(){
         var tabla = document.getElementById('tabla_activos');
@@ -163,38 +163,6 @@
                 }
             }
     }
-
-
-
-    /*
-    function fill_table(){
-
-        var tabla = document.getElementById("tabla_activos");
-
-        
-        var total_datos = datos.length;
-
-        //Creamos las filas
-        
-        for (var j = 0; j < total_datos; j++){
-            console.log("Hola");
-            //Crea una fila
-            var fila = tabla.insertRow(j+1);
-            fila.setAttribute("border", "1");
-            
-            var celda_nombre = fila.insertCell(0);
-            var celda_tipo = fila.insertCell(1);
-            var celda_ubicacion = fila.insertCell(2);
-            var celda_seleccionar = fila.insertCell(3);
-
-            celda_nombre.innerHTML = datos[j].dataValues.asset_name;
-            celda_tipo.innerHTML = datos[j].dataValues.id_assetType;
-            celda_ubicacion.innerHTML = datos[j].dataValues.location;
-            celda_seleccionar.innerHTML = "<input type='checkbox' id='id' value="+datos[j].dataValues.id;+"> ";
-        }
-    }
-
-    fill_table(assetList);
-    */
+    
 
 </script>
