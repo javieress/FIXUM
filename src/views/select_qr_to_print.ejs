@@ -71,12 +71,10 @@
         var busqueda = document.getElementById(id_filtro).value.toLowerCase();
         var celda_comparar = "";
         
-
         for (var i = 1; i < tabla.rows.length; i++) {
             
             celda_comparar = tabla.rows[i].getElementsByTagName('td')[indice_columna];
             
-            //document.write(busqueda + " - " + celda_comparar.innerHTML.toLowerCase());
             if (busqueda == celda_comparar.innerHTML.toLowerCase()){
                 //Revisar esto.
 
@@ -84,7 +82,6 @@
                 if (tabla.rows[i].style.display == 'none'){
                     tabla.rows[i].style.display  = '';
                 }
-
             }
             else{ //Si no cumple con el criterio
 
@@ -93,9 +90,7 @@
                     tabla.rows[i].style.display = 'none';
                 }
             }
-            
         }
-        
     }
 
     function fill_options_select(id_filtro, indice_columna){
@@ -116,7 +111,6 @@
             valores_unicos.add(celda);
         } 
         
-
         for (let item of valores_unicos.keys()){
             var option = document.createElement('option');
             var valor = item;
@@ -125,12 +119,9 @@
             option.text = valor;
             $select.appendChild(option);
         }
-            
-         
     }
 
     fill_options_select("filtro_tipo",1);
-
     fill_options_select("filtro_ubicacion",2);
 
     function buscar(){
