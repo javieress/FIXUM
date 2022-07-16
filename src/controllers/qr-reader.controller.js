@@ -1,16 +1,27 @@
-
+const assetController = require('../controllers/asset.controller')
 
 module.exports={
 
     readResult:function(req,res){
-        const asset = {name:"prueba",id:30,assetType:"Electronico",location:"Sala 3",userInCharge:"Pedro Cuadra",description:"Una Weaita"}
-        if (req.body["qr-result"] == "hola"){ //si la busqueda es válida
-            message = "QR inválido"
-            res.render('details/asset-details.ejs',{title: ' | Registro de Activo', asset:asset})
+        var check = false;
+        const text = JSON.stringify(req.body.qrResult);
+        var id = "";
+        if (text.includes('localhost') || text.includes('herokuapp')){
+            var lines = text.split('/');
+            lines = lines[lines.length-1];
+            lines = lines.split('"');
+            id = lines[0];
+            check = true;
         }
-        if (req.body["qr-result"] != "hola"){ //si la busqueda es inválida
-            message = "QR inválido"
-            res.render('prueba_LectorQR.ejs',{title: ' | Registro de Activo', message: message})
+
+        if (check){ //si la busqueda es válida
+            
+            const url = "/details/" + id;
+            res.redirect(url)
+        }
+        else{ //si la busqueda es inválida
+            const message = "QR inválido"
+            res.render('prueba_LectorQR.ejs',{title: ' | Lector QR', message: message})
         }
         
     },index:function(req,res){

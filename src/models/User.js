@@ -1,12 +1,8 @@
-
 // import { DataTypes } from 'sequelize';
 // import db from "../database/conection2";
 
 const {DataTypes} = require('sequelize');
 const db = require("../database/conection2")
-
-
-
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -58,12 +54,13 @@ const users=db.define('User', {
 module.exports = {
     list: async function () {
 
-        const userList=await users.findAll({attributes:['UserName','nameUser','last_name']})    
+        const userList=await users.findAll({attributes:['id_users','UserName','nameUser','last_name','typeUser','id_position']})    
         return  userList
     },
     post: async function(req, res) {
-        let username = req.body['new-user-username']  
+            
         let rut=req.body['new-user-rut']
+        let username = req.body['new-user-username']  
 
         let name = req.body['new-user-name'].toLowerCase()
         name = name.charAt(0).toUpperCase() + name.slice(1)
@@ -76,20 +73,9 @@ module.exports = {
         let userType = req.body['new-user-userType']
 
         let password = req.body['new-user-password']
-
-
-        /** modifico tipo usuario para ingreso a base de datos */
-        let tipo_user=0;
-        if(userType=='admin'){
-            tipo_user=1;
-        }
-        
-
+    
         /** encripto contraseña */
         const password1= await bcrypt.hash(password, saltRounds);
-         
-
-
         /** inserto datos usando el modelo users  */
         try {
             await users.create(
@@ -99,7 +85,7 @@ module.exports = {
                     nameUser:name,
                     last_name:lastName,
                     id_position:position,
-                    typeUser:tipo_user
+                    typeUser:userType
                 }
             );
             
@@ -107,15 +93,7 @@ module.exports = {
             console.log(error.message);
             
         }
-        
-        
         return true;
-    
-
-
-       
-     
-
 
     },
     findOneRut:async function (req,res) {
