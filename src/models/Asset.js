@@ -84,7 +84,6 @@ module.exports = {
     },
     delete: async function (req, res) {
         const {id} = req.params
-        console.log('xxxxxx');
         try {
             await asset.destroy({
                 where: {
@@ -99,9 +98,12 @@ module.exports = {
         
     },
     last10Added: async function(){
-        const last10 = await asset.findAll({
-            limit: 10,
-            order:[['updatedAt' , 'DESC']]})
+        const last10 = await db.query('SELECT TOP 10 Assets.id,Assets.asset_name,AssetTypes.assetType,Users.UserName,Users.nameUser,Users.last_name,Assets.quantity,Locations.locations FROM Assets inner join Users on Users.id_users=Assets.id_users_in_charge inner join AssetTypes ON AssetTypes.id=Assets.id_assetType inner join Locations on Locations.id=Assets.id_location order by Assets.updatedAt desc')
+        
+        console.log(last10[0][0].id)
+       
+
+        
         return last10
     },
     get: async function(req,res){
@@ -125,11 +127,10 @@ module.exports = {
       assetFound[0].dataValues.nameUser=userName[0][0].nameUser 
       assetFound[0].dataValues.lastName=userName[0][0].last_name 
       assetFound[0].dataValues.UserName=userName[0][0].UserName
-      console.log(assetFound)
+    
         return assetFound
     },
     update: async function(req,res){
-        console.log('aqiuuaosao')
         const name = req.body['new-asset-name']
         const assetType = req.body['new-asset-assetType']
         const location = req.body['new-asset-location']
