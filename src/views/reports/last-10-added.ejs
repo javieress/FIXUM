@@ -34,9 +34,9 @@
                                 <tr>
                                     <th scope="row"><%= last10AssetAdded[i].dataValues.id %></th>
                                     <td><%= last10AssetAdded[i].dataValues.asset_name %></td>
-                                    <td><%= last10AssetAdded[i].dataValues.id_assetType %></td>
+                                    <td><%= last10AssetAdded[i].dataValues.assetTypeName %></td>
                                     <!-- <td><%= //last10AssetAdded[i].location %></td> -->
-                                    <td><%= last10AssetAdded[i].dataValues.id_users_in_charge %></td>
+                                    <td> <%= last10AssetAdded[i].dataValues.UserName %> <%= ' | '+ last10AssetAdded[i].dataValues.nameUser %> <%= last10AssetAdded[i].dataValues.lastName %></td>
                                 </tr>
 
                                 <% } %>

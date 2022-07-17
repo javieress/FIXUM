@@ -1,6 +1,8 @@
 const sequelize = require('sequelize');
-const {DataTypes,QueryTypes} = require('sequelize');
-const db = require("../database/conection2")
+const {DataTypes,QueryTypes, Sequelize} = require('sequelize');
+const db = require("../database/conection2");
+const Location = require('./Location');
+
 
 const asset=db.define('Asset', {
     
@@ -120,7 +122,20 @@ module.exports = {
                 id: id
             }
         })
-        console.log(assetFound);
+
+        
+
+    const locationName=await db.query("select Locations.locations from Assets inner join Locations on Assets.id_location=Locations.id where Assets.id_location="+assetFound[0].dataValues.id_location)
+      assetFound[0].dataValues.location=locationName[0][0].locations        
+        
+      const assetTypeName=await db.query("select AssetTypes.assetType  from Assets inner join AssetTypes on Assets.id_assetType=AssetTypes.id where Assets.id_assetType="+assetFound[0].dataValues.id_assetType)
+      assetFound[0].dataValues.assetTypeName=assetTypeName[0][0].assetType      
+        
+      const userName=await db.query("select Users.nameUser,Users.last_name,Users.UserName  from Assets inner join Users on Assets.id_users_in_charge=Users.id_users where  Assets.id_users_in_charge='"+assetFound[0].dataValues.id_users_in_charge+"'")
+      assetFound[0].dataValues.nameUser=userName[0][0].nameUser 
+      assetFound[0].dataValues.lastName=userName[0][0].last_name 
+      assetFound[0].dataValues.UserName=userName[0][0].UserName
+      console.log(assetFound)
         return assetFound
     }
 }

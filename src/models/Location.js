@@ -25,6 +25,10 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
 )
 
 module.exports = {
+
+    modelsLocations:function(){
+        return locations;
+    },
     list: async function(){
         const ubi = await locations.findAll()
     return ubi;
