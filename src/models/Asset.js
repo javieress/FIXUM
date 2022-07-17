@@ -34,36 +34,16 @@ const asset=db.define('Asset', {
         type: DataTypes.STRING,
         allowNull:false
     },
+    price: {
+        type: DataTypes.INTEGER,
+        allowNull:false
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull:false
+    }
     }
 )
-
-// let assetList = [
-//     {
-//         'id': 'A1',
-//         'name': 'Computador Lenovo',
-//         'assetType': 'Electrónico',
-//         'location': '40',
-//         'userInCharge': 'Javier',
-//         'description': 'Computador Lenovo xyz, comprado el 2020'
-//     },
-//     {
-//         'id': 'A2',
-//         'name': 'Escritorio verde',
-//         'assetType': 'Mobiliario',
-//         'location': 'Sala 41',
-//         'userInCharge': 'Javier',
-//         'description': 'Escritorio con la pata coja'
-//     },
-//     {
-//         'id': 'A3',
-//         'name': 'Don Quijote de la Mancha',
-//         'assetType': 'Libro',
-//         'location': 'Sala 42',
-//         'userInCharge': 'Alexi',
-//         'description': 'Libro fabricado el año 1900, le faltan 3 hojas'
-//     }]
-
-// let id = 4
 
 module.exports = {
     list: async function () {
@@ -76,6 +56,8 @@ module.exports = {
         const location = req.body['new-asset-location']
         const userInCharge = req.body['new-asset-userInCharge']
         const description = req.body['new-asset-description']
+        const quantity = req.body['new-asset-quantity']
+        const price = req.body['new-asset-price']
 
         try {
             await asset.create(
@@ -86,6 +68,8 @@ module.exports = {
                 asset_name: name,
                 isActive: 1,
                 description: description,
+                quantity: quantity,
+                price: price,
             }
             );
             
@@ -116,7 +100,6 @@ module.exports = {
         const last10 = await asset.findAll({
             limit: 10,
             order:[['updatedAt' , 'DESC']]})
-        // const last10 = await sequelize.query('SELECT * FROM `ASSETS` ORDER BY `updatedAt` DESC', { type: QueryTypes.SELECT })
         return last10
     },
     get: async function(req,res){
@@ -137,6 +120,8 @@ module.exports = {
         const location = req.body['new-asset-location']
         const userInCharge = req.body['new-asset-userInCharge']
         const description = req.body['new-asset-description']
+        const quantity = req.body['new-asset-quantity']
+        const price = req.body['new-asset-price']
 
         try{
             await asset.update(
@@ -147,6 +132,8 @@ module.exports = {
                 asset_name: name,
                 isActive: 1,
                 description: description,
+                quantity: quantity,
+                price: price,
             },{where:{
                 id: req.body['new-asset-id']
             }

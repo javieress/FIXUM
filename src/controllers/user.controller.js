@@ -90,7 +90,7 @@ module.exports={
             //             }
             //         }]
             // res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'No se puedo editar' })
-
+            res.redirect('/')
         }
         
     }
