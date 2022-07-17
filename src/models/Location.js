@@ -57,8 +57,21 @@ module.exports = {
         
         return true;
     },
-    update: function(req,res){
+    update: async function(req,res){
+        console.log(req.body)
 
+        try{
+            await locations.update({ locations: req.body['new-location-name'] }, {
+                where: {
+                  id: req.body['new-location-id']
+                }
+              })
+
+            return true
+        }catch(err){
+            console.log(err)
+            return false
+        }
     },
     delete: function(req,res){
         const name = req.body['asset-type-name']
@@ -67,5 +80,16 @@ module.exports = {
             locationList = locationList.filter((item) =>item !== name)
         }
         return exist
+    },
+    get: async function(req,res){
+        const {id} = req.params
+        console.log(id)
+        const locationFound = await locations.findAll({
+            where: {
+                id: id
+            }
+        })
+        console.log(locationFound)
+        return locationFound
     }
 }

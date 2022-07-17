@@ -20,5 +20,37 @@ module.exports={
             message+= req.body['new-location-name'].toUpperCase() + "' ya existe."
         }
         res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: message})
+    },
+    update: async function (req, res) {
+        const updated = await location.update(req, res)
+        if (updated) {
+            const locationUpdated =
+                [
+                    {
+                        dataValues:
+                        {
+                            id: req.body['new-location-id'],
+                            locations: ''
+                        }
+                    }]
+            res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Editado con éxito' })
+        }
+        else {
+            const locationUpdated =
+                [
+                    {
+                        dataValues:
+                        {
+                            id: req.body['new-location-id'],
+                            locations: ''
+                        }
+                    }]
+            res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'No se puedo editar' })
+
+        }
+        
+    },
+    get: async function (req, res) {
+        return await location.get(req, res)
     }
 }

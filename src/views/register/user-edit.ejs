@@ -16,10 +16,10 @@
         <div class="container h-100 mt-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-9">
-                    <form action="/register/user" method="post">
+                    <form action="/register/user-update" method="post">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-header p-4">
-                                <h3>Registrar nuevo usuario</h3>
+                                <h3>Editar usuario</h3>
                             </div>
                             <div class="card-body">
 
@@ -30,11 +30,9 @@
                     
                                     </div>
                                     <div class="col-md-9 pe-5">
-                    
-                                        <input type="text" class="form-control form-control-lg" name="new-user-rut"
-                                        class="form-control" placeholder="ej: 111111111-1" maxlength="10"
-                                        />
-                    
+                                        <input type="hidden" class="form-control form-control-lg" name="new-user-rut" value="<%= user[0].dataValues.id_users %> " maxlength="10"/>
+                                        <!-- <input type="text" class="form-control form-control-lg" class="form-control" value=" <%= //user[0].dataValues.id_users %> " maxlength="10" readonly/> -->
+                                        <p class="form-control form-control-lg"><%= user[0].dataValues.id_users %></p>
                                     </div>
                                 </div>
                     
@@ -47,7 +45,7 @@
                                     <div class="col-md-9 pe-5">
                     
                                         <input type="text" class="form-control form-control-lg" name="new-user-username"
-                                        class="form-control" placeholder="" maxlength="10"
+                                        class="form-control" placeholder="" maxlength="10" value="<%= user[0].dataValues.UserName %> "
                                         />
                     
                                     </div>
@@ -62,7 +60,7 @@
                                     <div class="col-md-9 pe-5">
                     
                                         <input type="text" class="form-control form-control-lg" name="new-user-name"
-                                        maxlength="19"
+                                        maxlength="19" value="<%= user[0].dataValues.nameUser %> "
                                         />
                                         
                     
@@ -76,7 +74,9 @@
                                     </div>
                                     <div class="col-md-9 pe-5">
                     
-                                        <input type="text" class="form-control form-control-lg" name="new-user-lastName"maxlength="19"/>
+                                        <input type="text" class="form-control form-control-lg" name="new-user-lastName"
+                                        maxlength="19" value="<%= user[0].dataValues.last_name %> "
+                                        />
                     
                                     </div>
                                 </div>
@@ -87,24 +87,7 @@
                     
                                     </div>
                                     <div class="col-md-9 pe-5">
-                    
-                                        <input type="email" class="form-control form-control-lg" name="new-user-email"/>
-                    
-                                    </div>
-                                </div>
-                    
-                                <div class="row align-items-center py-3">
-                                    <div class="col-md-3 ps-5">
-                    
-                                        <h6 class="mb-0">Contraseña</h6>
-                    
-                                    </div>
-                                    <div class="col-md-9 pe-5">
-                    
-                                        <input type="text" class="form-control form-control-lg" name="new-user-password"
-                                        placeholder="***********"
-                                        />
-                    
+                                        <input type="email" class="form-control form-control-lg" name="new-user-email" value="<%= user[0].dataValues.email %> "/>
                                     </div>
                                 </div>
                     
@@ -118,7 +101,7 @@
                     
                                         <select class="form-select" aria-label="Default select example" name="new-user-position">
                                             <% for( let i in userPosition ) { %>
-                                                <option value="<%= userPosition[i].dataValues.id%> ">
+                                                <option value="<%= userPosition[i].dataValues.id%> "<% if (userPosition[i].dataValues.id == user[0].dataValues.id_position) {%>selected <% console.log('aqui')}  %> >
                                                     <%= userPosition[i].dataValues.position %>
                                                 </option>
                                                 <% } %>
@@ -136,13 +119,13 @@
                                     <div class="col-md-9 pe-5">
                     
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="new-user-userType" id="admin" value='1'>
+                                            <input class="form-check-input" type="radio" name="new-user-userType" id="admin" value='1' <% if (1 == user[0].dataValues.typeUser) {%>checked <% console.log('aqui')}  %>>
                                             <label class="form-check-label" for="Administrador">
                                                 Administrador
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="new-user-userType" id="user" value='0'>
+                                            <input class="form-check-input" type="radio" name="new-user-userType" id="user" value='0'<% if (0 == user[0].dataValues.typeUser) {%>checked <% console.log('aqui')}  %>>
                                             <label class="form-check-label" for="Administrador">
                                                 Usuario
                                             </label>
@@ -152,7 +135,7 @@
                                 </div>
                                 <hr class="mx-n3">
                                 <div class="px-5 py-4">
-                                    <button type="submit" class="btn btn-dark btn-lg">Registrar</button>
+                                    <button type="submit" class="btn btn-dark btn-lg">Actualizar</button>
                                 </div>
                                 <div class="px-5 py-4"><%-message%></div>
                             </div>
