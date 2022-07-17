@@ -20,20 +20,13 @@
                 </div>
                 <form action="/register/asset-update" method="post">
                     <div class="card-body">
-                        <div class="row align-items-center m-2">
-                            <div class="col-md-3">
-                                <h6 class="mb-0">ID</h6>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="hidden" name="new-asset-id" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.id%>">
-                                <p class="form-control form-control-lg"><%=asset[0].dataValues.id%></p>
-                            </div>
-                        </div>
+                    
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
                                 <h6 class="mb-0">Nombre del activo</h6>
                             </div>
                             <div class="col-md-9">
+                                <input type="hidden" name="new-asset-id" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.id%>">
                                 <input type="text" name="new-asset-name" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.asset_name%>">
                             </div>
                         </div>

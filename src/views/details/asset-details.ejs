@@ -108,12 +108,15 @@
                             <a href="/register/asset-edit/<%=asset[0].dataValues.id%>" class="btn btn-dark">Modificar</a>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="px-2 py-4">
-                            <!-- <button type="submit" class="btn btn-danger btn-lg">Eliminar</button> -->
-                            <a href="/register/asset-delete/<%=asset[0].dataValues.id%>" class="btn btn-danger">Eliminar</a>
+                    <form action="/register/asset-delete/<%=asset[0].dataValues.id%>" method="post">
+                        <div class="col-md-3">
+                            <div class="px-2 py-4">
+                                <button type="submit" class="btn btn-danger btn-lg" >Eliminar</button>
+                                <!-- <a href="/register/asset-delete/<%=//asset[0].dataValues.id%>" class="btn btn-danger">Eliminar</a> -->
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>
