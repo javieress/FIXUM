@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head') %>
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('partials/navigation') %>
+        <div class="container h-100 mt-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-9">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-header p-4">
+                            <h3>Envío de avisos</h3>
+                        </div>
+                        <div class="card-body">
+                            <form name="notification-form" method="post" action="/register/notification">
+                                <div class="row align-items-center pt-4 pb-3">
+                                    <div class="col-md-3 ps-5">
+                                        <h6 class="mb-0">Asunto de la notificación</h6>
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                                        <input id='subject' type="text" class="form-control form-control-lg" name='subject' required/>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center pt-4 pb-3">
+                                    <div class="col-md-3 ps-5">
+                                        <h6 class="mb-0">Mensaje</h6>
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                                        <textarea name="message" id="message" cols="30" rows="10" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Nombre / Apellido</th>
+                                                <th scope="col">correo</th>
+                                                <th scope="col">correo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for( let i in users) { %>
+                                                <tr>
+                                                    <th scope="row"><%= users[i].dataValues.UserName %></th>
+                                                    <th scope="row"><%= users[i].dataValues.nameUser +" "+ users[i].dataValues.last_name %></th>
+                                                    <th scope="row"><%= users[i].dataValues.email %></th>
+                                                    <td scope="row"><input type='checkbox' id='email' value= '<%= users[i].dataValues.email %>'/> </td>
+                                                </tr>
+                                                <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <hr class="mx-n3">
+                                <div class="px-5 py-4">
+                                    <button onclick="verificacion()" class="btn btn-dark btn-lg">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<script>
+    function verificacion(){
+        if(document.getElementById("message").value=="" || document.getElementById("subject").value==""){
+            return false;
+        }
+        else if (confirm('¿Estas eeguro de enviar este formulario?')){ 
+            document.notification-form.submit()
+        }
+        else{
+            return false;
+        }
+    }
+</script>
+<%- include('partials/footer') %>
+</html>

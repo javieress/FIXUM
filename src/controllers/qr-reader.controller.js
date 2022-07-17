@@ -24,7 +24,5 @@ module.exports={
             res.render('prueba_LectorQR.ejs',{title: ' | Lector QR', message: message})
         }
         
-    },index:function(req,res){
-        res.render('prueba_LectorQR.ejs',{title: ' | Lector QR', message: ''})
     }
 }
