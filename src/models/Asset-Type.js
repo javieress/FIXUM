@@ -79,6 +79,11 @@ module.exports = {
         }
         return exist
     },
+    TotalByAssetsTypes: async function(){
+        const totalAssetTypes=await db.query('select AssetTypes.assetType,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from  Assets inner join AssetTypes on AssetTypes.id=Assets.id_assetType group by AssetTypes.assetType')
+
+        return totalAssetTypes
+    },
     get: async function(req,res){
         const {id} = req.params
         console.log(id)
