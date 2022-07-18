@@ -1,5 +1,5 @@
 body{
-    background-color: #ececec;
+    background-color: #d5d4d4;
     color: black;
 }
 .footer{
@@ -9,19 +9,4 @@ body{
     bottom: 0;
     width: 100%;
     margin-top: 20px;
-}
-.boton.btn::after{
-	content: "";
-	width: 100%;
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	left: calc(-100% - 80px);
-	border-bottom: 80px solid #286cff;
-	border-right: 80px solid transparent;
-	transition: .4s ease-in-out all;
-}
-
-.boton.btn::after {
-	left: 0;
 }
