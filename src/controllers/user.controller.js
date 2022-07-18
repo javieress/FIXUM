@@ -58,41 +58,7 @@ module.exports={
 
         res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,userPosition: await userPositionList.list()})
     },
-    get: async function(req,res){
-        console.log(await user.get(req,res));
-        return await user.get(req,res)
-    },
-    update: async function (req, res) {
-        // const exist = await user.get(req,res)
-        // console.log(exist);
-        const updated = await user.update(req, res)
-        if (updated) {
-            // const userUpdated =
-            //     [
-            //         {
-            //             dataValues:
-            //             {
-            //                 id: req.body['new-location-id'],
-            //                 locations: ''
-            //             }
-            //         }]
-            // res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Editado con éxito' })
-            res.redirect('/')
-        }
-        else {
-            // const userUpdated =
-            //     [
-            //         {
-            //             dataValues:
-            //             {
-            //                 id: req.body['new-location-id'],
-            //                 locations: ''
-            //             }
-            //         }]
-            // res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'No se puedo editar' })
-            res.redirect('/')
-        }
-        
+    get: function(username){
+        user.get(username)
     }
-
 }

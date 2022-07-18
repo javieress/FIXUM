@@ -46,22 +46,6 @@
                         </div>
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Cantidad</h6>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="number" name="new-asset-quantity" id="typeNumber" class="form-control form-control-lg" min="0">
-                            </div>
-                        </div>
-                        <div class="row align-items-center m-2">
-                            <div class="col-md-3">
-                                <h6 class="mb-0">Valor</h6>
-                            </div>
-                            <div class="col-md-9">
-                                <input type="number" name="new-asset-price" id="typeNumber" class="form-control form-control-lg" min="0">
-                            </div>
-                        </div>
-                        <div class="row align-items-center m-2">
-                            <div class="col-md-3">
                                 <h6 class="mb-0">Ubicación</h6>
                             </div>
                             <div class="col-md-9">
@@ -87,8 +71,7 @@
                                     <option selected>Elija una opción</option>
                                     <% for( let i in user ) { %>
                                         <option value="<%= user[i].dataValues.id_users%> ">
-                                            <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' '
-                                                + user[i].dataValues.last_name %>
+                                            <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' ' + user[i].dataValues.last_name %>
                                         </option>
                                         <% } %>
                                 </select>
