@@ -19,6 +19,8 @@ router.post('/location',locationController.post)
 router.get('/asset-type',assetTypeController.index)
 router.post('/asset-type',assetTypeController.post)
 
-router.post('/contact',mailController.post)
+router.post('/contact',mailController.contact)
+
+router.post('/notification',mailController.adminNotification)
 
 module.exports = router
