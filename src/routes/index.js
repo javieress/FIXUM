@@ -19,7 +19,7 @@ router.get('/',(req,res,next) => {
 router.get('/login',(req,res,next) => {
     res.render('login.ejs',{title: ' | Login',message: ''})
 })
-router.get('/log', async (req,res,next) => authController.Auth.login(req,res)
+router.get('/log', async (req,res,next) => authController.Auth.login(req,res), async (req,res,next) => res.redirect('/')
 )
 
 router.get('/admin-profile',verifyToken,isAdmin,(req,res,next)=> {

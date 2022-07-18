@@ -60,7 +60,9 @@ const Auth = {
                     // const signed = jwt.sign({ _id: user[0].dataValues.id_users }, process.env.SECRET)
                     const token = signToken(user[0].dataValues.id_users)
                     req.session.token = token
-                    res.status(200).send({token : token})
+                    // res.status(200).send({token : token})
+                    next()
+                    res.status(200).redirect('/')
                 }else{
                     // res.status(401).send('Contraseña inválida')
                     res.status(401).render('login.ejs',{title: ' | Login',message: 'Contraseña inválida'})
