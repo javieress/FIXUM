@@ -24,7 +24,7 @@ module.exports={
  
     var mailOptions = {
       from: '"Soporte Fixum" <' + user + '>', // sender address
-      to: "pablo.rios@alumnos.ucn.cl, cristhian.rabi@alumnos.ucn.cl, javier.rojas04@alumnos.ucn.cl, nicolas.hernandez@alumnos.ucn.cl", // list of receivers cristhian.rabi@alumnos.ucn.cl javier.rojas04@alumnos.ucn.cl nicolas.hernandez@alumnos.ucn.cl pablo.rios@alumnos.ucn.cl
+      to: user, // list of receivers cristhian.rabi@alumnos.ucn.cl javier.rojas04@alumnos.ucn.cl nicolas.hernandez@alumnos.ucn.cl pablo.rios@alumnos.ucn.cl
       subject: formSubject, // Subject line
       text: formMessage, // plain text body
     };
@@ -42,7 +42,7 @@ module.exports={
 
     var formSubject = req.body["subject"];
     var formMessage = req.body["message"];
-    var formDestination = "nicolas.hernandez@alumnos.ucn.cl";
+    var formDestination = req.body["email"];
  
     var mailOptions = {
       from: '"Soporte Fixum" <' + user + '>', // sender address
@@ -55,9 +55,9 @@ module.exports={
       if (error) {
         console.log(error);
       } else {
-        console.log('Email enviado: ' + info.response);
+        console.log('Email enviado: ' + info.response +"\nDestinatarios: "+formDestination);
       }
     });
-      res.redirect("/notifications");
+    res.redirect("/notifications");
   }
 }
