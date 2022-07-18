@@ -28,13 +28,6 @@ module.exports={
     last10Added: async function (){
         return await asset.last10Added()
     },
-    AssetsPrices: async function(){
-        return await asset.AssetsPrices()
-    },
-    TotalAssetsByLocation: async function(){
-        return await asset.TotalAssetsByLocation()
-    },
-
     get: async function(req,res){
         return await asset.get(req,res)
     },

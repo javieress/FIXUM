@@ -1,12 +1,12 @@
 const sequelize = require('sequelize');
-const { DataTypes, QueryTypes, Sequelize } = require('sequelize');
+const {DataTypes,QueryTypes, Sequelize} = require('sequelize');
 const db = require("../database/conection2");
 const Location = require('./Location');
 
 
-const asset = db.define('Asset', {
-
-    id: {
+const asset=db.define('Asset', {
+    
+    id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -14,37 +14,37 @@ const asset = db.define('Asset', {
     },
     id_assetType: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     },
     id_location: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     },
     id_users_in_charge: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     },
     asset_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     },
     isActive: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     },
     description: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     },
     price: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     },
     quantity: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     }
-}
+    }
 )
 
 module.exports = {
@@ -105,18 +105,6 @@ module.exports = {
 
         
         return last10
-    },
-    AssetsPrices: async function(){
-        const assetsPrices=await db.query('select Assets.id,AssetTypes.assetType,Assets.asset_name,Assets.quantity,Assets.price,(Assets.quantity*Assets.price)as Valor from Assets inner join AssetTypes on AssetTypes.id=Assets.id_assetType order by Valor Desc')
-
-        return assetsPrices
-
-
-
-    },
-    TotalAssetsByLocation: async function(){
-        const totalAssetsByLocation=await db.query('Select Locations.locations,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from Assets inner join Locations on Locations.id=Assets.id_location group by Locations.locations')
-        return totalAssetsByLocation
     },
     get: async function(req,res){
         const {id} = req.params

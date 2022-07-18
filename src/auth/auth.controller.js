@@ -2,74 +2,63 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const { expressjwt: expressJwt } = require("express-jwt");
 const jwt = require('jsonwebtoken')
-const userController = require('../controllers/user.controller')
-const User = require('../models/User')
+const User = require('../models/user.model.js')
 
-const db = require("../database/conection2")
+const validateJwt = expressJwt({secret: process.env.SECRET, algorithms: ['HS256']})
 
-// const validateJwt = expressJwt({secret: process.env.SECRET, algorithms: ['HS256']})
+const signToken = _id => jwt.sign({_id} ,process.env.SECRET)
 
-const signToken = _id => jwt.sign({_id} ,process.env.SECRET,{expiresIn:86400})
-
-// const findAndAssingUser = async (req, res, next) => {
-//     try {
-//         const user = await userController.get(req,res)
-//         if (!user[0]){
-//             return res.status(401).end()
-//         }
-//         req.auth = user
-//     }catch(e){
-//         next(e)
-//     }
-// }
-// const isAuthenticated = express.Router().use(validateJwt,findAndAssingUser)
-
-const validateJwt = expressJwt({ secret: process.env.SECRET, algorithms: ['HS256']})
-
-const findAndAssignUser = async (req,res,next) => {
+const findAndAssingUser = async (req, res, next) => {
     try {
-        console.log(req)
-        const user = await User.get(req)
-        if (!user[0]){
+        const user = await User.findById(req.auth._id)
+        if(!user){
             return res.status(401).end()
         }
-        req.user = user[0]
-        next()
-    }catch(err){
-        next(err)
+        req.auth = user
+    }catch(e){
+        next(e)
     }
 }
 
-const isAuthenticated = express.Router().use(validateJwt,findAndAssignUser)
-
+const isAuthenticated = express.Router().use(validateJwt,findAndAssingUser)
 
 const Auth = {
-    login: async (req,res,next) => {
-        // console.log(req.body)
-        const body = req.body
+    login: async (req,res) => {
+        const {body} = req
         try {
-            const user = await User.get(body.id)
-            // console.log(user)
-            if (!user[0]) {                
-                // res.status(401).send('Usuario no encontrado')
-                res.status(401).render('login.ejs',{title: ' | Login',message: 'Usuario no encontrado'})
+            const user = await User.findOne({email: body.email})
+            if(!user){
+                res.status(401).send('Usuario y/o constraseña inválida')
             }else{
-                const isMatch = await bcrypt.compare(body['password'], user[0].dataValues.pwd)
-
+                const isMatch = await bcrypt.compare(body.password,user.password)
                 if(isMatch) {
-                    // const signed = jwt.sign({ _id: user[0].dataValues.id_users }, process.env.SECRET)
-                    const token = signToken(user[0].dataValues.id_users)
-                    req.session.token = token
-                    // res.status(200).send({token : token})
-                    next()
-                    res.status(200).redirect('/')
+                    const signed = signToken(user._id)
+                    res.status(200).send(signed)
                 }else{
-                    // res.status(401).send('Contraseña inválida')
-                    res.status(401).render('login.ejs',{title: ' | Login',message: 'Contraseña inválida'})
+                    res.status(401).send('Usuario y/o constraseña inválida')
                 }
             }
         }catch(e){
             res.send(e.message)
+        }
+    },
+    register: async (req,res) => {
+        const {body} = req
+        try{
+            const isUser = await User.findOne({email: body.email})
+            if(isUser){
+                res.status(401).send('Usuario ya existe')
+            }else{
+                const salt = await bcrypt.genSalt()
+                const hashed = await bcrypt.hash(body.password, salt)
+                const user = await User.create({email: body.email, password: hashed, salt})
+
+                const signed = signToken(user._id)
+                res.status(201).send(signed)
+            }
+        }
+        catch (e){
+            res.status(500).send(e.message)
         }
     },
 }
