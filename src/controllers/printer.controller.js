@@ -17,7 +17,7 @@ module.exports = {create_qr_download:function(req, res){
         console.log(`stderr: ${data}`)
     })
 
-    child.on('error', (error) => console.log('error: ${error.message}'))
+    child.on('error', (error) => console.log(`error: ${error.message}`))
 
     child.on('exit', (code, signal) => {
         if (code) console.log("Proceso termino con el codigo: ${code}")
