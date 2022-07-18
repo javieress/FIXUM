@@ -45,27 +45,7 @@
                         </div>
                         <div class="col-md-9">
                             <h6>
-                                <%= asset[0].dataValues.assetTypeName %>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="row align-items-center m-2">
-                        <div class="col-md-3">
-                            <h6 class="mb-0">Cantidad:</h6>
-                        </div>
-                        <div class="col-md-9">
-                            <h6>
-                                <%= asset[0].dataValues.quantity %>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="row align-items-center m-2">
-                        <div class="col-md-3">
-                            <h6 class="mb-0">Valor:</h6>
-                        </div>
-                        <div class="col-md-9">
-                            <h6>
-                                $<%= asset[0].dataValues.price %>
+                                <%= asset[0].dataValues.id_assetType %>
                             </h6>
                         </div>
                     </div>
@@ -75,7 +55,7 @@
                         </div>
                         <div class="col-md-9">
                             <h6>
-                                <%= asset[0].dataValues.location %>
+                                <%= asset[0].dataValues.id_location %>
                             </h6>
                         </div>
                     </div>
@@ -85,7 +65,7 @@
                         </div>
                         <div class="col-md-9">
                             <h6>
-                                <%= asset[0].dataValues.UserName %> <%= ' | '+ asset[0].dataValues.nameUser %> <%= asset[0].dataValues.lastName %>
+                                <%= asset[0].dataValues.id_users_in_charge %>
                             </h6>
                         </div>
                     </div>
@@ -104,19 +84,14 @@
                 <div class="row m-2">
                     <div class="col-md-3">
                         <div class="px-2 py-4">
-                            <!-- <button type="submit" class="btn btn-dark btn-lg">çModificar</button> -->
-                            <a href="/register/asset-edit/<%=asset[0].dataValues.id%>" class="btn btn-dark">Modificar</a>
+                            <button type="submit" class="btn btn-dark btn-lg">Modificar</button>
                         </div>
                     </div>
-                    <form action="/register/asset-delete/<%=asset[0].dataValues.id%>" method="post">
-                        <div class="col-md-3">
-                            <div class="px-2 py-4">
-                                <button type="submit" class="btn btn-danger btn-lg" >Eliminar</button>
-                                <!-- <a href="/register/asset-delete/<%=//asset[0].dataValues.id%>" class="btn btn-danger">Eliminar</a> -->
-                            </div>
+                    <div class="col-md-3">
+                        <div class="px-2 py-4">
+                            <button type="submit" class="btn btn-danger btn-lg">Eliminar</button>
                         </div>
-                    </form>
-                    
+                    </div>
                 </div>
             </div>
         </div>

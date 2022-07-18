@@ -2,8 +2,8 @@
 const nodemailer = require('nodemailer');
 
 //Credenciales del correo
-const user = 'fixumsoftware@gmail.com'
-const pass = 'xphdvtmdereqkpcd'
+const user = 'pitsasafras2@gmail.com'
+const pass = 'fqmgslczplfifknb'
 
 //Creamos el objeto de transporte
 let transporter = nodemailer.createTransport({
