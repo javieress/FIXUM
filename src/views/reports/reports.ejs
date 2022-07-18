@@ -9,16 +9,17 @@
 </head>
 <body>
     <%- include('../partials/navigation') %>
-    <div class="card border-dark m-2 d-flex justify-content-center align-items-center" style="max-width: 500px;" >
-        <div class="card-header"> Reportes </div>
-        <div class="card-body">
+    <div class="container h-100 justify-content-center" style="max-width: 400px;">
+        <div class="card mt-5">
+            <div class="card-header p-4">
+                <h3>Reportes</h3>
             </div>
             <div class="card-body">
                 <div class="row align-items-center justify-content-center m-2">
                     <div class="btn-group-vertical" role="group" style="max-width: 300px;">
-                        <a class="btn btn-dark btn  mt-1" href="/reports/last-10-added">Últimos 10 activos agregados</a>
-                        <a class="btn btn-dark btn  mt-1" href="#">Total activos</a>
-                        <a class="btn btn-dark btn mt-1" href="#">...</a>
+                        <a class="btn btn-outline-success mt-1" href="/reports/last-10-added">Últimos 10 activos agregados</a>
+                        <a class="btn btn-outline-success mt-1" href="#">Total activos</a>
+                        <a class="btn btn-outline-success mt-1" href="#">...</a>
                     </div>
                 </div>
             </div>
