@@ -54,7 +54,7 @@ const users=db.define('User', {
 module.exports = {
     list: async function () {
 
-        const userList=await users.findAll({attributes:['id_users','UserName','nameUser','last_name','typeUser','id_position']})    
+        const userList=await users.findAll({attributes:['id_users','UserName','nameUser','last_name','typeUser','id_position','email']})    
         return  userList
     },
     post: async function(req, res) {
