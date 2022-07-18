@@ -1,12 +1,12 @@
 const sequelize = require('sequelize');
-const {DataTypes,QueryTypes, Sequelize} = require('sequelize');
+const { DataTypes, QueryTypes, Sequelize } = require('sequelize');
 const db = require("../database/conection2");
 const Location = require('./Location');
 
 
-const asset=db.define('Asset', {
-    
-    id:{
+const asset = db.define('Asset', {
+
+    id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -14,37 +14,37 @@ const asset=db.define('Asset', {
     },
     id_assetType: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     },
     id_location: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     },
     id_users_in_charge: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     },
     asset_name: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     isActive: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     },
     description: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     price: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     },
     quantity: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     }
-    }
+}
 )
 
 module.exports = {

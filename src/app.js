@@ -11,8 +11,10 @@ const indexRouter = require('./routes/index')
 const registerRouter = require('./routes/registers')
 const reportsRouter = require('./routes/reports')
 const detailsRouter = require('./routes/details')
+const authsRouter = require('./routes/auth')
 const qrRouter = require('./routes/qr')
 const { builtinModules } = require('module')
+const session = require('express-session')
 
 // settings
 app.set('port', config.port) 
@@ -20,22 +22,31 @@ app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'views'))
 // controllers
 
+app.use(session({
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized:true
+}))
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+
 // routs
 app.use('/',indexRouter)
 app.use('/register',registerRouter)
 app.use('/reports',reportsRouter)
 app.use('/details',detailsRouter)
 app.use('/qr',qrRouter)
-
+app.use('/auth',authsRouter)
+app.use((err,req,res,next) => {
+    res.send('Ha ocurrido un error')
+})
 
 
 // app.use(express.urlencoded()); 
 // app.use(express.json());  
 
-app.post('/user-register',Auth.register)
+// app.post('/user-register',Auth.register)
 
 // static files
 app.use(express.static(path.join(__dirname,'public')))
