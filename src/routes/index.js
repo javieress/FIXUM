@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const qrController = require('../controllers/qr-reader.controller')
+const notificationsController = require('../controllers/notifications.controller')
 
 router.get('/',(req,res,next) => {
     res.render('index.ejs',{title: '  FIXUM'})
@@ -18,7 +18,18 @@ router.get('/user-profile',(req,res,next) => {
 router.get('/contact',(req,res,next) => {
     res.render('contact.ejs',{title: ' | Contacto'})
 })
-router.get('/scan',qrController.index)
+router.get('/scan',(req,res,next) => {
+    res.render('prueba_LectorQR.ejs',{title: ' | Lector QR', message: ''})
+})
+router.get('/notifications',notificationsController.get)
+
+//pruebas de home
+router.get('/homeA',(req,res,next) => {
+    res.render('home/homeAdmin.ejs',{title: ' | Home Admin'})
+})
+router.get('/homeU',(req,res,next) => {
+    res.render('home/homeUser.ejs',{title: ' | Home'})
+})
 
 
 
