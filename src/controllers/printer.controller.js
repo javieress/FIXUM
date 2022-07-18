@@ -2,9 +2,11 @@ const { render } = require("ejs");
 const { connected } = require("process");
 
 
+
 module.exports = {create_qr_download:function(req, res){
     console.log("hola xd");
 
+<<<<<<< HEAD
     const { spawn } = require('child_process');
 
     const child = spawn('python', ['-h']);
@@ -24,8 +26,9 @@ module.exports = {create_qr_download:function(req, res){
         if (signal) console.log("Proceso matado con la señal: ${signal}")
         console.log("Done :)");
     })
+=======
+>>>>>>> parent of 34fcf23 (.)
 
 
-
-    //res.render("./select_qr_to_print.ejs",{title: ' | Seleccionar Items para Imprimir'})
+    res.render("./select_qr_to_print.ejs",{title: ' | Seleccionar Items para Imprimir'})
 }}
