@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const userController = require('../controllers/user.controller')
+const mailController = require('../controllers/mail.controller')
 const assetController = require('../controllers/asset.controller')
 const assetTypeController = require('../controllers/asset-type.controller')
 const locationController = require('../controllers/location.controller')
@@ -38,5 +39,9 @@ router.get('/asset-type-edit/:id', async (req,res,next) => {
     res.render('./register/asset-type-edit.ejs',{title: ' | Edit', assetType: await assetTypeController.get(req,res), message: ''})
 })
 
+
+router.post('/contact',mailController.contact)
+
+router.post('/notification',mailController.adminNotification)
 
 module.exports = router

@@ -11,6 +11,7 @@ const authController = require('../auth/auth.controller')
 const {verifyToken, isAdmin} = require('../middlewares/authJwt')
 const User = require('../models/User');
 
+const notificationsController = require('../controllers/notifications.controller')
 
 router.get('/',(req,res,next) => {
     res.render('index.ejs',{title: '  FIXUM'})
@@ -30,7 +31,18 @@ router.get('/user-profile',(req,res,next) => {
 router.get('/contact',(req,res,next) => {
     res.render('contact.ejs',{title: ' | Contacto'})
 })
-router.get('/scan',qrController.index)
+router.get('/scan',(req,res,next) => {
+    res.render('prueba_LectorQR.ejs',{title: ' | Lector QR', message: ''})
+})
+router.get('/notifications',notificationsController.get)
+
+//pruebas de home
+router.get('/homeA',(req,res,next) => {
+    res.render('home/homeAdmin.ejs',{title: ' | Home Admin'})
+})
+router.get('/homeU',(req,res,next) => {
+    res.render('home/homeUser.ejs',{title: ' | Home'})
+})
 
 
 // solo prueba del creador de qr
