@@ -12,7 +12,7 @@ const db= new Sequelize('fixus-db', 'adinfinitum_SQLLogin_1', 'jync46vhxn', {
       acquire: 30000,
       idle: 10000
     },  
-    operatorsAliases: false,
+    //operatorsAliases: false,
   });
 
 

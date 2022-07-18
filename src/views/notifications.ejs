@@ -53,7 +53,7 @@
                                             </thead>
                                             <tbody>
                                                 <% for( let i in users) { 
-                                                    if (users[i].dataValues.UserName != "Predeterminado"){%>
+                                                    if (users[i].dataValues.id_users != 0){%>
                                                     <tr>
                                                         <th scope="row">
                                                             <%= users[i].dataValues.UserName %>

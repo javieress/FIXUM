@@ -16,16 +16,18 @@
         <div class="container mt-5">
             <div class="card" style="border-radius: 15px;">
                 <div class="card-header p-4 justify-content-center align-items-center">
-                    <h3>Agregar activo fijo</h3>
+                    <h3>Editar activo</h3>
                 </div>
-                <form action="/register/asset" method="post">
+                <form action="/register/asset-update" method="post">
                     <div class="card-body">
+                    
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
                                 <h6 class="mb-0">Nombre del activo</h6>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" name="new-asset-name" id="" class="form-control form-control-lg">
+                                <input type="hidden" name="new-asset-id" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.id%>">
+                                <input type="text" name="new-asset-name" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.asset_name%>">
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
@@ -37,7 +39,7 @@
                                     name="new-asset-assetType">
                                     <option selected>Elija una opción</option>
                                     <% for(let i in assetType) { %>
-                                        <option value="<%= assetType[i].dataValues.id %> ">
+                                        <option value="<%= assetType[i].dataValues.id %> "<% if (assetType[i].dataValues.id === asset[0].dataValues.id_assetType) {%>selected <% console.log('aqui')}  %>>
                                             <%= assetType[i].dataValues.assetType %>
                                         </option>
                                         <% } %>
@@ -49,7 +51,7 @@
                                 <h6 class="mb-0">Cantidad</h6>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" name="new-asset-quantity" id="typeNumber" class="form-control form-control-lg" min="0">
+                                <input type="number" name="new-asset-quantity" id="typeNumber" class="form-control form-control-lg" min="0" value="<%= asset[0].dataValues.quantity%>">
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
@@ -57,7 +59,7 @@
                                 <h6 class="mb-0">Valor</h6>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" name="new-asset-price" id="typeNumber" class="form-control form-control-lg" min="0">
+                                <input type="number" name="new-asset-price" id="typeNumber" class="form-control form-control-lg" min="0" value="<%= asset[0].dataValues.price%>">
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
@@ -69,7 +71,7 @@
                                     name="new-asset-location">
                                     <option selected>Elija una opción</option>
                                     <% for( let i in location ) { %>
-                                        <option value="<%=location[i].dataValues.id%> ">
+                                        <option value="<%=location[i].dataValues.id%> " <% if (location[i].dataValues.id === asset[0].dataValues.id_location) {%>selected <% console.log('aqui')}  %>>
                                             <%=location[i].dataValues.locations%>
                                         </option>
                                         <% } %>
@@ -86,9 +88,8 @@
                                     name="new-asset-userInCharge">
                                     <option selected>Elija una opción</option>
                                     <% for( let i in user ) { %>
-                                        <option value="<%= user[i].dataValues.id_users%> ">
-                                            <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' '
-                                                + user[i].dataValues.last_name %>
+                                        <option <% if (user[i].dataValues.id_users == asset[0].dataValues.id_users_in_charge) {%>selected <% console.log('aqui')}  %> value="<%= user[i].dataValues.id_users%>" >
+                                            <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' ' + user[i].dataValues.last_name %>
                                         </option>
                                         <% } %>
                                 </select>
@@ -100,13 +101,13 @@
                             </div>
                             <div class="col-md-9">
                                 <textarea name="new-asset-description" id="" cols="30" rows="5"
-                                    class="form-control"></textarea>
+                                    class="form-control" ><%=asset[0].dataValues.description%></textarea>
                             </div>
                         </div>
                     </div>
                     <hr class="mx-n3">
                     <div class="px-5 py-4">
-                        <button type="submit" class="btn btn-dark btn-lg">Registrar</button>
+                        <button type="submit" class="btn btn-dark btn-lg">Actualizar</button>
                     </div>
                 </form>
             </div>
