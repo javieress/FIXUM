@@ -39,13 +39,11 @@ const users=db.define('User', {
         type: DataTypes.STRING,
         allowNull:false
     },
-   
-    },
-    {
-        timestamps: false,
-        createdAt: false,
-        updatedAt: false
+    salt: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
+}
 )
 
 
@@ -54,46 +52,32 @@ const users=db.define('User', {
 module.exports = {
     list: async function () {
 
-        const userList=await users.findAll({attributes:['id_users','UserName','nameUser','last_name','typeUser','id_position']})    
-        return  userList
+        const userList = await users.findAll({ attributes: ['id_users', 'UserName', 'nameUser', 'last_name', 'typeUser', 'id_position', 'email'] })
+
+        return userList
     },
-    post: async function(req, res) {
-            
-        let rut=req.body['new-user-rut']
-        let username = req.body['new-user-username']  
+    post: async function (newUser) {
 
-        let name = req.body['new-user-name'].toLowerCase()
-        name = name.charAt(0).toUpperCase() + name.slice(1)
-
-        let lastName = req.body['new-user-lastName'].toLowerCase()
-        lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1)
-
-        let position = req.body['new-user-position']
-
-        let userType = req.body['new-user-userType']
-
-        let password = req.body['new-user-password']
-    
-        /** encripto contraseña */
-        const password1= await bcrypt.hash(password, saltRounds);
-        /** inserto datos usando el modelo users  */
         try {
-            await users.create(
-                {   id_users : rut, 
-                    UserName:username,
-                    pwd: password1,
-                    nameUser:name,
-                    last_name:lastName,
-                    id_position:position,
-                    typeUser:userType
+            return await users.create(
+                {
+                    id_users: newUser.rut,
+                    UserName: newUser.userName,
+                    pwd: newUser.password,
+                    nameUser: newUser.name,
+                    last_name: newUser.lastName,
+                    id_position: newUser.position,
+                    typeUser: newUser.userType,
+                    email: newUser.email,
+                    salt: newUser.salt,
                 }
             );
             
         } catch (error) {
             console.log(error.message);
-            
         }
-        return true;
+
+
 
     },
     findOneRut:async function (req,res) {
@@ -104,12 +88,36 @@ module.exports = {
         const userss= await users.findOne({ where: { UserName:req.body['new-user-username']}});
         return userss;
     },
-    get: function(username) {
-        const userList = user.list()
-        for (let i = 0; i < userList.length; i++) {
-            if (userList[i].username == username) {
-                return userList[i]
-            }           
+    get: async function (id) {
+        const userFound = await users.findAll({
+            where: {
+                id_users: id
+            }
+        })
+
+        return userFound
+    },
+    update: async function (req, res) {
+        console.log('poto');
+        console.log(req.body);
+        try {
+            await users.update({
+                nameUser: req.body['new-user-name'],
+                last_name: req.body['new-user-lastName'],
+                typeUser: req.body['new-user-userType'],
+                id_position: req.body['new-user-position'],
+                UserName: req.body['new-user-username'],
+                email: req.body['new-user-email'],
+            },
+                {
+                    where: {
+                        id_users: req.body['new-user-rut']
+                    }
+                })
+            return true
+        } catch (err) {
+            console.log(err)
+            return false
         }
         return null
     },
