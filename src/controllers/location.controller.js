@@ -21,12 +21,17 @@ module.exports={
         return await location.list()
     },
     post:function (req,res) {
-        let message = "La ubicación '"
-        if(location.post(req,res)){
-            message+= req.body['new-location-name'].toUpperCase() + "' se guardó con éxito."
-        }
-        else{
-            message+= req.body['new-location-name'].toUpperCase() + "' ya existe."
+        let message = ""
+        if(validationLocationName(req,res)){
+            if(location.post(req,res)){
+                message+= req.body['new-location-name'].toUpperCase() + "' se guardó con éxito."
+            }
+            else{
+                message+= 'Ocurrio un error'
+            }
+            
+        }else{
+            message+="Maximo de caracteres superado"
         }
         res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: message})
     },

@@ -19,12 +19,16 @@ module.exports = {
         return await assetType.list()
     },
     post: function (req, res) {
-        let message = "El tipo de activo '"
-        if (assetType.post(req, res)) {
-            message += req.body['new-asset-type-name'].toUpperCase() + "' se guardó con éxito."
-        }
-        else {
-            message += req.body['new-asset-type-name'].toUpperCase() + "' ya existe."
+        let message = ""
+        if(validationAssetType(req,res)){
+            if (assetType.post(req, res)) {
+                message += req.body['new-asset-type-name'].toUpperCase() + "' se guardó con éxito."
+            }
+            else {
+                message+="Ocurrio un error"
+            }
+        }else{
+            message+=" maximo de caracteres superado"
         }
         res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: message })
     },

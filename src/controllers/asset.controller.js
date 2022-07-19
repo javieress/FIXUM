@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const assetTypeController = require('../controllers/asset-type.controller')
 const locationController = require('../controllers/location.controller')
 const userController = require('../controllers/user.controller')
-const alertify = require('alertifyjs')
+
 
 
 function validationAssetName(req,res){
@@ -48,24 +48,27 @@ module.exports={
         return await asset.list()
     },
     post: async function (req,res) {
-        //let message='El Activo'
+        //let message=''
         if(validationAssetName(req,res)&&validationQuantity(req,res)&&validationPrice(req,res)&&validationDescription(req,res)){
             if(asset.post(req,res)){
-                //lertify.success("Activo guardado con exito")
-                //message+= req.body['new-asset-name'].toUpperCase() + "' se guardó con éxito."
-                res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
+               //message+="Activo Registrado correctamente"
+            res.render('./register/asset-register.ejs',{title: ' | Registro de Activo',message: message, location: locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
+
+               
 
             }
             else{
-                //message+= req.body['new-asset-name'].toUpperCase() + "' no se  guardó "
-                //alertify.alert("error al ingresar los datos")
-                res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
+               // message+="Ocurrio un error al registrar activo"
+               res.redirect('/')
                 
             }
         }
         else{
-            
+            //message+="Verifique la cantidad de caracteres ingresados en cada seccion"
+            res.redirect('/')
         }
+
+    
 
     },
     last10Added: async function (){

@@ -45,6 +45,14 @@ function validationLastName(req,res){
     }
     return false;
 }
+function validationPwd(req,res){
+
+    if(req.body['new-user-password'].length>=0 && req.body['new-user-password'].length<=12){
+        return true;
+    }
+    return false;
+}
+
 
 
 
@@ -63,7 +71,7 @@ module.exports={
     post:async function (req,res) {
         let message = "El usuario '"
 
-        if(Fn.validaRut(req.body['new-user-rut']) && validationUserLenght(req,res)){
+        if(Fn.validaRut(req.body['new-user-rut']) && validationUserLenght(req,res)&&validationName(req,res)&&validationLastName(req,res)&&validationPwd(req,res)){
 
             const user_esta = await user.findOneRut(req,res) || await user.findOneUserName(req,res);
             if(user_esta!=null){
@@ -75,11 +83,13 @@ module.exports={
             
             }
         }else{
-            message+=req.body['new-user-username']+ "'no es valido";
+            message+= "'Error en datos ingresados,intentelo nuevamente";
             
         }
-
         res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,userPosition: await userPositionList.list()})
+    
+
+       
     },
     get: async function(req,res){
         return await user.get(req,res)
