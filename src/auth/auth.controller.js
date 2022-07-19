@@ -72,6 +72,10 @@ const Auth = {
             res.send(e.message)
         }
     },
+    logout: async(req,res,next) => {
+        await req.session.destroy()
+        res.redirect('/')
+    }
 }
 
 module.exports = {Auth, isAuthenticated}

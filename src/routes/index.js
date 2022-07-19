@@ -22,8 +22,10 @@ router.get('/login',async (req,res,next) => {
     const navBar = await navigationBar(req)
     res.render('login.ejs',{title: ' | Login',message: '', navBar: navBar })
 })
-router.get('/log', async (req,res,next) => authController.Auth.login(req,res), async (req,res,next) => res.redirect('/')
-)
+
+router.get('/logout',async (req,res,next) => {
+    authController.Auth.logout(req,res,next)
+})
 
 router.get('/admin-profile',verifyToken,isAdmin,async (req,res,next)=> {
     const navBar = await navigationBar(req)

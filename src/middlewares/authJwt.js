@@ -61,9 +61,8 @@ const navigationBar = async (req, res, next) => {
     catch(err){
         console.log(err);
     }
-    return 'partials/navigation'
+    return 'partials/navigation0'
     
-
 }
 
 module.exports = {verifyToken, isAdmin, isUser , navigationBar}
