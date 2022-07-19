@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 
 const {Auth, isAuthenticated} = require('./auth/auth.controller.js')
 
-const app = express()
 
 const indexRouter = require('./routes/index')
 const registerRouter = require('./routes/registers')
@@ -15,19 +14,41 @@ const authsRouter = require('./routes/auth')
 const qrRouter = require('./routes/qr')
 const editRouter=require('./routes/edit')
 const { builtinModules } = require('module')
-const session = require('express-session')
+// const session = require('express-session')
 
+var session = require('express-session');
+var MSSQLStore = require('connect-mssql')(session);
+
+
+const app = express()
 // settings
 app.set('port', config.port) 
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'views'))
 // controllers
 
+var dbConfig = {
+    user: 'adinfinitum_SQLLogin_1',
+    password: 'jync46vhxn',
+    server: 'fixus-db.mssql.somee.com', // You can use 'localhost\\instance' to connect to named instance
+    database: 'fixus-db',
+
+}
+
 app.use(session({
+    store: new MSSQLStore(dbConfig), // options are optional
     secret: process.env.SECRET,
-    resave: true,
-    saveUninitialized:true
-}))
+    resave: false,
+    saveUninitialized: false,
+}));
+
+
+
+// app.use(session({
+//     secret: process.env.SECRET,
+//     resave: true,
+//     saveUninitialized:true
+// }))
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
