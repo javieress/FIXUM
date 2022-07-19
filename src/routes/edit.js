@@ -12,16 +12,16 @@ const auth = require ('../middlewares/authJwt')
 
 
 
-router.get('/location',async (req,res,next)=>{
+router.get('/location',auth.verifyToken,auth.isAdmin,async (req,res,next)=>{
     res.render('./edits/location.ejs',{title: ' | Edit ',locations:await locationController.list(), navBar: await auth.navigationBar(req)})
 })
-router.get('/AssetTypes',async (req,res,next)=>{
+router.get('/AssetTypes',auth.verifyToken,auth.isAdmin,async (req,res,next)=>{
     res.render('./edits/AssetTypes.ejs',{title: ' | Edit ',AssetTypes:await assetTypeController.list(), navBar: await auth.navigationBar(req)})
 })
-router.get('/Users',async (req,res,next)=>{
+router.get('/Users',auth.verifyToken,auth.isAdmin,async (req,res,next)=>{
     res.render('./edits/Users.ejs',{title: ' | Edit ',Users:await userController.list(), navBar: await auth.navigationBar(req)})
 })
-router.get('/Assets',async (req,res,next)=>{
+router.get('/Assets',auth.verifyToken,auth.isAdminOrUser,async (req,res,next)=>{
     res.render('./edits/Assets.ejs',{title: ' | Edit ',Assets:await assetController.list(), navBar: await auth.navigationBar(req)})
 })
 
