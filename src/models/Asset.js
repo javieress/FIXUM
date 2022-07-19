@@ -84,6 +84,7 @@ module.exports = {
     },
     delete: async function (req, res) {
         const {id} = req.params
+        console.log(id)
         try {
             await asset.destroy({
                 where: {

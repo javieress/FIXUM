@@ -70,12 +70,12 @@ module.exports={
         
     },
     delete: async function (req,res){
-        console.log('yyyyyy');
+        console.log(req)
         const deleted = await asset.delete(req,res)
         if (deleted){
-            res.redirect('/')
+            res.redirect('/edit/Assets')
         }else{
-            res.redirect('/')
+            res.redirect('/edit/Assets')
 
         }
          

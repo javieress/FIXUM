@@ -17,7 +17,7 @@ router.get('/user-edit/:id', async (req,res,next) => {
 
 router.get('/asset',assetController.index)
 router.post('/asset',assetController.post)
-router.post('/asset-delete/:id',assetController.delete)
+router.get('/asset-delete/:id',assetController.delete)
 router.post('/asset-update',assetController.update)
 router.get('/asset-edit/:id', async (req,res,next)=> {
     res.render('./register/asset-edit.ejs',{title: ' | Edit', asset: await assetController.get(req,res),message: '',location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list()})
