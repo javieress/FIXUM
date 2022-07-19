@@ -41,19 +41,26 @@ const isUser = async (req,res,next) => {
     return res.status(403).redirect('/')
 }
 const navigationBar = async (req, res, next) => {
-    const token = req.session.token
-    if (!token) return 'partials/navigationNotlogged'
-    else {
-        const decoded = jwt.verify(token, process.env.SECRET)
-        req.userId = decoded._id
+    try{
+        const token = req.session.token
+        if (!token) return 'partials/navigationNotlogged'
+        else {
+            const decoded = jwt.verify(token, process.env.SECRET)
+            req.userId = decoded._id
+        }
+        const user = await User.get(req.userId)
+        if (user[0].dataValues.typeUser == 1) {
+            return 'partials/navigationAdmin'
+        }
+        else if (user[0].dataValues.typeUser == 0) {
+            return 'partials/navigationUser'
+        }
     }
-    const user = await User.get(req.userId)
-    if (user[0].dataValues.typeUser == 1) {
-        return 'partials/navigationAdmin'
+    catch(err){
+        console.log(err);
+        return 'partials/navigationNotlogged'
     }
-    else if (user[0].dataValues.typeUser == 0) {
-        return 'partials/navigationUser'
-    }
+    
 
 }
 
