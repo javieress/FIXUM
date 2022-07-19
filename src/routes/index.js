@@ -14,7 +14,8 @@ const User = require('../models/User');
 const notificationsController = require('../controllers/notifications.controller')
 
 router.get('/',async (req,res,next) => {
-    res.render('index.ejs',{title: '  FIXUM', navBar: await navigationBar(req)})
+    const navBar = await navigationBar(req)
+    res.render('index.ejs',{title: '  FIXUM', navBar: navBar })
 })
 
 router.get('/login',async (req,res,next) => {
