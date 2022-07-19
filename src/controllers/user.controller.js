@@ -24,6 +24,30 @@ const Fn = {
 	}
 }
 
+function validationUserLenght(req,res){
+
+    if(req.body['new-user-username'].length<=50 && req.body['new-user-username'].length>=1){
+        return true;
+    }
+    return false;
+}
+function validationName(req,res){
+
+    if(req.body['new-user-name'].length<=20 && req.body['new-user-name'].length>=1){
+        return true;
+    }
+    return false;
+}
+function validationLastName(req,res){
+
+    if(req.body['new-user-lastName'].length<=20 && req.body['new-user-lastName'].length>=1){
+        return true;
+    }
+    return false;
+}
+
+
+
 
 
 
@@ -39,10 +63,9 @@ module.exports={
     post:async function (req,res) {
         let message = "El usuario '"
 
-        if(Fn.validaRut(req.body['new-user-rut']) && (req.body['new-user-username'].length==10 || req.body['new-user-username'].length==9)){
+        if(Fn.validaRut(req.body['new-user-rut']) && validationUserLenght(req,res)){
 
             const user_esta = await user.findOneRut(req,res) || await user.findOneUserName(req,res);
-            console.log(user_esta)
             if(user_esta!=null){
                 message+=req.body['new-user-username']+ "'ya existe.";
             }
@@ -59,19 +82,38 @@ module.exports={
         res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,userPosition: await userPositionList.list()})
     },
     get: async function(req,res){
-        console.log(await user.get(req,res));
         return await user.get(req,res)
     },
     update: async function (req, res) {
-        // const exist = await user.get(req,res)
-        // console.log(exist);
-        const updated = await user.update(req, res)
-        if (updated) {
-            res.redirect('/')
+        if(validationUserLenght(req,res)&&validationName(req,res)&&validationLastName(req,res)){
+            const user_esta = await user.findOneUserName(req,res);
+            if(user_esta!=null){
+                res.redirect('/register/user-edit/'+req.body['new-user-rut'])
+            }
+            else{
+                const updated = await user.update(req, res)
+
+                if (updated) {
+                    res.redirect('/edit/Users')
+                }
+                else {
+                    res.redirect('/register/user-edit/'+req.body['new-user-rut'])
+                }
+                
+            
+            }
         }
-        else {
-            res.redirect('/')
-        }
+        else{
+            res.redirect('/register/user-edit/'+req.body['new-user-rut'])
+        } 
+        
+    
+            
+        
+
+
+       
+      
         
     },
     delete:async function(req,res){

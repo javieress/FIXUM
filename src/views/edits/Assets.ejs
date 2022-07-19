@@ -26,6 +26,7 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Nombre</th>
+                                    <th scope="col">Cantidad</th>
                                     <th scope='col'>Opciones</th>
                                 </tr>
                             </thead>
@@ -35,8 +36,13 @@
                                         <th scope="row">
                                             <%= Assets[i].id %>
                                         </th>
+                                        
                                         <td> 
                                             <%= Assets[i].asset_name %>
+                                        </td>
+
+                                        <td >
+                                            <%= Assets[i].quantity %>
                                         </td>
                                       
                                         <td>

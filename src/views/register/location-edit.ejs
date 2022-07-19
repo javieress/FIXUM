@@ -28,12 +28,12 @@
                                     </div>
                                     <div class="col-md-9 pe-5">
                                         <input id='new-location-id' type="hidden" class="form-control form-control-lg" name='new-location-id' value="<%=location[0].dataValues.id%>"/>
-                                        <input id='new-location-name' type="text" class="form-control form-control-lg" name='new-location-name'value="<%=location[0].dataValues.locations%>"/>
+                                        <input id='new-location-name' type="text" class="form-control form-control-lg" name='new-location-name'value="<%=location[0].dataValues.locations%>"  maxlength="50"/>
                                     </div>
                                 </div>
                                 <hr class="mx-n3">
                                 <div class="px-5 py-4">
-                                    <button type="submit" class="btn btn-dark btn-lg">Registrar</button>
+                                    <button type="submit" class="btn btn-dark btn-lg">Actualizar</button>
                                 </div>
                                 <div class="px-5 py-4"><%-message%></div>
                             </form>

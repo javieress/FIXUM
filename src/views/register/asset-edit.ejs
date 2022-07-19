@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-9">
                                 <input type="hidden" name="new-asset-id" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.id%>">
-                                <input type="text" name="new-asset-name" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.asset_name%>">
+                                <input type="text" name="new-asset-name" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.asset_name%>"  maxlength="50">
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
@@ -51,7 +51,7 @@
                                 <h6 class="mb-0">Cantidad</h6>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" name="new-asset-quantity" id="typeNumber" class="form-control form-control-lg" min="0" value="<%= asset[0].dataValues.quantity%>">
+                                <input type="number" name="new-asset-quantity" id="typeNumber" class="form-control form-control-lg" min="0"value="<%= asset[0].dataValues.quantity%>" max="100000">
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
@@ -59,7 +59,7 @@
                                 <h6 class="mb-0">Valor</h6>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" name="new-asset-price" id="typeNumber" class="form-control form-control-lg" min="0" value="<%= asset[0].dataValues.price%>">
+                                <input type="number" name="new-asset-price" id="typeNumber" class="form-control form-control-lg" min="0" max="9999999999"value="<%= asset[0].dataValues.price%>">
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
