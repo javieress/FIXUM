@@ -16,6 +16,7 @@ const notificationsController = require('../controllers/notifications.controller
 router.get('/',async (req,res,next) => {
     res.render('index.ejs',{title: '  FIXUM', navBar: await navigationBar(req)})
 })
+
 router.get('/login',async (req,res,next) => {
     res.render('login.ejs',{title: ' | Login',message: '', navBar: await navigationBar(req)})
 })
