@@ -54,6 +54,17 @@ module.exports = {
 
         }
         
-    }
+    },
+    delete: async function (req,res){
+        const deleted = await assetType.delete(req,res)
+        if (deleted){
+            res.redirect('/edit/AssetTypes')
+        }else{
+            res.redirect('/edit/AssetTypes')
+
+        }
+         
+    },
+
 
 }

@@ -50,6 +50,16 @@ module.exports={
         }
         
     },
+    delete: async function (req,res){
+        const deleted = await location.delete(req,res)
+        if (deleted){
+            res.redirect('/edit/location')
+        }else{
+            res.redirect('/edit/location')
+
+        }
+         
+    },
     get: async function (req, res) {
         return await location.get(req, res)
     }
