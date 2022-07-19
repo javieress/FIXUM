@@ -124,12 +124,21 @@ module.exports = {
     update: function (req, res) {
 
     },
-    delete: function (req, res) {
-        // const name = req.body['user-name']
-        // const exist = userList.includes(name)
-        // if(exist){
-        //     userList = userList.filter((item) =>item !== name)
-        // }
-        // return exist
+    delete: async function (req, res) {
+        const {id} = req.params
+        try {
+            await users.destroy({
+                where: {
+                  id_users: id
+                }
+              });
+              return true
+        } catch (error) {
+           console.log(error)
+           return false
+        }
+        
     }
+        
+    
 }
