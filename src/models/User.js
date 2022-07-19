@@ -1,47 +1,43 @@
 // import { DataTypes } from 'sequelize';
 // import db from "../database/conection2";
 
-const { DataTypes } = require('sequelize');
+const {DataTypes} = require('sequelize');
 const db = require("../database/conection2")
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
-const users = db.define('User', {
-
+const users=db.define('User', {
+    
     id_users: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true
+        primaryKey:true
     },
     pwd: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     },
     nameUser: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     },
     last_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     },
     id_position: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     },
     typeUser: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull:false
     },
     UserName: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     },
     salt: {
         type: DataTypes.STRING,
@@ -76,7 +72,7 @@ module.exports = {
                     salt: newUser.salt,
                 }
             );
-
+            
         } catch (error) {
             console.log(error.message);
         }
@@ -84,12 +80,12 @@ module.exports = {
 
 
     },
-    findOneRut: async function (req, res) {
-        const user_Creado = await users.findOne({ where: { id_users: req.body['new-user-rut'] } });
+    findOneRut:async function (req,res) {
+        const user_Creado= await users.findOne({ where: { id_users:req.body['new-user-rut']}});
         return user_Creado;
     },
-    findOneUserName: async function (req, res) {
-        const userss = await users.findOne({ where: { UserName: req.body['new-user-username'] } });
+    findOneUserName:async function (req,res) {
+        const userss= await users.findOne({ where: { UserName:req.body['new-user-username']}});
         return userss;
     },
     get: async function (id) {
@@ -123,6 +119,10 @@ module.exports = {
             console.log(err)
             return false
         }
+        return null
+    },
+    update: function (req, res) {
+
     },
     delete: function (req, res) {
         // const name = req.body['user-name']
