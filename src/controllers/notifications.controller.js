@@ -4,8 +4,4 @@ module.exports={
     get: async function(req,res){
         res.render('notifications.ejs',{title: ' | Avisos', users: await userController.list(), message : ""})
     },    
-    tabla: async function(req,res){
-        res.render('pruebaPaginacion.ejs',{title: ' | tabla', users: await userController.list(), message : ""})
-    }    
-
 }

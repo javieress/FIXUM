@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('../partials/head') %>
-        <title>
-            <%= title %>
-        </title>
+    <title> <%= title %></title>
+    <script src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
+    <script src="../js/table.js"></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table id="tabla" class="table table-hover display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col">Ubicacion</th>
