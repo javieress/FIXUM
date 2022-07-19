@@ -55,21 +55,8 @@ module.exports = {
         }
         return true;
     },
-    update: async function(req,res){
-        console.log(req.body)
+    update: function(req,res){
 
-        try{
-            await assetTypes.update({ assetType: req.body['new-asset-type-name'] }, {
-                where: {
-                  id: req.body['new-asset-type-id']
-                }
-              })
-            return true
-        }catch(err){
-            console.log(err)
-            return false
-        }
-        
     },
     delete: function(req,res){
         const name = req.body['asset-type-name']

@@ -19,45 +19,29 @@
                     <h3>Últimos 10 activos agregados</h3>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tipo</th>
+                                <!-- <th scope="col">Ubicación</th> -->
+                                <th scope="col">Encargado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for( let i in last10AssetAdded) { %>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Tipo</th>
-                                    <!-- <th scope="col">Ubicación</th> -->
-                                    <th scope="col">Encargado</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th scope="row"><%= last10AssetAdded[i].dataValues.id %></th>
+                                    <td><%= last10AssetAdded[i].dataValues.asset_name %></td>
+                                    <td><%= last10AssetAdded[i].dataValues.id_assetType %></td>
+                                    <!-- <td><%= //last10AssetAdded[i].location %></td> -->
+                                    <td><%= last10AssetAdded[i].dataValues.id_users_in_charge %></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <% for( let i in last10AssetAdded[0]) { %>
-                                    <tr>
-                                        <th scope="row">
-                                            <%= last10AssetAdded[0][i].id %>
-                                        </th>
-                                        <td>
-                                            <%= last10AssetAdded[0][i].asset_name %>
-                                        </td>
-                                        <td>
-                                            <%= last10AssetAdded[0][i].assetType %>
-                                        </td>
-                                        <td>
-                                            <%= last10AssetAdded[0][i].UserName %>
-                                                <%= ' | ' + last10AssetAdded[0][i].nameUser %>
-                                                    <%= last10AssetAdded[0][i].last_name %>
-                                        </td>
-                                        <td>
-                                            <%= last10AssetAdded[0][i].quantity %>
-                                        </td>
-                                    </tr>
 
-                                    <% } %>
-
-                            </tbody>
-                        </table>
-                    </div>
+                                <% } %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
