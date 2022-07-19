@@ -45,6 +45,10 @@ router.get('/homeU',(req,res,next) => {
 })
 
 
+
+router.get('/tabla',notificationsController.tabla)
+
+
 // solo prueba del creador de qr
 router.get('/qr-generator',(req,res,next) => {
     // res.render('qr-code-generator.ejs',{title: 'FIXUM'})
