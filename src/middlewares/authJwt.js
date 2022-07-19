@@ -58,8 +58,8 @@ const navigationBar = async (req, res, next) => {
     }
     catch(err){
         console.log(err);
-        return 'partials/navigationNotlogged'
     }
+    return 'partials/navigationNotlogged'
     
 
 }
