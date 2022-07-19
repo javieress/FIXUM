@@ -8,7 +8,7 @@ const { expressjwt: expressJwt } = require("express-jwt");
 const qrController = require('../controllers/qr-reader.controller')
 const userController = require('../controllers/user.controller');
 const authController = require('../auth/auth.controller')
-const {verifyToken, isAdmin ,navigationBar} = require('../middlewares/authJwt')
+const {verifyToken, isAdmin ,navigationBar,isAdminOrUser,isUser} = require('../middlewares/authJwt')
 const User = require('../models/User');
 
 const notificationsController = require('../controllers/notifications.controller')

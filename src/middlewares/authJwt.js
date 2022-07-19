@@ -22,26 +22,54 @@ const verifyToken = async (req, res, next) => {
     }
 }
 
-const isAdmin = async (req,res,next) => {
-    const user = await User.get(req.userId)
-    if (user[0].dataValues.typeUser == 1){
-        next()
-        return 
+const isAdmin = async (req, res, next) => {
+    try {
+        const user = await User.get(req.userId)
+        if (user[0].dataValues.typeUser == 1) {
+            next()
+            return
+        }
+        // return res.status(403).json({message: 'No es Admin'})
+        return res.status(403).redirect('/')
+    } catch (error) {
+        console.log(error);
+        return res.status(403).redirect('/')
+
     }
-    // return res.status(403).json({message: 'No es Admin'})
-    return res.status(403).redirect('/')
+
 }
-const isUser = async (req,res,next) => {
-    const user = await User.get(req.userId)
-    if (user[0].dataValues.typeUser == 0){
-        next()
-        return 
+const isUser = async (req, res, next) => {
+    try {
+        const user = await User.get(req.userId)
+        if (user[0].dataValues.typeUser == 0) {
+            next()
+            return
+        }
+        // return res.status(403).json({message: 'No es Admin'})
+        return res.status(403).redirect('/')
+    } catch (error) {
+        console.log(error);
+        return res.status(403).redirect('/')
     }
-    // return res.status(403).json({message: 'No es Admin'})
-    return res.status(403).redirect('/')
+
+}
+const isAdminOrUser = async (req, res, next) => {
+    try {
+        const user = await User.get(req.userId)
+        if ((user[0].dataValues.typeUser == 1) || (user[0].dataValues.typeUser == 0)) {
+            next()
+            return
+        }
+        // return res.status(403).json({message: 'No es Admin'})
+        return res.status(403).redirect('/')
+    } catch (error) {
+        console.log(error);
+        return res.status(403).redirect('/')
+    }
+
 }
 const navigationBar = async (req, res, next) => {
-    try{
+    try {
         const token = req.session.token
         if (!token) return 'partials/navigationX'
         else {
@@ -58,11 +86,11 @@ const navigationBar = async (req, res, next) => {
             return 'partials/navigation0'
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
     return 'partials/navigation0'
-    
+
 }
 
-module.exports = {verifyToken, isAdmin, isUser , navigationBar}
+module.exports = {verifyToken, isAdmin, isUser , navigationBar, isAdminOrUser}
