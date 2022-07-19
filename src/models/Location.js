@@ -73,13 +73,20 @@ module.exports = {
             return false
         }
     },
-    delete: function(req,res){
-        const name = req.body['asset-type-name']
-        const exist = locationList.includes(name)
-        if(exist){
-            locationList = locationList.filter((item) =>item !== name)
+    delete: async function(req,res){
+        const {id} = req.params
+        try {
+            await locations.destroy({
+                where: {
+                  id: id
+                }
+              });
+              return true
+        } catch (error) {
+           console.log(error)
+           return false
         }
-        return exist
+       
     },
     get: async function(req,res){
         const {id} = req.params

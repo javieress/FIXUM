@@ -71,13 +71,20 @@ module.exports = {
         }
         
     },
-    delete: function(req,res){
-        const name = req.body['asset-type-name']
-        const exist = assetTypeList.includes(name)
-        if(exist){
-            assetTypeList = assetTypeList.filter((item) =>item !== name)
+    delete: async function(req,res){
+        const {id} = req.params
+        try {
+            await assetTypes.destroy({
+                where: {
+                  id: id
+                }
+              });
+              return true
+        } catch (error) {
+           console.log(error)
+           return false
         }
-        return exist
+
     },
     TotalByAssetsTypes: async function(){
         const totalAssetTypes=await db.query('select AssetTypes.assetType,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from  Assets inner join AssetTypes on AssetTypes.id=Assets.id_assetType group by AssetTypes.assetType')

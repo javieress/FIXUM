@@ -67,32 +67,22 @@ module.exports={
         // console.log(exist);
         const updated = await user.update(req, res)
         if (updated) {
-            // const userUpdated =
-            //     [
-            //         {
-            //             dataValues:
-            //             {
-            //                 id: req.body['new-location-id'],
-            //                 locations: ''
-            //             }
-            //         }]
-            // res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Editado con éxito' })
             res.redirect('/')
         }
         else {
-            // const userUpdated =
-            //     [
-            //         {
-            //             dataValues:
-            //             {
-            //                 id: req.body['new-location-id'],
-            //                 locations: ''
-            //             }
-            //         }]
-            // res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'No se puedo editar' })
             res.redirect('/')
         }
         
+    },
+    delete:async function(req,res){
+        const deleted = await user.delete(req,res)
+        if (deleted){
+            res.redirect('/edit/Users')
+        }else{
+            res.redirect('/edit/Users')
+
+        }
+
     }
 
 }
