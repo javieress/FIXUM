@@ -44,11 +44,6 @@ router.get('/homeU',async (req,res,next) => {
     res.render('home/homeUser.ejs',{title: ' | Home', navBar: await navigationBar(req)})
 })
 
-
-
-router.get('/tabla',notificationsController.tabla)
-
-
 // solo prueba del creador de qr
 router.get('/qr-generator',async (req,res,next) => {
     // res.render('qr-code-generator.ejs',{title: 'FIXUM'})
