@@ -13,6 +13,7 @@ const reportsRouter = require('./routes/reports')
 const detailsRouter = require('./routes/details')
 const authsRouter = require('./routes/auth')
 const qrRouter = require('./routes/qr')
+const editRouter=require('./routes/edit')
 const { builtinModules } = require('module')
 const session = require('express-session')
 
@@ -41,6 +42,8 @@ app.use('/auth',authsRouter)
 app.use((err,req,res,next) => {
     res.send('Ha ocurrido un error')
 })
+app.use('/edit',editRouter)
+
 
 
 // app.use(express.urlencoded()); 

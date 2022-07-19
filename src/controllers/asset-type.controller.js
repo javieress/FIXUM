@@ -20,6 +20,9 @@ module.exports = {
         }
         res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: message })
     },
+    TotalByAssetsTypes: async function(){
+        return await assetType.TotalByAssetsTypes()
+    },
     get: async function (req, res) {
         return await assetType.get(req, res)
     },
