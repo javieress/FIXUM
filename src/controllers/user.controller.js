@@ -28,6 +28,38 @@ const Fn = {
 	}
 }
 
+function validationUserLenght(req,res){
+
+    if(req.body['new-user-username'].length<=50 && req.body['new-user-username'].length>=1){
+        return true;
+    }
+    return false;
+}
+function validationName(req,res){
+
+    if(req.body['new-user-name'].length<=20 && req.body['new-user-name'].length>=1){
+        return true;
+    }
+    return false;
+}
+function validationLastName(req,res){
+
+    if(req.body['new-user-lastName'].length<=20 && req.body['new-user-lastName'].length>=1){
+        return true;
+    }
+    return false;
+}
+function validationPwd(req,res){
+
+    if(req.body['new-user-password'].length>=0 && req.body['new-user-password'].length<=12){
+        return true;
+    }
+    return false;
+}
+
+
+
+
 
 
 
@@ -49,19 +81,17 @@ module.exports={
        
         const {body} = req
 
-        if(!Fn.validaRut(body['new-user-rut'])){
-            return res.status(400).send('Rut inválido')
-        }
-        try{
+        if(Fn.validaRut(req.body['new-user-rut']) && validationUserLenght(req,res)&&validationName(req,res)&&validationLastName(req,res)&&validationPwd(req,res)){
 
-            const isUserName = await user.get(body['new-user-username'])
-            const isUserRut = await user.get(body['new-user-rut'])
-            
-            if(isUserName[0]){
-                return res.status(400).send('Username ya existe')
+            const user_esta = await user.findOneRut(req,res) || await user.findOneUserName(req,res);
+            if(user_esta!=null){
+                message+=req.body['new-user-username']+ "'ya existe.";
             }
-            else if (isUserRut[0]){
-                return res.status(400).send('Rut ya existe')
+            else{
+                user.post(req,res)//llamo a funcion post para que cree usuario
+                message+= req.body['new-user-username'] + "' se guardó con éxito."
+            
+            
             }
             const salt = await bcrypt.genSalt()
             const hashed = await bcrypt.hash(body['new-user-password'],salt)
@@ -93,11 +123,15 @@ module.exports={
             res.status(201).send({token: token})
             console.log(createdUser);
 
-        }catch(err){
-            console.log(err)
-        }
 
+        }else{
+            message+= "'Error en datos ingresados,intentelo nuevamente";
+            
+        }
         res.render('./register/user-register.ejs',{title: 'FIXUM',message: message,userPosition: await userPositionList.list()})
+    
+
+       
     },
     get: async function(req,res){
         
@@ -113,15 +147,35 @@ module.exports={
         return await user.get(id)
     },
     update: async function (req, res) {
-        // const exist = await user.get(req,res)
-        // console.log(exist);
-        const updated = await user.update(req, res)
-        if (updated) {
-            res.redirect('/')
+        if(validationUserLenght(req,res)&&validationName(req,res)&&validationLastName(req,res)){
+            const user_esta = await user.findOneUserName(req,res);
+            if(user_esta!=null){
+                res.redirect('/register/user-edit/'+req.body['new-user-rut'])
+            }
+            else{
+                const updated = await user.update(req, res)
+
+                if (updated) {
+                    res.redirect('/edit/Users')
+                }
+                else {
+                    res.redirect('/register/user-edit/'+req.body['new-user-rut'])
+                }
+                
+            
+            }
         }
-        else {
-            res.redirect('/')
-        }
+        else{
+            res.redirect('/register/user-edit/'+req.body['new-user-rut'])
+        } 
+        
+    
+            
+        
+
+
+       
+      
         
     },
     delete:async function(req,res){

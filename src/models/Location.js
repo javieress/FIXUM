@@ -58,7 +58,6 @@ module.exports = {
         return true;
     },
     update: async function(req,res){
-        console.log(req.body)
 
         try{
             await locations.update({ locations: req.body['new-location-name'] }, {

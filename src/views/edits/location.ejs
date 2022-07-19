@@ -30,7 +30,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for( let i in locations) { %>
+                                <% for( let i in locations) {
+                                    if(locations[i].locations!='SIN ASIGNAR'){%>
                                     <tr>
                                         <th scope="row">
                                             <%= locations[i].id %>
@@ -46,7 +47,7 @@
                                         </td>
                                     </tr>
 
-                                    <% } %>
+                                    <% }} %>
 
                             </tbody>
                         </table>

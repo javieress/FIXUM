@@ -35,14 +35,14 @@ async function Categorias(){
 module.exports = {
     list: async function(){
         const assetTypeList = await assetTypes.findAll()
-        console.log(assetTypeList)
+        
         return assetTypeList;
         
     },
     post: async function(req,res){
         let assetTypeName = req.body['new-asset-type-name'].toLowerCase()
         assetTypeName = assetTypeName.charAt(0).toUpperCase() + assetTypeName.slice(1)
-        console.log(assetTypeName)
+       
         try {
              await assetTypes.create(
                 {
@@ -56,7 +56,7 @@ module.exports = {
         return true;
     },
     update: async function(req,res){
-        console.log(req.body)
+        
 
         try{
             await assetTypes.update({ assetType: req.body['new-asset-type-name'] }, {
@@ -93,13 +93,12 @@ module.exports = {
     },
     get: async function(req,res){
         const {id} = req.params
-        console.log(id)
         const assetTypeFound = await assetTypes.findAll({
             where: {
                 id: id
             }
         })
-        console.log(assetTypeFound)
+
         return assetTypeFound
     }
 }
