@@ -49,26 +49,30 @@ module.exports={
     },
     post: async function (req,res) {
         //let message=''
-        if(validationAssetName(req,res)&&validationQuantity(req,res)&&validationPrice(req,res)&&validationDescription(req,res)){
-            if(asset.post(req,res)){
-               //message+="Activo Registrado correctamente"
-            res.render('./register/asset-register.ejs',{title: ' | Registro de Activo',message: message, location: locationController.list(), assetType: assetTypeController.list(),user: userController.list()})
+        try {
+            if (validationAssetName(req, res) && validationQuantity(req, res) && validationPrice(req, res) && validationDescription(req, res)) {
+                if (asset.post(req, res)) {
+                    //message+="Activo Registrado correctamente"
+                    res.render('./register/asset-register.ejs', { title: ' | Registro de Activo', message: message, location: locationController.list(), assetType: assetTypeController.list(), user: userController.list() })
 
-               
 
+
+                }
+                else {
+                    // message+="Ocurrio un error al registrar activo"
+                    res.redirect('/')
+
+                }
             }
-            else{
-               // message+="Ocurrio un error al registrar activo"
-               res.redirect('/')
-                
+            else {
+                //message+="Verifique la cantidad de caracteres ingresados en cada seccion"
+                res.redirect('/')
             }
-        }
-        else{
-            //message+="Verifique la cantidad de caracteres ingresados en cada seccion"
-            res.redirect('/')
+
+        } catch (error) {
+            res.redirect('/error')
         }
 
-    
 
     },
     last10Added: async function (){
@@ -81,8 +85,14 @@ module.exports={
         return await asset.TotalAssetsByLocation()
     },
 
-    get: async function(req,res){
-        return await asset.get(req,res)
+    get: async function (req, res) {
+        try {
+            return await asset.get(req, res)
+
+        } catch (error) {
+            res.redirect('/error')
+
+        }
     },
     update: async function (req, res) {
 

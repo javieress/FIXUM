@@ -19,11 +19,15 @@ router.get('/',async (req,res,next) => {
 })
 
 router.get('/login',async (req,res,next) => {
-    const navBar = await navigationBar(req)
-    res.render('login.ejs',{title: ' | Login',message: '', navBar: navBar })
+    if (req.session.token) {
+        res.redirect('/')
+    }else{
+        const navBar = await navigationBar(req)
+        res.render('login.ejs',{title: ' | Login',message: '', navBar: navBar })
+    }
 })
 
-router.get('/logout',async (req,res,next) => {
+router.get('/logout',verifyToken,async (req,res,next) => {
     authController.Auth.logout(req,res,next)
 })
 
@@ -31,11 +35,11 @@ router.get('/admin-profile',verifyToken,isAdmin,async (req,res,next)=> {
     const navBar = await navigationBar(req)
     res.render('./profiles/admin-profile.ejs',{title: ' | Perfil Administrador', navBar: navBar })
 })
-router.get('/user-profile',async (req,res,next) => {
+router.get('/user-profile',verifyToken,isUser,async (req,res,next) => {
     const navBar = await navigationBar(req)
     res.render('user-profile.ejs',{title: ' | Perfil Usuario', navBar: navBar })
 })
-router.get('/contact',async (req,res,next) => {
+router.get('/contact',verifyToken,isAdminOrUser,async (req,res,next) => {
     const navBar = await navigationBar(req)
     res.render('contact.ejs',{title: ' | Contacto', navBar: navBar })
 })
@@ -43,7 +47,7 @@ router.get('/scan',async (req,res,next) => {
     const navBar = await navigationBar(req)
     res.render('prueba_LectorQR.ejs',{title: ' | Lector QR', message: '', navBar: navBar })
 })
-router.get('/notifications',notificationsController.get)
+router.get('/notifications',verifyToken,isAdmin,notificationsController.get)
 
 //pruebas de home
 router.get('/homeA',async (req,res,next) => {
@@ -60,6 +64,11 @@ router.get('/qr-generator',async (req,res,next) => {
     const navBar = await navigationBar(req)
     res.render('qr-code-generator.ejs',{title: ' | Generador QR', navBar: navBar })
 
+})
+
+router.get('/error', async (req,res,next) => {
+    const navBar = await navigationBar(req)
+    res.render('error.ejs',{title: ' | Error', navBar: navBar })
 })
 
 
