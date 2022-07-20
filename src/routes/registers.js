@@ -12,8 +12,7 @@ const auth = require('../middlewares/authJwt')
 
 //users
 router.get('/user',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
-    res.render('./register/user-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})
-
+    res.render('./register/user-register.ejs',{title: ' | Registro de Usuario',message: '',userPosition: await userPosition.list(), navBar: await auth.navigationBar(req)})
 })
 router.post('/user',auth.verifyToken,auth.isAdmin,userController.post)
 router.get('/user-delete/:id',auth.verifyToken,auth.isAdmin,userController.delete)
@@ -24,7 +23,8 @@ router.get('/user-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,next) 
 
 //assets
 router.get('/asset',auth.verifyToken,auth.isAdminOrUser,async (req,res,next) => {
-    res.render('./register/asset-register.ejs',{title: ' | Usuarios',message: '',userPosition: await userPosition.list(), navBar: await auth.navigationBar(req)})
+    console.log('aqui');
+    res.render('./register/asset-register.ejs',{title: ' | Registro de Activo',message: '', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})
 })
 router.post('/asset',auth.verifyToken,auth.isAdminOrUser,assetController.post)
 router.get('/asset-delete/:id',auth.verifyToken,auth.isAdminOrUser,assetController.delete)
