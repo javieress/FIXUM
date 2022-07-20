@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head') %>
+        <title>
+            <%= title %>
+        </title>
+</head>
+
+<body>
+    <%- include('../'+navBar) %>
+        <div class="container h-100 mt-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-9">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-header p-4">
+                            <h3>Editar Cargo</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="/register/location-update">
+                                <div class="row align-items-center pt-4 pb-3">
+                                    <div class="col-md-3 ps-5">
+                                        <h6 class="mb-0">Nombre del Cargo:</h6>
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+                                        <input id='new-user-position-id' type="hidden" class="form-control form-control-lg" name='new-user-position-id' value="<%=userPosition[0].dataValues.id%>"/>
+                                        <input id='new-user-position' type="text" class="form-control form-control-lg" name='new-user-position'value="<%=userPosition[0].dataValues.position%>"  maxlength="50"/>
+                                    </div>
+                                </div>
+                                <hr class="mx-n3">
+                                <div class="px-5 py-4">
+                                    <button type="submit" class="btn btn-dark btn-lg">Actualizar</button>
+                                </div>
+                                <div class="px-5 py-4"><%-message%></div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</body>
+<%- include('../partials/footer') %>
+
+</html>

@@ -89,13 +89,11 @@ module.exports = {
     },
     get: async function(req,res){
         const {id} = req.params
-        console.log(id)
         const locationFound = await locations.findAll({
             where: {
                 id: id
             }
         })
-        console.log(locationFound)
         return locationFound
     }
 }

@@ -55,6 +55,18 @@ router.get('/asset-type-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,
     res.render('./register/asset-type-edit.ejs',{title: ' | Edit', assetType: await assetTypeController.get(req,res), message: '', navBar: await auth.navigationBar(req)})
 })
 
+//UserPosition
+router.get('/user-position',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
+    res.render('./register/userPosition-register.ejs', { title: ' | Cargo', message: '', navBar: await auth.navigationBar(req)})
+})
+router.post('/user-position',auth.verifyToken,auth.isAdmin,userPosition.post)
+router.get('/user-position-delete/:id',auth.verifyToken,auth.isAdmin,userPosition.delete)
+router.post('/user-position-update',auth.verifyToken,auth.isAdmin,userPosition.update)
+router.get('/userPosition-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,next) => {
+    res.render('./register/userPosition-edit.ejs',{title: ' | Edit', userPosition: await userPosition.get(req,res), message: '', navBar: await auth.navigationBar(req)})
+})
+
+
 router.post('/contact',auth.verifyToken,auth.isAdmin,mailController.contact)
 
 router.post('/notification',auth.verifyToken,auth.isAdmin,mailController.adminNotification)
