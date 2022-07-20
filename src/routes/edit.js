@@ -24,7 +24,9 @@ router.get('/Users',auth.verifyToken,auth.isAdmin,async (req,res,next)=>{
 router.get('/Assets',auth.verifyToken,auth.isAdminOrUser,async (req,res,next)=>{
     res.render('./edits/Assets.ejs',{title: ' | Edit ',Assets:await assetController.list(), navBar: await auth.navigationBar(req)})
 })
-
+router.get('/UserPosition',auth.verifyToken,auth.isAdminOrUser,async (req,res,next)=>{
+    res.render('./edits/UserPosition.ejs',{title: ' | Edit ',userPosition:await userPosition.list(), navBar: await auth.navigationBar(req)})
+})
 
 
 module.exports=router

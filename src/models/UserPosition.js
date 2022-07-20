@@ -28,25 +28,71 @@ module.exports={
         return  UsersPositionList;
     },
     post: async function(req, res) {
+        let position=req.body['new-user-position']
+        
+
+        try {
+            await userPosition.create(
+
+                {
+                    position : position  
+                    
+                }
+            );
+            
+        } catch (error) {
+            console.log(error.message);
+            
+        }
+
         return true;
-    
+
 
     },
    
-    get: function(username) {
+    get:async function(req,res) {
+        const {id} = req.params
+        const UserPositionFound = await userPosition.findAll({
+            where: {
+                id: id
+            }
+        })
+        
+        return UserPositionFound
                 
-        return null
     },
-    update: function (req, res) {
+    update: async function (req, res) {
+
+        try{
+            await userPosition.update({ position: req.body['new-user-position'] }, {
+                where: {
+                  id: req.body['new-user-position-id']
+                }
+              })
+
+            return true
+        }catch(err){
+            console.log(err)
+            return false
+        }
 
     },
-    delete: function (req, res) {
-        // const name = req.body['user-name']
-        // const exist = userList.includes(name)
-        // if(exist){
-        //     userList = userList.filter((item) =>item !== name)
-        // }
-        // return exist
+    delete: async function (req, res) {
+
+        const {id} = req.params
+        try {
+            await userPosition.destroy({
+                where: {
+                  id: id
+                }
+              });
+              return true
+        } catch (error) {
+           console.log(error)
+           return false
+        }
+      
     }
+    
 }
 
