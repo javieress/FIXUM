@@ -54,7 +54,7 @@ const Auth = {
             // console.log(user)
             if (!user[0]) {                
                 // res.status(401).send('Usuario no encontrado')
-                res.status(401).render('login.ejs',{title: ' | Login',message: 'Usuario no encontrado', navBar: await auth.navigationBar})
+                res.status(401).render('login.ejs',{title: ' | Login',message: 'Usuario no encontrado', navBar: await auth.navigationBar(req)})
             }else{
                 const isMatch = await bcrypt.compare(body['password'], user[0].dataValues.pwd)
 
@@ -66,7 +66,7 @@ const Auth = {
                     next()
                     res.status(200).redirect('/')
                 }else{
-                    res.status(401).render('login.ejs',{title: ' | Login',message: 'Contraseña inválida', navBar: await auth.navigationBar})
+                    res.status(401).render('login.ejs',{title: ' | Login',message: 'Contraseña inválida', navBar: await auth.navigationBar(req)})
                 }
             }
         }catch(e){

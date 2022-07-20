@@ -90,7 +90,10 @@ module.exports = {
         return totalAssetTypes
     },
     get: async function(req,res){
-        const {id} = req.params
+        let {id} = req.params
+        if(!id){
+            id = req.body['new-asset-type-id']
+        }
         const assetTypeFound = await assetTypes.findAll({
             where: {
                 id: id

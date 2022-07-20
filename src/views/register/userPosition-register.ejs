@@ -39,7 +39,11 @@
                                 <div class="px-5 py-4">
                                     <button type="submit" class="btn btn-dark btn-lg">Registrar</button>
                                 </div>
-                                <div class="px-5 py-4"><%-message%></div>
+                                <% if(message == 'Cargo guardado con éxito'){ %>
+                                    <div class="alert alert-success text-center"><%=message%></div>
+                                 <% }else if (message != ''){ %>
+                                    <div class="alert alert-danger text-center"><%=message%></div>
+                                 <% } %>
                             </form>
                         </div>
                     </div>

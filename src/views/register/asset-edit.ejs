@@ -137,6 +137,12 @@
                         <button type="submit" class="btn btn-dark btn-lg">Actualizar</button>
                     </div>
                 </form>
+                <% if(message == "Activo actualizado correctamente"){ %>
+                    <div class="alert alert-success text-center"><%=message%></div>
+                 <% } %>
+                 <% if(message == "Verifique que los valores ingresados sean correctos"){ %>
+                    <div class="alert alert-danger text-center"><%=message%></div>
+                 <% } %>
             </div>
         </div>
 

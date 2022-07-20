@@ -21,10 +21,10 @@ module.exports = {
     },
     post: async function (req, res) {
         try {
-            let message = 'El tipo de activo "'
+            let message = ''
             if (validationAssetType(req, res)) {
                 if (assetType.post(req, res)) {
-                    message += req.body['new-asset-type-name'].toUpperCase() + "' se guardó con éxito."
+                    message += 'Tipo de Activo guardado con éxito'
                 }
                 else {
                     message += "Ocurrio un error"
@@ -52,12 +52,13 @@ module.exports = {
 
     },
     update: async function (req, res) {
-
+        let message = ''
         try {
             if (validationAssetType(req, res)) {
                 const updated = await assetType.update(req, res)
                 if (updated) {
-                    res.redirect('/edit/AssetTypes')
+                    message = 'El Tipo de Activo se editó con éxito'
+                    res.render('./register/asset-type-edit.ejs', { title: ' | Modificar Tipo Activo', assetType: await assetType.get(req,res), message: message , navBar: await auth.navigationBar(req)})
                 }
                 else {
                     const assetTypeUpdated =
@@ -69,7 +70,8 @@ module.exports = {
                                     assetType: ''
                                 }
                             }]
-                    res.render('./register/asset-type-edit.ejs', { title: ' | Modificar Tipo Activo', assetType: assetTypeUpdated, message: 'ERROR NO SE PUDO MODIFICAR' , navBar: await auth.navigationBar(req)})
+                    message = "Verifique que los valores ingresados sean correctos"
+                    res.render('./register/asset-type-edit.ejs', { title: ' | Modificar Tipo Activo', assetType: assetTypeUpdated, message: message , navBar: await auth.navigationBar(req)})
 
                 }
             }
@@ -82,9 +84,11 @@ module.exports = {
                             assetType: ''
                         }
                     }]
-                res.render('./register/asset-type-edit.ejs', { title: ' |Eliminar Tipo Activo', assetType: assetTypeUpdated, message: 'Texto ingresado supera el máximo de caracteres' , navBar: await auth.navigationBar(req)})
+                message = 'Texto ingresado supera el máximo de caracteres'
+                res.render('./register/asset-type-edit.ejs', { title: ' |Eliminar Tipo Activo', assetType: assetTypeUpdated, message: message , navBar: await auth.navigationBar(req)})
             }
         } catch (error) {
+            console.log(error);
             res.redirect('/error')
         }
 
