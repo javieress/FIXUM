@@ -135,8 +135,8 @@
                                     <div class="col-md-9 pe-5">
                     
                                         <select class="form-select" aria-label="Default select example" name="new-user-position" id="validationCustom07" required>
+                                            <option value="">Desplegar opciones</option>
                                             <% for( let i in userPosition ) { %>
-                                                <option value="">Desplegar opciones</option>
                                                 <option value="<%= userPosition[i].dataValues.id%> ">
                                                     <%= userPosition[i].dataValues.position %>
                                                 </option>
