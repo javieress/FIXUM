@@ -63,7 +63,7 @@
                                         <td>
                                         <a class="btn btn-outline-success mt-1 col-md-6" href="/register/user-edit/<%=Users[i].id_users%>" style="max-width: 100px;"> Editar </a>
                                         <a class="btn btn-outline-primary mt-1 col-md-6" href="/register/user-edit-password/<%=Users[i].id_users%>" style="max-width: 180px;">Cambiar Contraseña</a>
-                                        <a class="btn btn-outline-danger mt-1 col-md-6" href="/register/user-delete/<%=Users[i].id_users%>" style="max-width: 100px;"> Eliminar </a>
+                                        <button class="btn btn-outline-danger mt-1 col-md-6" onclick="eliminar('<%=Users[i].id_users%>')" style="max-width: 100px;"> Eliminar </button>
                                         
                                         </td>
                                     </tr>
@@ -78,5 +78,11 @@
         </div>
 </body>
 <%- include('../partials/footer') %>
-
+<script>
+    function eliminar(id){
+        if(confirm("¿Estas seguro?")){
+            document.location.replace("/register/user-delete/"+id)
+        }
+    }
+</script>
 </html>

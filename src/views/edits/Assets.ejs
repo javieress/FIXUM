@@ -69,7 +69,7 @@
                                       
                                         <td>
                                         <a class="btn btn-outline-success mt-1 col-md-6" href="/register/asset-edit/<%=Assets[i].id%>" style="max-width: 100px;">Editar</a>
-                                        <a class="btn btn-outline-danger mt-1 col-md-6" href="/register/asset-delete/<%=Assets[i].id%>" style="max-width: 100px;">Eliminar</a>
+                                        <button type="button" class="btn btn-outline-danger mt-1 col-md-6" onclick="eliminar('<%=Assets[i].id%>')" style="max-width: 100px;">Eliminar</button>
                                         
                                         </td>
                                     </tr>
@@ -84,5 +84,12 @@
         </div>
 </body>
 <%- include('../partials/footer') %>
+<script>
+    function eliminar(id){
+        if(confirm("¿Estas seguro?")){
+            document.location.replace("/register/asset-delete/"+id)
+        }
+    }
+</script>
 
 </html>
