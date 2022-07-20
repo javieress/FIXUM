@@ -1,12 +1,15 @@
 const { render } = require("ejs");
 var QRCode = require('qrcode');
 const Jimp = require('jimp');
-
+const fs = require('fs');
 var AdmZip = require("adm-zip");
+
+
+
 
 async function crear_qr(paginas, nombres){
     for (var i = 0; i < paginas.length; i++){
-        QRCode.toFile('src/public/img/img_qr/qr_'+ i +'.png', paginas[i], {
+        var imagen = await QRCode.toFile('src/public/img/img_qr/qr_'+ nombres[i] +'.png', paginas[i], {
             color: {
                 dark: '#000000',
                 light: '#ffffff'
@@ -18,14 +21,6 @@ async function crear_qr(paginas, nombres){
     }
 }
 
-async function crear_zip(){
-    var zip = new AdmZip();
-
-    var ruta = 'src/public/img/img_qr';
-    zip.addLocalFolder(ruta);
-    
-    zip.writeZip('src/public/img/descargar.zip');
-}
 
 module.exports = {create_qr_download: async function(req, res){
     console.log("hola xd");
@@ -63,11 +58,9 @@ module.exports = {create_qr_download: async function(req, res){
     console.log(paginas);
     console.log(nombres);
 
-    var promesa = await crear_qr(paginas);
-    var promesa_2 = promesa.then(crear_qr(),function());
-    
+    crear_qr(paginas,nombres);
 
-    var delayInMilliseconds = 1000; //1 second
+    var delayInMilliseconds = 3000; 
 
     setTimeout(function() {
         var zip = new AdmZip();
@@ -79,12 +72,33 @@ module.exports = {create_qr_download: async function(req, res){
 
     }, delayInMilliseconds);
 
-    /*
-    res.set('Content-disposition', 'attachment; filename=src/public/img/descargar.zip');
+    
+    setTimeout(function() {
+        res.download('./src/public/img/descargar.zip'); 
 
-    res.set('Content-type', 'application/zip');*/
-    res.download('./src/public/img/descargar.zip');
+    }, delayInMilliseconds);
+
+    setTimeout(function() {
+        for (var i = 0; i < paginas.length; i++){
+            fs.unlink('src/public/img/img_qr/qr_'+ nombres[i] +'.png', (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            });
+        }
+    }, delayInMilliseconds);
+
+    setTimeout(function() {
+        
+        fs.unlink('src/public/img/descargar.zip', (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+        });
+
+    }, 5000);   
     
-    //res.redirect("/print");
-    
-}}
+}
+}
