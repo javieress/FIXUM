@@ -18,6 +18,14 @@ async function crear_qr(paginas, nombres){
     }
 }
 
+async function crear_zip(){
+    var zip = new AdmZip();
+
+    var ruta = 'src/public/img/img_qr';
+    zip.addLocalFolder(ruta);
+    
+    zip.writeZip('src/public/img/descargar.zip');
+}
 
 module.exports = {create_qr_download: async function(req, res){
     console.log("hola xd");
@@ -55,7 +63,9 @@ module.exports = {create_qr_download: async function(req, res){
     console.log(paginas);
     console.log(nombres);
 
-    var aa = await crear_qr(paginas);
+    var promesa = await crear_qr(paginas);
+    var promesa_2 = promesa.then(crear_qr(),function());
+    
 
     var delayInMilliseconds = 1000; //1 second
 
