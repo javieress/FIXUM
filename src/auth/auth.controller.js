@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken')
 const userController = require('../controllers/user.controller')
 const User = require('../models/User')
 
+const auth = require('../middlewares/authJwt')
+
 const db = require("../database/conection2")
 
 // const validateJwt = expressJwt({secret: process.env.SECRET, algorithms: ['HS256']})
@@ -52,7 +54,7 @@ const Auth = {
             // console.log(user)
             if (!user[0]) {                
                 // res.status(401).send('Usuario no encontrado')
-                res.status(401).render('login.ejs',{title: ' | Login',message: 'Usuario no encontrado'})
+                res.status(401).render('login.ejs',{title: ' | Login',message: 'Usuario no encontrado', navBar: await auth.navigationBar})
             }else{
                 const isMatch = await bcrypt.compare(body['password'], user[0].dataValues.pwd)
 
@@ -64,8 +66,7 @@ const Auth = {
                     next()
                     res.status(200).redirect('/')
                 }else{
-                    // res.status(401).send('Contraseña inválida')
-                    res.status(401).render('login.ejs',{title: ' | Login',message: 'Contraseña inválida'})
+                    res.status(401).render('login.ejs',{title: ' | Login',message: 'Contraseña inválida', navBar: await auth.navigationBar})
                 }
             }
         }catch(e){
