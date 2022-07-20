@@ -51,7 +51,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for( let i in AssetTypes) { if(AssetTypes[i].assetType!='SIN ASIGNAR' ){%>
+                                <% for( let i in AssetTypes) { 
+                                    if(AssetTypes[i].assetType.toLowerCase()!='sin asignar'){%>
                                     <tr>
                                         <th scope="row">
                                             <%= AssetTypes[i].id %>
