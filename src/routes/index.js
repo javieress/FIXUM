@@ -55,6 +55,7 @@ router.get('/homeA',async (req,res,next) => {
     res.render('home/homeAdmin.ejs',{title: ' | Home Admin', navBar: navBar })
 })
 router.get('/homeU',async (req,res,next) => {
+    const navBar = await navigationBar(req)
     res.render('home/homeUser.ejs',{title: ' | Home', navBar: navBar })
 })
 
