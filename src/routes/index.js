@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { expressjwt: expressJwt } = require("express-jwt");
 
-
+const assetController = require('../controllers/asset.controller')
+const printerController = require('../controllers/printer.controller')
 const qrController = require('../controllers/qr-reader.controller')
 const userController = require('../controllers/user.controller');
 const authController = require('../auth/auth.controller')
@@ -68,7 +69,7 @@ router.get('/qr-generator',async (req,res,next) => {
 })
 
 router.get('/print',async(req,res,next) => {
-    res.render('select_qr_to_print.ejs',{title: ' | Seleccionar Items para Imprimir', assetList: await asset.list()})
+    res.render('select_qr_to_print.ejs',{title: ' | Seleccionar Items para Imprimir', assetList: await assetController.list()})
 })
 router.post('/print', printerController.create_qr_download)
 

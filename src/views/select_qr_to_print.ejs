@@ -7,6 +7,10 @@
 
     <%- include('partials/head') %>
     <title><%= title %></title>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <script src="js/table.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
 </head>
 <body>
     <%- include('partials/navigation') %>
@@ -18,7 +22,8 @@
                 <div class="card-header p-4">
                     <h3>Seleccione los ítems para imprimir sus QR</h3>
                 </div>
-                    <div id = "barra_filtros">
+                
+                <!--<div id = "barra_filtros">
                         <div id = "titulo_barra_filtros">
                             <h4>Filtros de búsqueda</h4>
                         </div>
@@ -36,34 +41,42 @@
                         
                         <label for="seleccionar_todo">Seleccionar todo</label>
                         <button id = "seleccionar_todo" onclick="select_all()"></button>
-                    </div>
+                    </div>-->
 
                     
                     <div class = "card-body">
                         <div class="table-responsive">
-                            <form name = "formulario_tabla" action="/print" method = "POST" class="table table-hover display" cellspacing="0" width="100%">
-
+                            <form  name = "formulario_tabla" action="/print" method = "POST" >
+                                
                                 <div>
-                                    <table border = "2" frame = "box" id = "tabla_activos">
-                                        <th id = "0">Nombre activo</th>
-                                        <th id = "1">Tipo</th>
-                                        <th id = "2">Ubicación</th>
-                                        <th>Seleccionar</th>
-
+                                    <table id = "tabla" class="table table-hover display" cellspacing="0" width="100%">
+                                        
+                                        <thead>
+                                            <tr>
+                                                <th scope = "col" id = "0">Nombre activo</th>
+                                                <th scope = "col" id = "1">Tipo</th>
+                                                <th scope = "col" id = "2">Ubicación</th>
+                                                <th scope = "col">Seleccionar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                         <% for( let i in assetList) { %>
 
                                             <tr>
-                                                <td><%= assetList[i].dataValues.asset_name %></td>
-                                                <td><%= assetList[i].dataValues.id_assetType %></td>
-                                                <td><%= assetList[i].dataValues.location %></td>
-                                                <td><input name = 'id' type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>,<%= assetList[i].dataValues.asset_name%>'/> </td>
+                                                <td scope = "row"><%= assetList[i].dataValues.asset_name %></td>
+                                                <td scope = "row"><%= assetList[i].dataValues.id_assetType %></td>
+                                                <td scope = "row"><%= assetList[i].dataValues.location %></td>
+                                                <td scope = "row"><input name = 'id' type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>,<%= assetList[i].dataValues.asset_name%>'/> </td>
                                                 
                                             </tr>
 
                                         <% } %>
+                                        </tbody>
                                     </table>
                                     <div class="px-5 py-4">
-                                        <button type="submit" class="btn btn-dark btn-lg">Imprimir</button>
+                                        <button type="button" onclick="seleccionarTodo()" class="btn btn-dark">Seleccionar todo</button>
+                                        <button type="button" onclick="desmarcarTodo()" class="btn btn-dark">Eliminar selecciones</button>
+                                        <button type="button" onclick = "verificacion()" id = "boton_imprimir" class="btn btn-dark btn-lg">Imprimir</button>
                                     </div>
                                 </div>     
                             </form>
@@ -81,10 +94,52 @@
 </html>
 
 <script>
-    
+    function seleccionarTodo() {
+        var checks = document.getElementsByName('id'); 
+        for (var i = 0, j = checks.length; i < j; i++) {
+            checks[i].checked = true;
+        }
+    }
+    function desmarcarTodo() {
+        var checks = document.getElementsByName('id'); 
+        for (var i = 0, j = checks.length; i < j; i++) {
+            checks[i].checked = false;
+        }
+    }   
+    function validate() {
+        var cont = 0;
+        var checks = document.getElementsByName('id'); 
+        for (var i = 0, j = checks.length; i < j; i++) {
+            
+            if(checks[i].checked == true){
+                cont++;
+            }
+        }
+        if (cont >= 2){
+            return true;
+        }
+        return false;
+    }
+
+    function verificacion(){
+        
+        if (!validate()){
+            event.preventDefault();
+            alert('Debes seleccionar al menos dos ítems para imprimir sus QR');
+        }
+        else if (confirm('¿Estas seguro de enviar este formulario?')){ 
+            document.getElementById("boton_imprimir").disabled = true;
+            document.formulario_tabla.submit();
+            
+        }
+        else{
+            event.preventDefault();
+        }
+    }
+    /*
     function refresh(id_filtro,indice_columna){
         
-        var tabla = document.getElementById('tabla_activos');
+        var tabla = document.getElementById('tabla');
 
         var busqueda = document.getElementById(id_filtro).value.toLowerCase();
         var celda_comparar = "";
@@ -120,7 +175,7 @@
         primera_vacia.setAttribute("selected","selected");
         $select.appendChild(primera_vacia);
 
-        const tabla = document.getElementById('tabla_activos');
+        const tabla = document.getElementById('tabla');
 
         const valores_unicos = new Set();
         
@@ -143,7 +198,7 @@
     fill_options_select("filtro_ubicacion",2);
 
     function buscar(){
-        var tabla = document.getElementById('tabla_activos');
+        var tabla = document.getElementById('tabla');
             var busqueda = document.getElementById('filtro_nombre').value.toLowerCase();
             var cellsOfRow="";
             var found=false;
@@ -175,7 +230,7 @@
 
     function select_all(){
 
-        var tabla = document.getElementById('tabla_activos');
+        var tabla = document.getElementById('tabla');
 
         for (var j = 1; j < tabla.rows.length; j++){
             var celda = tabla.rows[j].getElementsByTagName('td')[3];
@@ -188,5 +243,5 @@
             }
         } 
     }
-    
+    */
 </script>
