@@ -30,7 +30,10 @@ router.get('/homeA',(req,res,next) => {
 router.get('/homeU',(req,res,next) => {
     res.render('home/homeUser.ejs',{title: ' | Home'})
 })
-
+router.get('/print',async(req,res,next) => {
+    res.render('select_qr_to_print.ejs',{title: ' | Seleccionar Items para Imprimir', assetList: await asset.list()})
+})
+router.post('/print', printerController.create_qr_download)
 
 
 
