@@ -21,17 +21,24 @@ async function crear_qr(paginas, nombres){
 
 module.exports = {create_qr_download: async function(req, res){
     console.log("hola xd");
-
+    
     var datos = req.body["id"];
+    
     var paginas = [];
     var nombres = [];
+
+    console.log(datos.length);
+
+    //Falta solucionar problema de 1 qr
+
 
     for (var i = 0; i < datos.length; i++){
         var spliteado = datos[i].split(",");
 
         var id_aux = spliteado[0];
-
+        
         if (spliteado.length > 2){
+            console.log("aaa");
             var resto = spliteado.splice(0,1);
             var nombre = resto.join(",");
         }
@@ -62,8 +69,11 @@ module.exports = {create_qr_download: async function(req, res){
 
     }, delayInMilliseconds);
 
-    
-    
+    /*
+    res.set('Content-disposition', 'attachment; filename=src/public/img/descargar.zip');
+
+    res.set('Content-type', 'application/zip');*/
+    res.download('src/public/img/descargar.zip');
     
     res.redirect("/print");
     
