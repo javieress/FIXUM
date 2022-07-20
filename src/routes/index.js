@@ -67,6 +67,11 @@ router.get('/qr-generator',async (req,res,next) => {
 
 })
 
+router.get('/print',async(req,res,next) => {
+    res.render('select_qr_to_print.ejs',{title: ' | Seleccionar Items para Imprimir', assetList: await asset.list()})
+})
+router.post('/print', printerController.create_qr_download)
+
 router.get('/error', async (req,res,next) => {
     const navBar = await navigationBar(req)
     res.render('error.ejs',{title: ' | Error', navBar: navBar })
