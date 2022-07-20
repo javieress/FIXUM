@@ -48,7 +48,8 @@
                         <td><%= assetList[i].dataValues.asset_name %></td>
                         <td><%= assetList[i].dataValues.id_assetType %></td>
                         <td><%= assetList[i].dataValues.location %></td>
-                        <td><input type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>'/> </td>
+                        <td><input name = 'id' type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>,<%= assetList[i].dataValues.asset_name%>'/> </td>
+                        
                     </tr>
 
                 <% } %>
