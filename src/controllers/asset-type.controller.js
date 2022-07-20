@@ -20,7 +20,7 @@ module.exports = {
     },
     post: function (req, res) {
         try {
-            let message = ""
+            let message = 'El tipo de activo "'
             if (validationAssetType(req, res)) {
                 if (assetType.post(req, res)) {
                     message += req.body['new-asset-type-name'].toUpperCase() + "' se guardó con éxito."
@@ -31,7 +31,7 @@ module.exports = {
             } else {
                 message += " maximo de caracteres superado"
             }
-            res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: message })
+             res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: message })
         } catch (error) {
             res.redirect('/error')
 

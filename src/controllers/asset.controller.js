@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const assetTypeController = require('../controllers/asset-type.controller')
 const locationController = require('../controllers/location.controller')
 const userController = require('../controllers/user.controller')
+const auth = require('../middlewares/authJwt')
 
 
 
@@ -42,7 +43,7 @@ function validationDescription(req,res){
 
 module.exports={
     index: async function(req,res){
-        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list()})
+        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navbar: await auth.navigationBar})
     },
     list: async function(){
         return await asset.list()
@@ -91,35 +92,45 @@ module.exports={
 
         } catch (error) {
             res.redirect('/error')
-
         }
     },
     update: async function (req, res) {
 
-        if(validationAssetName(req,res)&&validationQuantity(req,res)&&validationPrice(req,res)&&validationDescription(req,res)){
-            const updated = await asset.update(req, res)
-            if (updated) {
-                res.redirect('/edit/Assets')
+        try {
+            if(validationAssetName(req,res)&&validationQuantity(req,res)&&validationPrice(req,res)&&validationDescription(req,res)){
+                const updated = await asset.update(req, res)
+                if (updated) {
+                    res.redirect('/edit/Assets')
+                }
+                else {
+                    res.redirect('/register/asset-edit/'+req.body['new-asset-id'])
+    
+                }
             }
-            else {
+            else{
                 res.redirect('/register/asset-edit/'+req.body['new-asset-id'])
-
             }
+        } catch (error) {
+            res.redirect('/error')
         }
-        else{
-            res.redirect('/register/asset-edit/'+req.body['new-asset-id'])
-        }
+        
         
         
     },
     delete: async function (req,res){
-        const deleted = await asset.delete(req,res)
-        if (deleted){
-            res.redirect('/edit/Assets')
-        }else{
-            res.redirect('/edit/Assets')
+        try {
+            const deleted = await asset.delete(req, res)
+            if (deleted) {
+                res.redirect('/edit/Assets')
+            } else {
+                res.redirect('/edit/Assets')
+
+            }
+        } catch (error) {
+            res.redirect('/error')
 
         }
+
          
     }
 }
