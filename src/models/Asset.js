@@ -84,7 +84,6 @@ module.exports = {
     },
     delete: async function (req, res) {
         const {id} = req.params
-        console.log(id)
         try {
             await asset.destroy({
                 where: {
@@ -144,6 +143,7 @@ module.exports = {
         return assetFound
     },
     update: async function(req,res){
+
         const name = req.body['new-asset-name']
         const assetType = req.body['new-asset-assetType']
         const location = req.body['new-asset-location']
@@ -168,17 +168,6 @@ module.exports = {
             }
             }
             );
-            // await asset.update({ 
-            //     id_location: req.body['new-location-name'],
-            //     id_users_in_charge: ,
-            //     asset_name: ,
-            //     isActive: ,
-            //     description: ,
-            //  }, {
-            //     where: {
-            //         id_assetType: req.body['new-location-id']
-            //     }
-            //   })
 
             return true
         }catch(err){

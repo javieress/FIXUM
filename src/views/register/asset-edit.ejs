@@ -103,7 +103,7 @@
                                     name="new-asset-userInCharge">
                                     <option value="">Desplegar opciones</option>
                                     <% for( let i in user ) { %>
-                                        <option <% if (user[i].dataValues.id_users == asset[0].dataValues.id_users_in_charge) {%>selected <% console.log('aqui')}  %> value="<%= user[i].dataValues.id_users%>" >
+                                        <option <% if (user[i].dataValues.id_users == asset[0].dataValues.id_users_in_charge) {%>selected <%}  %> value="<%= user[i].dataValues.id_users%>" >
                                             <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' ' + user[i].dataValues.last_name %>
                                         </option>
                                         <% } %>

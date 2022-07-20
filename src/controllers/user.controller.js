@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 
 const bcrypt = require('bcrypt')
 
+const auth = require('../middlewares/authJwt')
 
 const userPositionList = require('./userPosition.controller')
 
@@ -68,7 +69,7 @@ function validationPwd(req, res) {
 module.exports = {
     index: async function (req, res) {
         try {
-            res.render('./register/user-register.ejs', { title: ' | Usuarios', message: '', userPosition: await userPositionList.list() })
+            res.render('./register/user-register.ejs', { title: ' | Usuarios', message: '', userPosition: await userPositionList.list() , navBar: await auth.navigationBar(req) })
         } catch (err) {
             console.log(err.message)
         }
@@ -86,51 +87,50 @@ module.exports = {
             if (Fn.validaRut(req.body['new-user-rut']) && validationUserLenght(req, res) && validationName(req, res) && validationLastName(req, res) && validationPwd(req, res)) {
 
                 const user_esta = await user.findOneRut(req, res) || await user.findOneUserName(req, res);
+
                 if (user_esta != null) {
                     message += req.body['new-user-username'] + "'ya existe.";
                 }
                 else {
-                    user.post(req, res)//llamo a funcion post para que cree usuario
+                    const salt = await bcrypt.genSalt()
+                    const hashed = await bcrypt.hash(body['new-user-password'], salt)
+
+                    let rut = req.body['new-user-rut']
+                    let userName = req.body['new-user-username']
+                    let name = req.body['new-user-name'].toLowerCase()
+                    name = name.charAt(0).toUpperCase() + name.slice(1)
+                    let lastName = req.body['new-user-lastName'].toLowerCase()
+                    lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1)
+                    let position = req.body['new-user-position']
+                    let userType = req.body['new-user-userType']
+                    let email = req.body['new-user-email']
+
+                    const newUser = {
+                        rut: rut,
+                        userName: userName,
+                        name: name,
+                        lastName: lastName,
+                        position: position,
+                        userType: userType,
+                        password: hashed,
+                        email: email,
+                        salt, salt,
+                    }
+                    console.log(newUser);
+                    const createdUser = await user.post(newUser)
+
+                    const token = jwt.sign({ _id: createdUser.dataValues.id_users }, 'adInfinitum123', { expiresIn: 86400 })
+                    res.status(201).redirect('/edit/Users')
+                    // user.post(req, res)//llamo a funcion post para que cree usuario
                     message += req.body['new-user-username'] + "' se guardó con éxito."
 
-
                 }
-                const salt = await bcrypt.genSalt()
-                const hashed = await bcrypt.hash(body['new-user-password'], salt)
-
-                let rut = req.body['new-user-rut']
-                let userName = req.body['new-user-username']
-                let name = req.body['new-user-name'].toLowerCase()
-                name = name.charAt(0).toUpperCase() + name.slice(1)
-                let lastName = req.body['new-user-lastName'].toLowerCase()
-                lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1)
-                let position = req.body['new-user-position']
-                let userType = req.body['new-user-userType']
-                let email = req.body['new-user-email']
-
-                const newUser = {
-                    rut: rut,
-                    userName: userName,
-                    name: name,
-                    lastName: lastName,
-                    position: position,
-                    userType: userType,
-                    password: hashed,
-                    email: email,
-                    salt, salt,
-                }
-                const createdUser = await user.post(newUser)
-
-                const token = jwt.sign({ _id: createdUser.dataValues.id_users }, 'adInfinitum123', { expiresIn: 86400 })
-                res.status(201).send({ token: token })
-                console.log(createdUser);
-
 
             } else {
                 message += "'Error en datos ingresados,intentelo nuevamente";
 
             }
-            res.render('./register/user-register.ejs', { title: 'FIXUM', message: message, userPosition: await userPositionList.list() })
+            res.render('./register/user-register.ejs', { title: 'FIXUM', message: message, userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
 
         } catch (error) {
             res.redirect('/error')
@@ -151,6 +151,7 @@ module.exports = {
                 }
                 return await user.get(id)
             }
+            return await user.get(id)
         } catch (error) {
             res.redirect('/error')
 
@@ -160,12 +161,12 @@ module.exports = {
     update: async function (req, res) {
         try {
             if (validationUserLenght(req, res) && validationName(req, res) && validationLastName(req, res)) {
-                const user_esta = await user.findOneUserName(req, res);
-                if (user_esta != null) {
+                const user_esta = await user.get(req.body['new-user-rut'])
+                if (user_esta[0] == null) {
                     res.redirect('/register/user-edit/' + req.body['new-user-rut'])
                 }
                 else {
-                    const updated = await user.update(req, res)
+                    const updated =  user.update(req)
 
                     if (updated) {
                         res.redirect('/edit/Users')

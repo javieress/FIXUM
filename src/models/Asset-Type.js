@@ -16,7 +16,6 @@ const assetTypes = db.define('assetType', {     // el modelo asume que la tabla 
         allowNull: false,
        
     }
-
     }
 )
 //let assetTypeList = ['hola']
@@ -26,7 +25,6 @@ async function Categorias(){
         attributes: ['assetType']})
 
     for(let i=0;i<cat.length;i++){
-        console.log(cat[i].categoria)
         assetTypeList.push(cat[i].categoria)   
     }
     
