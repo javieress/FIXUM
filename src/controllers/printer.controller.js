@@ -1,11 +1,7 @@
 const { render } = require("ejs");
 var QRCode = require('qrcode');
-const Jimp = require('jimp');
 const fs = require('fs');
 var AdmZip = require("adm-zip");
-
-
-
 
 async function crear_qr(paginas, nombres){
     for (var i = 0; i < paginas.length; i++){
@@ -20,27 +16,6 @@ async function crear_qr(paginas, nombres){
         });
     }
 }
-
-async function poner_titulo(nombre){
-    
-    var img = Jimp.read('src/public/img/img_qr/qr_'+ nombre +'.png', (err, imagen) => {
-        if (!err){
-            var fuente = Jimp.loadFont(Jimp.FONT_SANS_10_BLACK, (err, font) =>{
-                imagen.print(font, 0, 0, nombre, (err, listo) => {
-                    listo.write('src/public/img/img_qr/qr_'+ nombre +'.png',(err, fin) =>{
-                        console.log("Listo :)");
-                    });
-                });
-            });
-        }
-    });
-    
-
-        
-        
-}
-    
-        
 
 module.exports = {create_qr_download: async function(req, res){
     console.log("hola xd");
@@ -82,15 +57,6 @@ module.exports = {create_qr_download: async function(req, res){
 
 
     crear_qr(paginas,nombres);
-    poner_titulo(nombres[0]);
-
-    /*
-    for (var i = 0; i < nombres.length; i++){
-        setTimeout(function() {
-            poner_titulo(nombres[i]);
-        }, delayInMilliseconds);
-    }
-    
 
 
     setTimeout(function() {
@@ -131,9 +97,6 @@ module.exports = {create_qr_download: async function(req, res){
 
     }, 5000);   
 
-    */
 
-    
-    
 }
 }

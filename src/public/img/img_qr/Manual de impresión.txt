@@ -1,0 +1,42 @@
+---------------------------------------------
+---------------------------------------------
+	Instructivo de Impresión
+---------------------------------------------
+---------------------------------------------
+
+1. Seleccione TODAS las imágenes (Los códigos QR) de la carpeta.
+Para ello puede seleccionar arrastrando con el mouse.
+Otra forma es mantener pulsada la tecla "CONTROL" (Ctrl) y luego ir clickeando
+cada imagen.
+
+2. Una vez seleccionadas las imágenes, pulse click derecho sobre alguna,
+se desplegarán las opciones, debe escoger la opción "Imprimir"
+
+3. Se abrirá la configuración para imprimir, debe seleccionar la opción que dice
+"Hoja de contactos", de esta manera, aparecerán los títulos de los archivos debajo
+de cada QR.
+
+4. Imprimir.
+
+---------------------------------------------
+---------------------------------------------
+   ▄▄▄▄▄▄▄   ▄ ▄▄   ▄▄▄  ▄▄▄▄▄▄▄  
+   █ ▄▄▄ █ ▀ ▀ ▄▀███▀▄ █ █ ▄▄▄ █  
+   █ ███ █ ▀█▀ ▀▀▀ ▄█▄█▄ █ ███ █  
+   █▄▄▄▄▄█ █▀▄▀█▀▄▀█ █ █ █▄▄▄▄▄█  
+   ▄▄▄▄▄ ▄▄▄█▀█ ▄█ ▀▄▀ █▄ ▄ ▄ ▄   
+   ▀▄█▄▀█▄ ▀ █ ▀█▄▄█ ▀▀▀▀█ █▀██▀  
+   █▀▄▀▀ ▄█ ▄▄ █▄█▄ ▄  █  ▀▀▀▄ ▀  
+    ▀ █▄▄▄█▀█▄▄▄█▄▄▀▄▄▀█████▀▄ ▀  
+   █   ▀ ▄ ▀  █ ▄▄ ▀▄▀▄    ▀▀▄ ▀  
+   █ ▀▀█▄▄▄ ▀▀ ▀ █▄ █▀▀▀▀███▄▀ ▀  
+   █  ▀▀▄▄▀▀▀  █▄▄█▄▄ █████▄█▄ ▀  
+   ▄▄▄▄▄▄▄ █  ▄▄  ▄▀██▄█ ▄ █ ▀ ▀  
+   █ ▄▄▄ █ ▄ ▄█▄▄██▄▄ ▀█▄▄▄██▄▀▄  
+   █ ███ █ █▀█ █▄ ▄█  ▀▄▄▄ ▄█ █▀  
+   █▄▄▄▄▄█ █ ▀  ▄██ ▄ ▄▀▄▄█▀▀▄▀   
+
+Creado por: Ad Infinitum, Coquimbo, Chile.
+
+---------------------------------------------
+---------------------------------------------
