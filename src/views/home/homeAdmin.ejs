@@ -12,29 +12,32 @@
     <div class="container h-100 justify-content-center" style="max-width: 600px;">
         <div class="card mt-5">
             <div class="card-header p-4">
-                <h3>Home</h3>
+                <h3>Perfil Admin</h3>
             </div>
             <div class="card-body">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <button type="button" class="btn btn-dark mr-2 col-md-6 col-sm-12" href="/register/asset" style="max-width: 300px;">Agregar activo</button>
-                    <button type="button" class="btn btn-dark mr col-md-6 col-sm-12" href="/register/asset" style="max-width: 300px;">Agregar activo</button>
+                    <a class="btn btn-dark" href="/register/asset" style="max-width: 300px;">Agregar activo</a>
                 </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    
-                    <a class="btn btn-dark mt-1 col-md-6" href="/register/user" style="max-width: 300px;">Agregar usuario</a>
-
+                <hr class="mx-n3">
+                <div class="row align-items-center justify-content-center m-2">
+                    <div class="btn-group-vertical" role="group" style="max-width: 300px;">
+                        <a class="btn btn-dark mt-1" href="/register/user">Agregar usuario</a>
+                        <a class="btn btn-dark mt-1" href="/register/location">Agregar ubicación</a>
+                        <a class="btn btn-dark mt-1" href="/register/asset-type">Agregar tipo de activo</a>
+                    </div>
                 </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark mt-1 col-md-6" href="/register/location" style="max-width: 300px;">Agregar ubicación</a>
-
-                    
-                </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark mt-1 col-md-6" href="/register/asset-type" style="max-width: 300px;">Agregar tipo de activo</a>
-                    
+                <hr class="mx-n3">
+                <div class="row align-items-center justify-content-center m-2">
+                    <div class="btn-group-vertical" role="group" style="max-width: 300px;">
+                        <a class="btn btn-dark mt-1" href="/edit/Assets">Editar activos</a>
+                        <a class="btn btn-dark mt-1" href="/edit/Users">Editar usuarios</a>
+                        <a class="btn btn-dark mt-1" href="/edit/location">Editar ubicaciónes</a>
+                        <a class="btn btn-dark mt-1" href="/edit/AssetTypes">Editar tipo de activos</a>
+                    </div>
                 </div>
             </div>
         </div>
+       
     </div>
 </body>
 <%- include('../partials/footer') %>
