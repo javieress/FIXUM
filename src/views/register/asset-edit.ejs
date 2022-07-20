@@ -102,11 +102,12 @@
                                 <select class="form-select" aria-label="Default select example"
                                     name="new-asset-userInCharge">
                                     <option value="">Desplegar opciones</option>
-                                    <% for( let i in user ) { %>
+                                    <% for( let i in user ) { 
+                                        if(user[i].dataValues.nameUser.toLowerCase()!='predeterminado') {%>
                                         <option <% if (user[i].dataValues.id_users == asset[0].dataValues.id_users_in_charge) {%>selected <%}  %> value="<%= user[i].dataValues.id_users%>" >
                                             <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' ' + user[i].dataValues.last_name %>
                                         </option>
-                                        <% } %>
+                                        <% }} %>
                                 </select>
                                 <div class="invalid-feedback">
                                     Debe selecionar una opcion.

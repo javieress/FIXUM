@@ -39,11 +39,12 @@
                                 <select class="form-select" aria-label="Default select example"
                                     name="new-asset-assetType" id="validationCustom02" required>
                                     <option value="">Desplegar opciones</option>
-                                    <% for(let i in assetType) { %>
+                                    <% for(let i in assetType) { 
+                                        if(assetType[i].dataValues.assetType.toLowerCase()!='sin asignar') {%>
                                         <option value="<%= assetType[i].dataValues.id %> ">
                                             <%= assetType[i].dataValues.assetType %>
                                         </option>
-                                        <% } %>
+                                        <% }} %>
                                 </select>
                                 <div class="invalid-feedback">
                                     Opcion necesaria.
@@ -80,11 +81,12 @@
                                 <select class="form-select" aria-label="Default select example" id="placesOptions"
                                     name="new-asset-location" id="validationCustom05" required >
                                     <option value="">Desplegar opciones</option>
-                                    <% for( let i in location ) { %>
+                                    <% for( let i in location ) { 
+                                        if(location[i].dataValues.locations.toLowerCase()!='sin asignar') {%>
                                         <option value="<%=location[i].dataValues.id%> ">
                                             <%=location[i].dataValues.locations%>
                                         </option>
-                                        <% } %>
+                                        <% }} %>
                                 </select>
                                 <div class="invalid-feedback">
                                     Opcion necesaria.
@@ -100,12 +102,13 @@
                                 <select class="form-select" aria-label="Default select example"
                                     name="new-asset-userInCharge" id="validationCustom06" required aria-label="select example" >
                                     <option value="">Desplegar opciones</option>
-                                    <% for( let i in user ) { %>
+                                    <% for( let i in user ) { 
+                                        if(user[i].dataValues.nameUser.toLowerCase()!='predeterminado') {%>
                                         <option value="<%= user[i].dataValues.id_users%>">
                                             <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' '
                                                 + user[i].dataValues.last_name %>
                                         </option>
-                                        <% } %>
+                                        <% }} %>
                                 </select>
                                 <div class="invalid-feedback">
                                     Opcion necesaria.

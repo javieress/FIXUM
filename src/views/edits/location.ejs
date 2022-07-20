@@ -35,7 +35,7 @@
                             </thead>
                             <tbody>
                                 <% for( let i in locations) {
-                                    if(locations[i].locations!='SIN ASIGNAR'){%>
+                                    if(locations[i].locations.toLowerCase()!='sin asignar'){%>
                                     <tr>
                                         <th scope="row">
                                             <%= locations[i].id %>
