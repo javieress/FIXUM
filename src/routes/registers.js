@@ -39,7 +39,7 @@ router.get('/asset-edit/:id',auth.verifyToken,auth.isAdminOrUser, async (req,res
 
 //locations
 router.get('/location',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
-    res.render('./register/location-register.ejs',{title: ' | Ubicaciones',message: '', navBar: await auth.navigationBar(req)})
+    res.render('./register/location-register.ejs',{title: ' | Registro Ubicaciones',message: '', navBar: await auth.navigationBar(req)})
 })
 router.post('/location',auth.verifyToken,auth.isAdmin,locationController.post)
 router.get('/location-delete/:id',auth.verifyToken,auth.isAdmin,locationController.delete)
@@ -50,24 +50,24 @@ router.get('/location-edit/:id',auth.verifyToken,auth.isAdminOrUser, async (req,
 
 //asset types
 router.get('/asset-type',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
-    res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: '' , navBar: await auth.navigationBar(req)})
+    res.render('./register/asset-type-register.ejs', { title: ' | Registro Tipos de Activos', message: '' , navBar: await auth.navigationBar(req)})
 })
 router.post('/asset-type',auth.verifyToken,auth.isAdmin,assetTypeController.post)
 router.get('/asset-type-delete/:id',auth.verifyToken,auth.isAdmin,assetTypeController.delete)
 router.post('/asset-type-update',auth.verifyToken,auth.isAdmin,assetTypeController.update)
 router.get('/asset-type-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,next) => {
-    res.render('./register/asset-type-edit.ejs',{title: ' | Edit', assetType: await assetTypeController.get(req,res), message: '', navBar: await auth.navigationBar(req)})
+    res.render('./register/asset-type-edit.ejs',{title: ' |Editar Tipos de Activos', assetType: await assetTypeController.get(req,res), message: '', navBar: await auth.navigationBar(req)})
 })
 
 //UserPosition
 router.get('/user-position',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
-    res.render('./register/userPosition-register.ejs', { title: ' | Cargo', message: '', navBar: await auth.navigationBar(req)})
+    res.render('./register/userPosition-register.ejs', { title: ' | Registro Cargos', message: '', navBar: await auth.navigationBar(req)})
 })
 router.post('/user-position',auth.verifyToken,auth.isAdmin,userPosition.post)
 router.get('/user-position-delete/:id',auth.verifyToken,auth.isAdmin,userPosition.delete)
 router.post('/user-position-update',auth.verifyToken,auth.isAdmin,userPosition.update)
 router.get('/userPosition-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,next) => {
-    res.render('./register/userPosition-edit.ejs',{title: ' | Edit', userPosition: await userPosition.get(req,res), message: '', navBar: await auth.navigationBar(req)})
+    res.render('./register/userPosition-edit.ejs',{title: ' | Editar Cargos', userPosition: await userPosition.get(req,res), message: '', navBar: await auth.navigationBar(req)})
 })
 
 
