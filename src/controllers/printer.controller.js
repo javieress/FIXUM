@@ -21,6 +21,26 @@ async function crear_qr(paginas, nombres){
     }
 }
 
+async function poner_titulo(nombre){
+    
+    var img = Jimp.read('src/public/img/img_qr/qr_'+ nombre +'.png', (err, imagen) => {
+        if (!err){
+            var fuente = Jimp.loadFont(Jimp.FONT_SANS_10_BLACK, (err, font) =>{
+                imagen.print(font, 0, 0, nombre, (err, listo) => {
+                    listo.write('src/public/img/img_qr/qr_'+ nombre +'.png',(err, fin) =>{
+                        console.log("Listo :)");
+                    });
+                });
+            });
+        }
+    });
+    
+
+        
+        
+}
+    
+        
 
 module.exports = {create_qr_download: async function(req, res){
     console.log("hola xd");
@@ -31,10 +51,10 @@ module.exports = {create_qr_download: async function(req, res){
     var nombres = [];
 
     console.log(datos.length);
-
+    
     //Falta solucionar problema de 1 qr
 
-
+    
     for (var i = 0; i < datos.length; i++){
         var spliteado = datos[i].split(",");
 
@@ -58,9 +78,20 @@ module.exports = {create_qr_download: async function(req, res){
     console.log(paginas);
     console.log(nombres);
 
-    crear_qr(paginas,nombres);
+    var delayInMilliseconds = 4000; 
 
-    var delayInMilliseconds = 3000; 
+
+    crear_qr(paginas,nombres);
+    poner_titulo(nombres[0]);
+
+    /*
+    for (var i = 0; i < nombres.length; i++){
+        setTimeout(function() {
+            poner_titulo(nombres[i]);
+        }, delayInMilliseconds);
+    }
+    
+
 
     setTimeout(function() {
         var zip = new AdmZip();
@@ -99,6 +130,10 @@ module.exports = {create_qr_download: async function(req, res){
         });
 
     }, 5000);   
+
+    */
+
+    
     
 }
 }
