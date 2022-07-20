@@ -80,7 +80,7 @@ module.exports = {
     post: async function (req, res) {
 
         try {
-            let message = "El usuario '"
+            let message = ''
 
             const { body } = req
 
@@ -120,14 +120,14 @@ module.exports = {
                     const createdUser = await user.post(newUser)
 
                     const token = jwt.sign({ _id: createdUser.dataValues.id_users }, 'adInfinitum123', { expiresIn: 86400 })
-                    res.status(201).redirect('/edit/Users')
+                    // res.status(201).redirect('/edit/Users')
                     // user.post(req, res)//llamo a funcion post para que cree usuario
-                    message += req.body['new-user-username'] + "' se guardó con éxito."
+                    message += 'El usuario se creó con éxito'
 
                 }
 
             } else {
-                message += "'Error en datos ingresados,intentelo nuevamente";
+                message += 'Verifique que los valores ingresados sean correctos';
 
             }
             res.render('./register/user-register.ejs', { title: 'Registro Usuarios', message: message, userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
@@ -165,15 +165,17 @@ module.exports = {
                 const user_esta = await user.get(req.body['new-user-rut'])
                 if (user_esta[0] == null) {
                     res.redirect('/register/user-edit/' + req.body['new-user-rut'])
+                    
                 }
                 else {
                     const updated =  user.update(req)
-
+                    
                     if (updated) {
-                        res.redirect('/edit/Users')
+                        res.render('./register/user-edit.ejs',{title: ' | Edit', user: await user.get(req.body['new-user-rut']), message: 'Usuario editado con éxito',userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
                     }
                     else {
-                        res.redirect('/register/user-edit/' + req.body['new-user-rut'])
+                        // res.redirect('/register/user-edit/' + req.body['new-user-rut'])
+                        res.render('./register/user-edit.ejs',{title: ' | Edit', user: await user.get(req.body['new-user-rut']), message: "Verifique que los valores ingresados sean correctos",userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
                     }
 
 
@@ -210,7 +212,7 @@ module.exports = {
 
     },
     updatePassword:async function(req,res){
-
+        let message = ''
         if(validationPwd(req,res)){
             const salt = await bcrypt.genSalt()
             const hashed = await bcrypt.hash(req.body['new-user-password'], salt)
@@ -219,10 +221,12 @@ module.exports = {
 
             const updatedPwd = await user.updatePassword(req,res)
             if (updatedPwd) {
-                res.redirect('/edit/Users')
+                message = 'Se cambió la contraseña con éxito'
+                res.render('./register/password-edit.ejs',{title: ' | Edit', user: await user.get(req.body['new-userpwd-id']), message: message, navBar: await auth.navigationBar(req)})
             }
             else {
-                res.redirect('/register/user-edit/' + req.body['new-userpwd-id'])
+                message = 'Error con la contraseña'
+                res.render('./register/password-edit.ejs',{title: ' | Edit', user: await user.get(req.body['new-userpwd-id']), message: message, navBar: await auth.navigationBar(req)})
             }
 
 

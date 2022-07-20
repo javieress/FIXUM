@@ -134,7 +134,7 @@
                                 <div class="row align-items-center py-3">
                                     <div class="col-md-3 ps-5">
                     
-                                        <<label for="validationCustom06" class="form-label">Tipo de usuario: </label>
+                                        <label for="validationCustom06" class="form-label">Tipo de usuario: </label>
                     
                                     </div>
                                     <div class="col-md-9 pe-5">
@@ -158,10 +158,16 @@
                                 <div class="px-5 py-4">
                                     <button type="submit" class="btn btn-dark btn-lg">Actualizar</button>
                                 </div>
-                                <div class="px-5 py-4"><%-message%></div>
+                                <% if(message == 'Usuario editado con éxito'){ %>
+                                    <div class="alert alert-success text-center"><%=message%></div>
+                                 <% } %>
+                                 <% if(message == 'Verifique que los valores ingresados sean correctos'){ %>
+                                    <div class="alert alert-danger text-center"><%=message%></div>
+                                 <% } %>
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>

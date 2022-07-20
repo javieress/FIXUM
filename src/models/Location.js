@@ -73,7 +73,8 @@ module.exports = {
         }
     },
     delete: async function(req,res){
-        const {id} = req.params
+        let {id} = req.params
+       
         try {
             await locations.destroy({
                 where: {
@@ -88,7 +89,10 @@ module.exports = {
        
     },
     get: async function(req,res){
-        const {id} = req.params
+        let {id} = req.params
+        if(!id){
+            id = req.body['new-location-id']
+        }
         const locationFound = await locations.findAll({
             where: {
                 id: id

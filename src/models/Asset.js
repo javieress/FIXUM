@@ -62,7 +62,7 @@ module.exports = {
         const price = req.body['new-asset-price']
 
         try {
-            await asset.create(
+            const assetCreated = await asset.create(
                 {
                 id_assetType: assetType,
                 id_location: location,
@@ -74,13 +74,18 @@ module.exports = {
                 price: price,
             }
             );
+            console.log(assetCreated + 'xxxxx aqui');
+            if (assetCreated != undefined){
+                return true;
+            }
+            else{
+                return false
+            }
             
         } catch (error) {
             console.log(error.message);
-            
+            return false
         }
-        return true;
-
     },
     delete: async function (req, res) {
         const {id} = req.params
@@ -119,15 +124,18 @@ module.exports = {
         return totalAssetsByLocation
     },
     get: async function(req,res){
-        const {id} = req.params
-
+        let {id} = req.params
+        if (!id) {
+            id = req.query['id']
+                if (!id) {
+                    id = req.body['new-asset-id']
+                }
+        }
         const assetFound = await asset.findAll({
             where: {
                 id: id
             }
         })
-
-        
 
     const locationName=await db.query("select Locations.locations from Assets inner join Locations on Assets.id_location=Locations.id where Assets.id_location="+assetFound[0].dataValues.id_location)
       assetFound[0].dataValues.location=locationName[0][0].locations        

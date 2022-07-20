@@ -51,7 +51,10 @@ module.exports={
     },
    
     get:async function(req,res) {
-        const {id} = req.params
+        let {id} = req.params
+        if (!id){
+            id = req.body['new-user-position-id']
+        }
         const UserPositionFound = await userPosition.findAll({
             where: {
                 id: id

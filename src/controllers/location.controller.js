@@ -23,10 +23,10 @@ module.exports = {
     },
     post: async function (req, res) {
         try {
-            let message = 'La ubicación "'
+            let message = ''
             if (validationLocationName(req, res)) {
                 if (location.post(req, res)) {
-                    message += req.body['new-location-name'].toUpperCase() + '" se guardó con éxito.'
+                    message += 'La ubicación se guardó con éxito'
                 }
                 else {
                     message += 'Ocurrio un error'
@@ -43,11 +43,13 @@ module.exports = {
 
     },
     update: async function (req, res) {
+        let message= ''
         try {
             if (validationLocationName(req, res)) {
                 const updated = await location.update(req, res)
                 if (updated) {
-                    res.redirect('/edit/location')
+                    message = 'La ubicación se actualizó con éxito'
+                    res.render('./register/location-edit.ejs',{title: ' | Edit', location: await location.get(req,res),message: message, navBar: await auth.navigationBar(req)})
                 }
                 else {
                     const locationUpdated =
@@ -59,7 +61,7 @@ module.exports = {
                                     locations: ''
                                 }
                             }]
-                    res.render('./register/location-edit.ejs', { title: ' | Actualizar Ubicaciones', location: locationUpdated, message: 'Erro no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
+                    res.render('./register/location-edit.ejs', { title: ' | Actualizar Ubicaciones', location: locationUpdated, message: 'Error no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
 
                 }
             }
