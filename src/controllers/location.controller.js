@@ -35,8 +35,9 @@ module.exports = {
             } else {
                 message += "Maximo de caracteres superado"
             }
-            res.render('./register/location-register.ejs', { title: ' | Ubicaciones', message: message ,navBar: await auth.navigationBar(req)})
+            res.render('./register/location-register.ejs', { title: ' | Registro Ubicaciones', message: message ,navBar: await auth.navigationBar(req)})
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
         }
 
@@ -58,7 +59,7 @@ module.exports = {
                                     locations: ''
                                 }
                             }]
-                    res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Erro no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
+                    res.render('./register/location-edit.ejs', { title: ' | Actualizar Ubicaciones', location: locationUpdated, message: 'Erro no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
 
                 }
             }
@@ -69,9 +70,10 @@ module.exports = {
                         locations: ''
                     }
                 }]
-                res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Texto ingresado supera el máximo de caracteres' ,navBar: await auth.navigationBar(req)})
+                res.render('./register/location-edit.ejs', { title: ' | Actualizar Ubicaciones', location: locationUpdated, message: 'Texto ingresado supera el máximo de caracteres' ,navBar: await auth.navigationBar(req)})
             }
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
         }
 
@@ -86,6 +88,7 @@ module.exports = {
 
             }
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
 
         }
@@ -97,6 +100,7 @@ module.exports = {
             return await location.get(req, res)
 
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
 
         }
