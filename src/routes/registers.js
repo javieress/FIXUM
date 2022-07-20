@@ -40,8 +40,8 @@ router.get('/location',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
 router.post('/location',auth.verifyToken,auth.isAdmin,locationController.post)
 router.get('/location-delete/:id',auth.verifyToken,auth.isAdmin,locationController.delete)
 router.post('/location-update',auth.verifyToken,auth.isAdmin,locationController.update)
-router.get('/location-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,next) => {
-    res.render('./register/location-edit.ejs',auth.verifyToken,auth.isAdmin,{title: ' | Edit', location: await locationController.get(req,res), message: '', navBar: await auth.navigationBar(req)})
+router.get('/location-edit/:id',auth.verifyToken,auth.isAdminOrUser, async (req,res,next)=> {
+    res.render('./register/location-edit.ejs',{title: ' | Edit', location: await locationController.get(req,res),message: '', navBar: await auth.navigationBar(req)})
 })
 
 //asset types

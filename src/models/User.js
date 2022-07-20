@@ -42,6 +42,10 @@ const users=db.define('User', {
     salt: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }
 )
@@ -98,7 +102,6 @@ module.exports = {
         return userFound
     },
     update: async function (req, res) {
-        console.log('poto');
         console.log(req.body);
         try {
             await users.update({
@@ -119,9 +122,6 @@ module.exports = {
             console.log(err)
             return false
         }
-        return null
-    },
-    update: function (req, res) {
 
     },
     delete: async function (req, res) {

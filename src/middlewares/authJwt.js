@@ -17,6 +17,7 @@ const verifyToken = async (req, res, next) => {
         // if (!user) return res.status(404).json({ message: 'No user found' })
         if (!user) return res.status(404).redirect('/')
         next()
+        
     } catch (error) {
         console.log(error);
     }

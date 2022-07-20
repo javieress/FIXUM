@@ -69,7 +69,7 @@
                             <div class="col-md-9">
                                 <select class="form-select" aria-label="Default select example" id="placesOptions"
                                     name="new-asset-location">
-                                    <option selected>Elija una opción</option>
+                                    <option >Elija una opción</option>
                                     <% for( let i in location ) { %>
                                         <option value="<%=location[i].dataValues.id%> " <% if (location[i].dataValues.id === asset[0].dataValues.id_location) {%>selected <% console.log('aqui')}  %>>
                                             <%=location[i].dataValues.locations%>
@@ -86,9 +86,9 @@
 
                                 <select class="form-select" aria-label="Default select example"
                                     name="new-asset-userInCharge">
-                                    <option selected>Elija una opción</option>
+                                    <option >Elija una opción</option>
                                     <% for( let i in user ) { %>
-                                        <option <% if (user[i].dataValues.id_users == asset[0].dataValues.id_users_in_charge) {%>selected <% console.log('aqui')}  %> value="<%= user[i].dataValues.id_users%>" >
+                                        <option <% if (user[i].dataValues.id_users == asset[0].dataValues.id_users_in_charge) {%>selected <%}  %> value="<%= user[i].dataValues.id_users%>" >
                                             <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' ' + user[i].dataValues.last_name %>
                                         </option>
                                         <% } %>

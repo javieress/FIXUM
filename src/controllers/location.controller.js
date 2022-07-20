@@ -2,6 +2,7 @@ const config = require('../config/dbconfig')
 const sql = require('mssql')
 const location = require('../models/Location')
 const bodyParser = require('body-parser')
+const auth = require('../middlewares/authJwt')
 
 
 
@@ -20,12 +21,12 @@ module.exports = {
     list: async function () {
         return await location.list()
     },
-    post: function (req, res) {
+    post: async function (req, res) {
         try {
-            let message = ""
+            let message = 'La ubicación "'
             if (validationLocationName(req, res)) {
                 if (location.post(req, res)) {
-                    message += req.body['new-location-name'].toUpperCase() + "' se guardó con éxito."
+                    message += req.body['new-location-name'].toUpperCase() + '" se guardó con éxito.'
                 }
                 else {
                     message += 'Ocurrio un error'
@@ -34,7 +35,7 @@ module.exports = {
             } else {
                 message += "Maximo de caracteres superado"
             }
-            res.render('./register/location-register.ejs', { title: ' | Ubicaciones', message: message })
+            res.render('./register/location-register.ejs', { title: ' | Ubicaciones', message: message ,navBar: await auth.navigationBar(req)})
         } catch (error) {
             res.redirect('/error')
         }
@@ -57,7 +58,7 @@ module.exports = {
                                     locations: ''
                                 }
                             }]
-                    res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Erro no se pudo hacer la modificacion' })
+                    res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Erro no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
 
                 }
             }
@@ -68,12 +69,11 @@ module.exports = {
                         locations: ''
                     }
                 }]
-                res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Texto ingresado supera el máximo de caracteres' })
+                res.render('./register/location-edit.ejs', { title: ' | Edit', location: locationUpdated, message: 'Texto ingresado supera el máximo de caracteres' ,navBar: await auth.navigationBar(req)})
             }
         } catch (error) {
             res.redirect('/error')
         }
-
 
     },
     delete: async function (req, res) {

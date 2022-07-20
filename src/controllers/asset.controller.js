@@ -43,34 +43,35 @@ function validationDescription(req,res){
 
 module.exports={
     index: async function(req,res){
-        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navbar: await auth.navigationBar})
+        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})
     },
     list: async function(){
         return await asset.list()
     },
     post: async function (req,res) {
-        //let message=''
+        let message=''
         try {
             if (validationAssetName(req, res) && validationQuantity(req, res) && validationPrice(req, res) && validationDescription(req, res)) {
                 if (asset.post(req, res)) {
-                    //message+="Activo Registrado correctamente"
-                    res.render('./register/asset-register.ejs', { title: ' | Registro de Activo', message: message, location: locationController.list(), assetType: assetTypeController.list(), user: userController.list() })
-
-
-
+                    message+="Activo Registrado correctamente"
+                    res.render('./register/asset-register.ejs', { title: ' | Registro de Activo', message: message, location: await locationController.list(), assetType: await assetTypeController.list(), user: await userController.list() , navBar: await auth.navigationBar(req)})
                 }
                 else {
-                    // message+="Ocurrio un error al registrar activo"
-                    res.redirect('/')
+                    message+="Ocurrio un error al registrar activo"
+                    res.render('./register/asset-register.ejs', { title: ' | Registro de Activo', message: message, location: await locationController.list(), assetType: await assetTypeController.list(), user: await userController.list() , navBar: await auth.navigationBar(req)})
+                    // res.redirect('/')
 
                 }
             }
             else {
-                //message+="Verifique la cantidad de caracteres ingresados en cada seccion"
-                res.redirect('/')
+                message+="Verifique la cantidad de caracteres ingresados en cada seccion"
+                res.render('./register/asset-register.ejs', { title: ' | Registro de Activo', message: message, location: await locationController.list(), assetType: await assetTypeController.list(), user: await userController.list() , navBar: await auth.navigationBar(req)})
+
+                // res.redirect('/')
             }
 
         } catch (error) {
+            console.log(error);
             res.redirect('/error')
         }
 
@@ -95,7 +96,7 @@ module.exports={
         }
     },
     update: async function (req, res) {
-
+        console.log('update assets');
         try {
             if(validationAssetName(req,res)&&validationQuantity(req,res)&&validationPrice(req,res)&&validationDescription(req,res)){
                 const updated = await asset.update(req, res)

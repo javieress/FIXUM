@@ -2,6 +2,7 @@ const config = require('../config/dbconfig')
 const sql = require('mssql')
 const assetType = require('../models/Asset-Type')
 const bodyParser = require('body-parser')
+const auth = require('../middlewares/authJwt')
 
 
 function validationAssetType(req, res) {
@@ -12,13 +13,13 @@ function validationAssetType(req, res) {
 }
 
 module.exports = {
-    index: function (req, res) {
-        res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: '' })
+    index: async function (req, res) {
+        res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: '' , navBar: await auth.navigationBar(req)})
     },
     list: async function () {
         return await assetType.list()
     },
-    post: function (req, res) {
+    post: async function (req, res) {
         try {
             let message = 'El tipo de activo "'
             if (validationAssetType(req, res)) {
@@ -31,7 +32,7 @@ module.exports = {
             } else {
                 message += " maximo de caracteres superado"
             }
-             res.render('./register/asset-type-register.ejs', { title: ' | Tipos de Activos', message: message })
+            res.render('./register/asset-type-register.ejs',{ title: ' | Tipos de Activos', message: message , navBar: await auth.navigationBar(req)})
         } catch (error) {
             res.redirect('/error')
 
@@ -56,10 +57,7 @@ module.exports = {
             if (validationAssetType(req, res)) {
                 const updated = await assetType.update(req, res)
                 if (updated) {
-
                     res.redirect('/edit/AssetTypes')
-
-
                 }
                 else {
                     const assetTypeUpdated =
@@ -71,7 +69,7 @@ module.exports = {
                                     assetType: ''
                                 }
                             }]
-                    res.render('./register/asset-type-edit.ejs', { title: ' | Edit', assetType: assetTypeUpdated, message: 'ERROR NO SE PUDO MODIFICAR' })
+                    res.render('./register/asset-type-edit.ejs', { title: ' | Edit', assetType: assetTypeUpdated, message: 'ERROR NO SE PUDO MODIFICAR' , navBar: await auth.navigationBar(req)})
 
                 }
             }
@@ -84,7 +82,7 @@ module.exports = {
                             assetType: ''
                         }
                     }]
-                res.render('./register/asset-type-edit.ejs', { title: ' | Edit', assetType: assetTypeUpdated, message: 'Texto ingresado supera el máximo de caracteres' })
+                res.render('./register/asset-type-edit.ejs', { title: ' | Edit', assetType: assetTypeUpdated, message: 'Texto ingresado supera el máximo de caracteres' , navBar: await auth.navigationBar(req)})
             }
         } catch (error) {
             res.redirect('/error')
