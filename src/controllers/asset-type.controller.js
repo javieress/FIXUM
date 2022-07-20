@@ -32,7 +32,7 @@ module.exports = {
             } else {
                 message += " maximo de caracteres superado"
             }
-            res.render('./register/asset-type-register.ejs',{ title: ' | Tipos de Activos', message: message , navBar: await auth.navigationBar(req)})
+            res.render('./register/asset-type-register.ejs',{ title: ' | Registro Tipos de Activos', message: message , navBar: await auth.navigationBar(req)})
         } catch (error) {
             res.redirect('/error')
 
@@ -69,7 +69,7 @@ module.exports = {
                                     assetType: ''
                                 }
                             }]
-                    res.render('./register/asset-type-edit.ejs', { title: ' | Edit', assetType: assetTypeUpdated, message: 'ERROR NO SE PUDO MODIFICAR' , navBar: await auth.navigationBar(req)})
+                    res.render('./register/asset-type-edit.ejs', { title: ' | Modificar Tipo Activo', assetType: assetTypeUpdated, message: 'ERROR NO SE PUDO MODIFICAR' , navBar: await auth.navigationBar(req)})
 
                 }
             }
@@ -82,7 +82,7 @@ module.exports = {
                             assetType: ''
                         }
                     }]
-                res.render('./register/asset-type-edit.ejs', { title: ' | Edit', assetType: assetTypeUpdated, message: 'Texto ingresado supera el máximo de caracteres' , navBar: await auth.navigationBar(req)})
+                res.render('./register/asset-type-edit.ejs', { title: ' |Eliminar Tipo Activo', assetType: assetTypeUpdated, message: 'Texto ingresado supera el máximo de caracteres' , navBar: await auth.navigationBar(req)})
             }
         } catch (error) {
             res.redirect('/error')

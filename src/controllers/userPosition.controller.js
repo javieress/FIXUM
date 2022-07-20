@@ -33,7 +33,7 @@ module.exports={
         }else{
             message+="Maximo de caracteres superado"
         }
-        res.render('./register/userPosition-register.ejs',{title: ' | Cargos',message: message,navBar: await auth.navigationBar(req)})
+        res.render('./register/userPosition-register.ejs',{title: ' | Registrar Cargos',message: message,navBar: await auth.navigationBar(req)})
     },
     update: async function (req, res) {
         if(validationUserPositionLenght(req,res)){
@@ -51,7 +51,7 @@ module.exports={
                                 position: ''
                             }
                         }]
-                res.render('./register/userPosition-edit.ejs', { title: ' | Edit', userPosition: positionUpdated, message: 'Erro no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
+                res.render('./register/userPosition-edit.ejs', { title: ' | Actualizar Cargos', userPosition: positionUpdated, message: 'Erro no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
 
             }
         }
@@ -65,7 +65,7 @@ module.exports={
                                 position: ''
                             }
                         }]
-                res.render('./register/userPosition-edit.ejs', { title: ' | Edit', userPosition: positionUpdated, message: 'Error en el cargo' ,navBar: await auth.navigationBar(req)})
+                res.render('./register/userPosition-edit.ejs', { title: ' | Actualizar Cargos', userPosition: positionUpdated, message: 'Error en el cargo' ,navBar: await auth.navigationBar(req)})
 
         }
         

@@ -130,9 +130,10 @@ module.exports = {
                 message += "'Error en datos ingresados,intentelo nuevamente";
 
             }
-            res.render('./register/user-register.ejs', { title: 'FIXUM', message: message, userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
+            res.render('./register/user-register.ejs', { title: 'Registro Usuarios', message: message, userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
 
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
 
         }
@@ -184,6 +185,7 @@ module.exports = {
 
 
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
 
         }
@@ -200,11 +202,35 @@ module.exports = {
 
             }
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
 
         }
 
 
+    },
+    updatePassword:async function(req,res){
+
+        if(validationPwd(req,res)){
+            const salt = await bcrypt.genSalt()
+            const hashed = await bcrypt.hash(req.body['new-user-password'], salt)
+            req.body['new-user-password']=hashed
+
+
+            const updatedPwd = await user.updatePassword(req,res)
+            if (updatedPwd) {
+                res.redirect('/edit/Users')
+            }
+            else {
+                res.redirect('/register/user-edit/' + req.body['new-userpwd-id'])
+            }
+
+
+            
+
+        }
+
+      
     }
 
 }

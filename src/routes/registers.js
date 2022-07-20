@@ -17,6 +17,10 @@ router.get('/user',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
 router.post('/user',auth.verifyToken,auth.isAdmin,userController.post)
 router.get('/user-delete/:id',auth.verifyToken,auth.isAdmin,userController.delete)
 router.post('/user-update',auth.verifyToken,auth.isAdmin,userController.update)
+router.post('/user-update-password',auth.verifyToken,auth.isAdmin,userController.updatePassword)
+router.get('/user-edit-password/:id',auth.verifyToken,auth.isAdmin,async (req,res,next)=>{
+    res.render('./register/password-edit.ejs',{title: ' | Edit', user: await userController.get(req,res), message: '', navBar: await auth.navigationBar(req)})
+})
 router.get('/user-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,next) => {
     res.render('./register/user-edit.ejs',{title: ' | Edit', user: await userController.get(req,res), message: '',userPosition: await userPosition.list(), navBar: await auth.navigationBar(req)})
 })

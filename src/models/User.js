@@ -102,7 +102,6 @@ module.exports = {
         return userFound
     },
     update: async function (req, res) {
-        console.log(req.body);
         try {
             await users.update({
                 nameUser: req.body['new-user-name'],
@@ -138,6 +137,25 @@ module.exports = {
            return false
         }
         
+    },
+    updatePassword:async function(req,res){
+        const pwd=req.body['new-user-password']
+        const userPwd=req.body['new-userpwd-id']
+        try {
+            await users.update({ pwd:pwd }, {
+                where: {
+                  id_users:userPwd
+                }
+              });
+              return true;
+            
+        } catch (error) {
+            console.log(error)
+            return false
+            
+        }
+      
+
     }
         
     
