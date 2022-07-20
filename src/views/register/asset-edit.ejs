@@ -23,85 +23,106 @@
                     
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Nombre del activo</h6>
+                                <label for="validationCustom01" class="form-label">Nombre del activo: </label>
                             </div>
                             <div class="col-md-9">
                                 <input type="hidden" name="new-asset-id" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.id%>">
-                                <input type="text" name="new-asset-name" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.asset_name%>"  maxlength="50">
+                                <input type="text" name="new-asset-name" id="" class="form-control form-control-lg" value="<%=asset[0].dataValues.asset_name%>"  maxlength="50" id="validationCustom01" required/>
+                                <div class="invalid-feedback">
+                                    Campo necesario.
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Tipo de Activo</h6>
+                                <label for="validationCustom02" class="form-label">Tipo de activo: </label>
                             </div>
                             <div class="col-md-9">
                                 <select class="form-select" aria-label="Default select example"
-                                    name="new-asset-assetType">
-                                    <option selected>Elija una opción</option>
+                                    name="new-asset-assetType" id="validationCustom02" required >
+                                    <option value="">Desplegar opciones</option>
                                     <% for(let i in assetType) { %>
                                         <option value="<%= assetType[i].dataValues.id %> "<% if (assetType[i].dataValues.id === asset[0].dataValues.id_assetType) {%>selected <% console.log('aqui')}  %>>
                                             <%= assetType[i].dataValues.assetType %>
                                         </option>
                                         <% } %>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Debe selecionar una opcion.
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Cantidad</h6>
+                                <label for="validationCustom03" class="form-label">Cantidad:  </label>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" name="new-asset-quantity" id="typeNumber" class="form-control form-control-lg" min="0"value="<%= asset[0].dataValues.quantity%>" max="100000">
+                                <input type="number" name="new-asset-quantity" id="typeNumber" class="form-control form-control-lg" min="0"value="<%= asset[0].dataValues.quantity%>" max="100000" id="validationCustom03" required />
+                                <div class="invalid-feedback">
+                                    Campo necesario.
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Valor</h6>
+                                <label for="validationCustom04" class="form-label">Valor:  </label>
                             </div>
                             <div class="col-md-9">
-                                <input type="number" name="new-asset-price" id="typeNumber" class="form-control form-control-lg" min="0" max="9999999999"value="<%= asset[0].dataValues.price%>">
+                                <input type="number" name="new-asset-price" id="typeNumber" class="form-control form-control-lg" min="0" max="9999999999"value="<%= asset[0].dataValues.price%>" id="validationCustom04" required />
+                                <div class="invalid-feedback">
+                                    Campo necesario.
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Ubicación</h6>
+                                <label for="validationCustom05" class="form-label">Ubicacion:  </label>
                             </div>
                             <div class="col-md-9">
                                 <select class="form-select" aria-label="Default select example" id="placesOptions"
-                                    name="new-asset-location">
-                                    <option selected>Elija una opción</option>
+                                    name="new-asset-location" id="validationCustom05" required>
+                                    <option value="">Desplegar opciones</option>
                                     <% for( let i in location ) { %>
                                         <option value="<%=location[i].dataValues.id%> " <% if (location[i].dataValues.id === asset[0].dataValues.id_location) {%>selected <% console.log('aqui')}  %>>
                                             <%=location[i].dataValues.locations%>
                                         </option>
                                         <% } %>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Debe selecionar una opcion.
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Encargado</h6>
+                                <label for="validationCustom05" class="form-label">Encargado:  </label>
                             </div>
                             <div class="col-md-9">
 
                                 <select class="form-select" aria-label="Default select example"
                                     name="new-asset-userInCharge">
-                                    <option selected>Elija una opción</option>
+                                    <option value="">Desplegar opciones</option>
                                     <% for( let i in user ) { %>
                                         <option <% if (user[i].dataValues.id_users == asset[0].dataValues.id_users_in_charge) {%>selected <% console.log('aqui')}  %> value="<%= user[i].dataValues.id_users%>" >
                                             <%= user[i].dataValues.UserName + ' | ' + user[i].dataValues.nameUser + ' ' + user[i].dataValues.last_name %>
                                         </option>
                                         <% } %>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Debe selecionar una opcion.
+                                </div>
                             </div>
                         </div>
                         <div class="row align-items-center m-2">
                             <div class="col-md-3">
-                                <h6 class="mb-0">Descripción</h6>
+                                <label for="validationTextarea" class="form-label">Descripción: </label>
                             </div>
                             <div class="col-md-9">
                                 <textarea name="new-asset-description" id="" cols="30" rows="5"
-                                    class="form-control" ><%=asset[0].dataValues.description%></textarea>
+                                    class="form-control" id="validationTextarea" required><%=asset[0].dataValues.description%></textarea>
+                                    <div class="invalid-feedback">
+                                        Rellene con una descripcion del activo.
+                                    </div>
                             </div>
                         </div>
                     </div>

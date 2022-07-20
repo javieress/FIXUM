@@ -24,11 +24,14 @@
                             <form method="post" action="/register/asset-type-update" class="row g-3 needs-validation" novalidate>
                                 <div class="row align-items-center pt-4 pb-3">
                                     <div class="col-md-3 ps-5">
-                                        <h6 class="mb-0">Nombre del tipo de activo:</h6>
+                                        <label for="validationCustom01" class="form-label">Nombre del tipo de activo fijo: </label>
                                     </div>
                                     <div class="col-md-9 pe-5">
                                         <input type="hidden" class="form-control form-control-lg" name="new-asset-type-id" value="<%= assetType[0].dataValues.id%>"/>
-                                        <input id='new-asset-type-name' type="text" class="form-control form-control-lg" name='new-asset-type-name' value="<%= assetType[0].dataValues.assetType %>" maxlength="50"/>
+                                        <input id='new-asset-type-name' type="text" class="form-control form-control-lg" name='new-asset-type-name' value="<%= assetType[0].dataValues.assetType %>" maxlength="50" id="validationCustom01" required/>
+                                        <div class="invalid-feedback">
+                                            Debes rellenar este campo con el nombre del nuevo tipo de activo.
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="mx-n3">

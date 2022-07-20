@@ -115,6 +115,7 @@
                                     <div class="col-md-9 pe-5">
                     
                                         <select class="form-select" aria-label="Default select example" name="new-user-position">
+                                            <option value="">Desplegar opciones</option>
                                             <% for( let i in userPosition ) { %>
                                                 <option value="<%= userPosition[i].dataValues.id%> "<% if (userPosition[i].dataValues.id == user[0].dataValues.id_position) {%>selected <% console.log('aqui')}  %> >
                                                     <%= userPosition[i].dataValues.position %>
