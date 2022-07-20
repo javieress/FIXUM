@@ -73,8 +73,8 @@ module.exports = {create_qr_download: async function(req, res){
     res.set('Content-disposition', 'attachment; filename=src/public/img/descargar.zip');
 
     res.set('Content-type', 'application/zip');*/
-    res.download('src/public/img/descargar.zip');
+    res.download('./src/public/img/descargar.zip');
     
-    res.redirect("/print");
+    //res.redirect("/print");
     
 }}
