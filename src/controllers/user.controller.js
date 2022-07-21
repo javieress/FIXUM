@@ -86,7 +86,7 @@ module.exports = {
 
             if (Fn.validaRut(req.body['new-user-rut']) && validationUserLenght(req, res) && validationName(req, res) && validationLastName(req, res) && validationPwd(req, res)) {
 
-                const user_esta = await user.findOneRut(req, res) || await user.findOneUserName(req, res);
+                const user_esta = await user.findOneRut(req, res) && await user.findOneUserName(req, res);
 
                 if (user_esta != null) {
                     message += req.body['new-user-username'] + "'ya existe.";
