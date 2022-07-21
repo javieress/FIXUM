@@ -85,8 +85,13 @@ module.exports = {
 
     },
     TotalByAssetsTypes: async function(){
-        const totalAssetTypes=await db.query('select AssetTypes.assetType,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from  Assets inner join AssetTypes on AssetTypes.id=Assets.id_assetType group by AssetTypes.assetType')
-
+        const totalAssetTypes=await db.query('select AssetTypes.assetType,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from  Assets right join AssetTypes on AssetTypes.id=Assets.id_assetType group by AssetTypes.assetType')
+        for(let i in totalAssetTypes[0]){
+            if(totalAssetTypes[0][i].Cantidad==null){
+                totalAssetTypes[0][i].Cantidad='0'
+                totalAssetTypes[0][i].Total='0'
+            }
+        }
         return totalAssetTypes
     },
     get: async function(req,res){
