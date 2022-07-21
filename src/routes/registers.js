@@ -71,7 +71,7 @@ router.get('/userPosition-edit/:id',auth.verifyToken,auth.isAdmin, async (req,re
 })
 
 
-router.post('/contact',auth.verifyToken,auth.isAdmin,mailController.contact)
+router.post('/contact',auth.verifyToken,mailController.contact)
 
 router.post('/notification',auth.verifyToken,auth.isAdmin,mailController.adminNotification)
 
