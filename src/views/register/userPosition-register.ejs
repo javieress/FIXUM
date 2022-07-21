@@ -26,13 +26,16 @@
                             <h3>Registrar nuevo Cargo de Usuario</h3>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="/register/user-position">
+                            <form method="post" action="/register/user-position" class="row g-3 needs-validation" novalidate>
                                 <div class="row align-items-center pt-4 pb-3">
                                     <div class="col-md-3 ps-5">
-                                        <h6 class="mb-0">Cargo:</h6>
+                                        <label for="validationCustom01" class="form-label">Cargo: </label>
                                     </div>
                                     <div class="col-md-9 pe-5">
-                                        <input id='new-user-position' type="text" class="form-control form-control-lg" name='new-user-position' maxlength="50"/>
+                                        <input id='new-user-position' type="text" class="form-control form-control-lg" name='new-user-position' maxlength="50" id="validationCustom01" required/>
+                                        <div class="invalid-feedback">
+                                            Este campo es necesario.
+                                        </div>
                                     </div>
                                 </div>
                                 <hr class="mx-n3">
@@ -53,5 +56,25 @@
         </div>
 </body>
 <%- include('../partials/footer') %>
+<script>
+        (function () {
+  'use strict'
 
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 </html>
