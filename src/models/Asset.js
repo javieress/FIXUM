@@ -49,8 +49,8 @@ const asset = db.define('Asset', {
 
 module.exports = {
     list: async function () {
-        const assetList = await asset.findAll()
-        return assetList
+        const Asset=await db.query('select Assets.id,Assets.id_assetType,Assets.id_location,Assets.id_users_in_charge,Assets.asset_name,Assets.description,AssetTypes.assetType,Locations.locations from Assets inner join AssetTypes on Assets.id_assetType=AssetTypes.id inner join Locations on Assets.id_location=Locations.id')
+        return Asset
     },
     post: async function (req, res) {
         const name = req.body['new-asset-name']
