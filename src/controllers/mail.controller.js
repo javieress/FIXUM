@@ -16,46 +16,46 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-module.exports={
-  contact:function (req,res) {
+module.exports = {
+  contact: function (req, res) {
 
     var formSubject = req.body["contact-name"] + ", " + req.body["contact-email"];
     var formMessage = req.body["contact-message"];
- 
+
     var mailOptions = {
       from: '"Soporte Fixum" <' + user + '>', // sender address
       to: user, // list of receivers cristhian.rabi@alumnos.ucn.cl javier.rojas04@alumnos.ucn.cl nicolas.hernandez@alumnos.ucn.cl pablo.rios@alumnos.ucn.cl
       subject: formSubject, // Subject line
       text: formMessage, // plain text body
     };
-     
-    transporter.sendMail(mailOptions, function(error, info){
+
+    transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
       } else {
         console.log('Email enviado: ' + info.response);
       }
     });
-      res.redirect("/contact");
+    res.redirect("/contact");
   },
-  adminNotification:function (req,res) {
+  adminNotification: function (req, res) {
 
     var formSubject = req.body["subject"];
     var formMessage = req.body["message"];
     var formDestination = req.body["email"];
- 
+
     var mailOptions = {
       from: '"Soporte Fixum" <' + user + '>', // sender address
-      to:  formDestination,// list of receivers
+      to: formDestination,// list of receivers
       subject: formSubject, // Subject line
       text: formMessage, // plain text body
     };
-     
-    transporter.sendMail(mailOptions, function(error, info){
+
+    transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
       } else {
-        console.log('Email enviado: ' + info.response +"\nDestinatarios: "+formDestination);
+        console.log('Email enviado: ' + info.response + "\nDestinatarios: " + formDestination);
       }
     });
     res.redirect("/notifications");

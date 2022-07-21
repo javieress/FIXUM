@@ -11,7 +11,7 @@ function validationAssetType(req, res) {
 
 module.exports = {
     index: async function (req, res) {
-        res.render('./register/asset-type-register.ejs', { title: ' | Registro de Tipo de Activos', message: '' , navBar: await auth.navigationBar(req)})
+        res.render('./register/asset-type-register.ejs', { title: ' | Registro de Tipo de Activos', message: '', navBar: await auth.navigationBar(req) })
     },
     list: async function () {
         return await assetType.list()
@@ -29,7 +29,7 @@ module.exports = {
             } else {
                 message += " maximo de caracteres superado"
             }
-            res.render('./register/asset-type-register.ejs',{ title: ' | Registro de Tipo de Activos', message: message , navBar: await auth.navigationBar(req)})
+            res.render('./register/asset-type-register.ejs', { title: ' | Registro de Tipo de Activos', message: message, navBar: await auth.navigationBar(req) })
         } catch (error) {
             res.redirect('/error')
 
@@ -55,7 +55,7 @@ module.exports = {
                 const updated = await assetType.update(req, res)
                 if (updated) {
                     message = 'El Tipo de Activo se editó con éxito'
-                    res.render('./register/asset-type-edit.ejs', { title: ' | Editar Tipo de Activos', assetType: await assetType.get(req,res), message: message , navBar: await auth.navigationBar(req)})
+                    res.render('./register/asset-type-edit.ejs', { title: ' | Editar Tipo de Activos', assetType: await assetType.get(req, res), message: message, navBar: await auth.navigationBar(req) })
                 }
                 else {
                     const assetTypeUpdated =
@@ -68,7 +68,7 @@ module.exports = {
                                 }
                             }]
                     message = "Verifique que los valores ingresados sean correctos"
-                    res.render('./register/asset-type-edit.ejs', { title: ' | Editar Tipo de Activos', assetType: assetTypeUpdated, message: message , navBar: await auth.navigationBar(req)})
+                    res.render('./register/asset-type-edit.ejs', { title: ' | Editar Tipo de Activos', assetType: assetTypeUpdated, message: message, navBar: await auth.navigationBar(req) })
 
                 }
             }
@@ -82,7 +82,7 @@ module.exports = {
                         }
                     }]
                 message = 'Texto ingresado supera el máximo de caracteres'
-                res.render('./register/asset-type-edit.ejs', { title: ' | Editar Tipo de Activos', assetType: assetTypeUpdated, message: message , navBar: await auth.navigationBar(req)})
+                res.render('./register/asset-type-edit.ejs', { title: ' | Editar Tipo de Activos', assetType: assetTypeUpdated, message: message, navBar: await auth.navigationBar(req) })
             }
         } catch (error) {
             console.log(error);
@@ -98,7 +98,6 @@ module.exports = {
                 res.redirect('/edit/AssetTypes')
             } else {
                 res.redirect('/edit/AssetTypes')
-
             }
         } catch (error) {
             res.redirect('/error')
