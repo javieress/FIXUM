@@ -3,9 +3,6 @@ const config = require('./config')
 const path = require('path')
 const bodyParser = require('body-parser')
 
-const {Auth, isAuthenticated} = require('./auth/auth.controller.js')
-
-
 const indexRouter = require('./routes/index')
 const registerRouter = require('./routes/registers')
 const reportsRouter = require('./routes/reports')
@@ -13,7 +10,6 @@ const detailsRouter = require('./routes/details')
 const authsRouter = require('./routes/auth')
 const qrRouter = require('./routes/qr')
 const editRouter=require('./routes/edit')
-const { builtinModules } = require('module')
 // const session = require('express-session')
 
 var session = require('express-session');

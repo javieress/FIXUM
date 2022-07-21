@@ -1,4 +1,3 @@
-const { render } = require("ejs");
 var QRCode = require('qrcode');
 const fs = require('fs');
 var AdmZip = require("adm-zip");
@@ -49,7 +48,7 @@ module.exports = {create_qr_download: async function(req, res){
         else{
             var nombre = spliteado[1];
         }
-        var url = "https://fixum-ad-infinitum.herokuapp.com/details/"+id_aux;
+        var url = "https://fixum.herokuapp.com/details/"+id_aux;
         paginas.push(url);
         nombres.push(nombre);
 

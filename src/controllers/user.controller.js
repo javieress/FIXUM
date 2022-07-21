@@ -1,7 +1,4 @@
-const config = require('../config/dbconfig')
-const sql = require('mssql')
 const user = require('../models/User')
-const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 
 const bcrypt = require('bcrypt')
@@ -57,14 +54,6 @@ function validationPwd(req, res) {
     }
     return false;
 }
-
-
-
-
-
-
-
-
 
 module.exports = {
     index: async function (req, res) {
