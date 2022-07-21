@@ -26,7 +26,7 @@
                             <h3>Envío de avisos</h3>
                         </div>
                         <div class="card-body">
-                            <form name="notification-form" method="post" action="register/notification">
+                            <form name="notification_form" method="post" action="register/notification">
                                 <div class="row align-items-center pt-4 pb-3">
                                     <div class="col-md-3 ps-5">
                                         <h6 class="mb-0">Asunto de la notificación</h6>
@@ -51,7 +51,7 @@
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="tabla" class="table table-hover display" cellspacing="0" width="100%">
+                                        <table id="tabla" name="contanctos" class="table table-hover display" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Username</th>
@@ -85,7 +85,7 @@
 
                                 <hr class="mx-n3">
                                 <div class="px-5 py-4">
-                                    <button type="submit" onclick="verificacion()"
+                                    <button type="button" onclick="verificacion()"
                                         class="btn btn-dark btn-lg" >Enviar</button>
                                 </div>
                             </form>
@@ -109,12 +109,22 @@
         }
     }   
     function validate() {
+        $(document).ready(function() {
+                $('#tabla').dataTable().fnDestroy();
+        } );
+        var cont = 0;
         var checks = document.getElementsByName('email'); 
         for (var i = 0, j = checks.length; i < j; i++) {
             
             if(checks[i].checked == true){
-                return true;
+                cont++;
             }
+        }
+        $(document).ready(function() {
+                $('#tabla').dataTable();
+            } );
+        if (cont >= 1){
+            return true;
         }
         return false;
     }
@@ -132,8 +142,15 @@
             alert('Debes seleccionar al menos un destinatario');
         }
         else if (confirm('¿Estas seguro de enviar este formulario?')){ 
-            event.preventDefault();
-            return true;
+            $(document).ready(function() {
+                $('#tabla').dataTable().fnDestroy();
+            } );
+
+            document.notification_form.submit();
+
+            $(document).ready(function() {
+                $('#tabla').dataTable();
+            } );
         }
         else{
             event.preventDefault();
