@@ -25,9 +25,14 @@
         <div class="container mt-5 " style="border-radius: 15px ; flex-direction: column;">
             <div class="card" style="border-radius: 15px ; flex-direction: column;">
                 <div class="card-header p-4 justify-content-center align-items-center">
-                    <h3>Valor Total por Activo </h3>
-
-                    <a href="/reports/csv" style="color: red" class="btn btn-dark col-md-6">Descargar CSV</a>
+                    <div class = "row">
+                        <div class = "col">
+                        <h3>Valor Total por Activo </h3>
+                        </div>
+                        <div class = "col">
+                        <button type = "button" style="color: green" onclick = "bloquear_boton()" class="btn bg-success text-white col-md-6" title = "Descarga un archivo CSV con la información general de todos los activos"><i class="fa-solid fa-file-csv"></i> Descargar CSV</button>
+                    </div>
+                    </div>                
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -82,3 +87,19 @@
 <%- include('../partials/footer') %>
 
 </html>
+
+<script>
+    function bloquear_boton(){
+        //document.location.replace("/reports/csv");
+        var delayInMilliseconds = 4000; 
+        document.getElementById("boton_imprimir").disabled = true;
+        document.getElementById("boton_imprimir").setAttribute("title", "Espere unos segundos...");
+        document.getElementById("boton_imprimir").innerHTML = "Espere unos segundos...";
+
+    }
+    setTimeout(function () {
+        document.getElementById("boton_imprimir").disabled = false;
+        document.getElementById("boton_imprimir").innerHTML = "Descargar CSV";
+        document.getElementById("boton_imprimir").setAttribute("title", "Descarga un archivo CSV con la información general de todos los activos");
+        }, delayInMilliseconds);
+</script>

@@ -28,7 +28,12 @@ module.exports = {create_qr_download: async function(req, res){
     var nombres = [];
 
     console.log(datos.length);
-    
+
+    const fecha = new Date();
+
+    var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth()+1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() +"-"+fecha.getMinutes();
+
+    var ruta_zip = 'src/public/img/Codigos_QR_'+texto_fecha+'.zip';
 
     
     for (var i = 0; i < datos.length; i++){
@@ -62,11 +67,8 @@ module.exports = {create_qr_download: async function(req, res){
 
     setTimeout(function() {
 
-        const fecha = new Date();
-
-        var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth()+1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() +"-"+fecha.getMinutes();
         var zip = new AdmZip();
-        var ruta_zip = 'src/public/img/Codigos_QR_'+texto_fecha+'.zip';
+        
         var ruta = 'src/public/img/img_qr';
         zip.addLocalFolder(ruta);
         
@@ -108,16 +110,21 @@ module.exports = {create_qr_download: async function(req, res){
     const fecha = new Date();
     var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth()+1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() +"-"+fecha.getMinutes();
 
-    var ruta_csv = "Datos_activos_"+texto_fecha+".csv";
+    var encabezado = "ID, NOMBRE, TIPO, UBICACIÓN, PRECIO UNITARIO, CANTIDAD, FECHA INGRESO, FECHA ÚLTIMA MODIFICACIÓN\r\n"; //Revisar salto de linea
+    var ruta_csv = "src/public/csv/Datos_activos_"+texto_fecha+".csv";
     //id, nombre, tipo, ubicacion, precio, cantidad
-    const datos = await assetController.list();
-    var contenido = "";
+    const datos = await assetController.detailList();
+    var contenido = encabezado;
+    console.log("Total datos:"+ datos[0].length)
 
-    for (var i = 0; i < datos.length; i++){
-        console.log(datos[i].dataValues.id);
-        contenido = contenido + ","+datos[i].dataValues.id;
+    for (var i = 0; i < datos[0].length; i++){
+        console.log("Dato: "+ datos[0][i].id);
+        var datos_fila = [datos[0][i].id, datos[0][i].asset_name, datos[0][i].assetType, datos[0][i].locations, datos[0][i].price, datos[0][i].quantity, datos[0][i].createdAt, datos[0][i].updatedAt];
+        
+        contenido = contenido + datos_fila.join(",")+ "\r\n";
     }
 
+    
     fs.writeFile(ruta_csv,contenido, (err => {
         if (err) throw err;
 
@@ -130,6 +137,7 @@ module.exports = {create_qr_download: async function(req, res){
 
     }, 5000);  
 
+    
     setTimeout(function() {
 
         fs.unlink(ruta_csv, (err) => {
@@ -139,7 +147,8 @@ module.exports = {create_qr_download: async function(req, res){
             }
         });
 
-    }, 5000);  
+    }, 6000);  
+    
     
 }
 }
