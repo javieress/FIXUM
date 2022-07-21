@@ -17,6 +17,7 @@ const verifyToken = async (req, res, next) => {
         // if (!user) return res.status(404).json({ message: 'No user found' })
         if (!user) return res.status(404).redirect('/')
         next()
+        return
         
     } catch (error) {
         console.log(error);
@@ -26,11 +27,12 @@ const verifyToken = async (req, res, next) => {
 const isAdmin = async (req, res, next) => {
     try {
         const user = await User.get(req.userId)
-        if (user[0].dataValues.typeUser == 1) {
-            next()
-            return
+        if(user){
+            if (user[0].dataValues.typeUser == 1) {
+                next()
+                return
+            }
         }
-        // return res.status(403).json({message: 'No es Admin'})
         return res.status(403).redirect('/')
     } catch (error) {
         console.log(error);
@@ -42,9 +44,11 @@ const isAdmin = async (req, res, next) => {
 const isUser = async (req, res, next) => {
     try {
         const user = await User.get(req.userId)
-        if (user[0].dataValues.typeUser == 0) {
-            next()
-            return
+        if(user){
+            if (user[0].dataValues.typeUser == 0) {
+                next()
+                return
+            }
         }
         // return res.status(403).json({message: 'No es Admin'})
         return res.status(403).redirect('/')
@@ -57,9 +61,11 @@ const isUser = async (req, res, next) => {
 const isAdminOrUser = async (req, res, next) => {
     try {
         const user = await User.get(req.userId)
-        if ((user[0].dataValues.typeUser == 1) || (user[0].dataValues.typeUser == 0)) {
-            next()
-            return
+        if(user){
+            if ((user[0].dataValues.typeUser == 1) || (user[0].dataValues.typeUser == 0)) {
+                next()
+                return
+            }
         }
         // return res.status(403).json({message: 'No es Admin'})
         return res.status(403).redirect('/')
@@ -76,15 +82,20 @@ const navigationBar = async (req, res, next) => {
         else {
             const decoded = jwt.verify(token, process.env.SECRET)
             req.userId = decoded._id
-        }
-        const user = await User.get(req.userId)
-        if (user[0].dataValues.typeUser == 1) {
-            // return 'partials/navigationAdmin'
-            return 'partials/navigation1'
-        }
-        else if (user[0].dataValues.typeUser == 0) {
-            // return 'partials/navigationUser'
-            return 'partials/navigation0'
+            const user = await User.get(req.userId)
+            if (user){
+                if (user[0].dataValues.typeUser == 1) {
+                    // return 'partials/navigationAdmin'
+                    return 'partials/navigation1'
+                }
+                else if (user[0].dataValues.typeUser == 0) {
+                    // return 'partials/navigationUser'
+                    return 'partials/navigation0'
+                }
+            }
+            else{
+                return 'partials/navigationX'
+            }
         }
     }
     catch (err) {

@@ -29,7 +29,7 @@ router.get('/login',async (req,res,next) => {
     }
 })
 
-router.get('/logout',verifyToken,async (req,res,next) => {
+router.get('/logout',async (req,res,next) => {
     authController.Auth.logout(req,res,next)
 })
 
