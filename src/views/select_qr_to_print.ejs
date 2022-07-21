@@ -45,8 +45,8 @@
 
                                             <tr>
                                                 <td scope = "row"><%= assetList[i].dataValues.asset_name %></td>
-                                                <td scope = "row"><%= assetList[i].dataValues.id_assetType %></td>
-                                                <td scope = "row"><%= assetList[i].dataValues.location %></td>
+                                                <td scope = "row"><%= assetList[i].dataValues.assetType %></td>
+                                                <td scope = "row"><%= assetList[i].dataValues.locations %></td>
                                                 <td scope = "row"><input name = 'id' type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>,<%= assetList[i].dataValues.asset_name%>'/> </td>
                                                 
                                             </tr>
@@ -57,7 +57,7 @@
                                     <div class="px-5 py-4">
                                         <button type="button" onclick="seleccionarTodo()" class="btn btn-dark btn-lg">Seleccionar todo</button>
                                         <button type="button" onclick="desmarcarTodo()" class="btn btn-dark btn-lg">Eliminar selecciones</button>
-                                        <button type="button" onclick = "verificacion()" id = "boton_imprimir" class="btn btn-dark btn-lg">Descargar QR</button>
+                                        <button type="button" onclick = "verificacion()" id = "boton_imprimir" class="btn btn-dark btn-lg" title = "Descargar un zip con los QR">Descargar QR</button>
                                     </div>
                                 </div>     
                             </form>
@@ -75,6 +75,7 @@
 </html>
 
 <script>
+
     function seleccionarTodo() {
         var checks = document.getElementsByName('id'); 
         for (var i = 0, j = checks.length; i < j; i++) {
@@ -88,6 +89,9 @@
         }
     }   
     function validate() {
+        $(document).ready(function() {
+                $('#tabla').dataTable().fnDestroy();
+        } );
         var cont = 0;
         var checks = document.getElementsByName('id'); 
         for (var i = 0, j = checks.length; i < j; i++) {
@@ -96,6 +100,9 @@
                 cont++;
             }
         }
+        $(document).ready(function() {
+                $('#tabla').dataTable();
+            } );
         if (cont >= 2){
             return true;
         }
@@ -105,12 +112,29 @@
     function verificacion(){
         
         if (!validate()){
+            
             event.preventDefault();
             alert('Debes seleccionar al menos dos ítems para imprimir sus QR');
         }
-        else if (confirm('¿Estas seguro de enviar este formulario?')){ 
+        else if (confirm('¿Estás seguro de imprimir estos ítems?')){ 
             document.getElementById("boton_imprimir").disabled = true;
+            document.getElementById("boton_imprimir").setAttribute("title", "Espere un momento...");
+            document.getElementById("boton_imprimir").innerHTML = "Espere un momento";
+            $(document).ready(function() {
+                $('#tabla').dataTable().fnDestroy();
+            } );
             document.formulario_tabla.submit();
+            $(document).ready(function() {
+                $('#tabla').dataTable();
+            } );
+
+            var delayInMilliseconds = 2000; 
+
+            setTimeout(function() {
+                document.getElementById("boton_imprimir").disabled = false;
+                document.getElementById("boton_imprimir").innerHTML = "Descargar QR";
+                document.getElementById("boton_imprimir").setAttribute("title", "Descargar un zip con los QR");
+            }, delayInMilliseconds);
             
         }
         else{
