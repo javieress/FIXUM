@@ -10,7 +10,7 @@ const userPosition = require('../controllers/userPosition.controller')
 
 const auth = require('../middlewares/authJwt')
 
-//users
+//Usuarios
 router.get('/user',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
     res.render('./register/user-register.ejs',{title: ' | Registro de Usuario',message: '',userPosition: await userPosition.list(), navBar: await auth.navigationBar(req)})
 })
