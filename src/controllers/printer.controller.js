@@ -27,7 +27,6 @@ module.exports = {create_qr_download: async function(req, res){
 
     console.log(datos.length);
     
-    //Falta solucionar problema de 1 qr
 
     
     for (var i = 0; i < datos.length; i++){
