@@ -28,10 +28,6 @@ const asset = db.define('Asset', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    isActive: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     description: {
         type: DataTypes.STRING,
         allowNull: false
@@ -77,13 +73,11 @@ module.exports = {
                 id_location: location,
                 id_users_in_charge: userInCharge,
                 asset_name: name,
-                isActive: 1,
                 description: description,
                 quantity: quantity,
                 price: price,
             }
             );
-            console.log(assetCreated + 'xxxxx aqui');
             if (assetCreated != undefined){
                 return true;
             }

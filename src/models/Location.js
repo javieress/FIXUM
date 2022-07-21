@@ -16,10 +16,6 @@ const locations=db.define('Location', {     // el modelo asume que la tabla de l
         allowNull: false,
        
     },
-    inCharge: {
-        type: DataTypes.STRING,
-        allowNull:true,
-    },
 
     }
 )
@@ -30,8 +26,8 @@ module.exports = {
         return locations;
     },
     list: async function(){
-        const ubi = await locations.findAll()
-    return ubi;
+        const ubicationList = await locations.findAll()
+    return ubicationList;
         
 
 
@@ -45,7 +41,6 @@ module.exports = {
 
                 {
                     locations : locationName,  
-                    inCharge: 'Nadie'
                 }
             );
             
