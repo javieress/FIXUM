@@ -2,20 +2,13 @@ body{
     background-color: #ececec;
     color: black;
 }
-/*.footer{
+.footer{
     color: white;
-    position: absolute;
+    /* position: absolute; */
     text-align: end;
     bottom: 0;
     width: 100%;
     margin-top: 20px;
 }
-*/
-.footer{
-    color: white;
-    position:fixed;
-    left:0px;
-    bottom:0;
-    width:100%;
-    margin-top: 20px;
-}
+
+
