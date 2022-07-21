@@ -9,22 +9,9 @@ const auth = require('../middlewares/authJwt')
 
 const db = require("../database/conection2")
 
-// const validateJwt = expressJwt({secret: process.env.SECRET, algorithms: ['HS256']})
 
 const signToken = _id => jwt.sign({_id} ,process.env.SECRET,{expiresIn:86400})
 
-// const findAndAssingUser = async (req, res, next) => {
-//     try {
-//         const user = await userController.get(req,res)
-//         if (!user[0]){
-//             return res.status(401).end()
-//         }
-//         req.auth = user
-//     }catch(e){
-//         next(e)
-//     }
-// }
-// const isAuthenticated = express.Router().use(validateJwt,findAndAssingUser)
 
 const validateJwt = expressJwt({ secret: process.env.SECRET, algorithms: ['HS256']})
 
