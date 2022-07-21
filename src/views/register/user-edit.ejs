@@ -160,8 +160,7 @@
                                 </div>
                                 <% if(message == 'Usuario editado con éxito'){ %>
                                     <div class="alert alert-success text-center"><%=message%></div>
-                                 <% } %>
-                                 <% if(message == 'Verifique que los valores ingresados sean correctos'){ %>
+                                 <% } else if (message != ''){%>
                                     <div class="alert alert-danger text-center"><%=message%></div>
                                  <% } %>
                             </div>
