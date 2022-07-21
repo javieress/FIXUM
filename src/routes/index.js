@@ -38,7 +38,7 @@ router.get('/admin-profile',verifyToken,isAdmin,async (req,res,next)=> {
 })
 router.get('/user-profile',verifyToken,isUser,async (req,res,next) => {
     const navBar = await navigationBar(req)
-    res.render('user-profile.ejs',{title: ' | Perfil Usuario', navBar: navBar })
+    res.render('./profiles/user-profile.ejs',{title: ' | Perfil Usuario', navBar: navBar })
 })
 router.get('/contact',async (req,res,next) => {
     const navBar = await navigationBar(req)
