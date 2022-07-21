@@ -93,5 +93,24 @@ const navigationBar = async (req, res, next) => {
     return 'partials/navigation0'
 
 }
+const details = async (req,res,next) => {
+    try {
+        const token = req.session.token
+        if (!token) return 'asset-detailsview.ejs'
+        else {
+            const decoded = jwt.verify(token, process.env.SECRET)
+            req.userId = decoded._id
+        }
+        const user = await User.get(req.userId)
+        if ((user[0].dataValues.typeUser == 1)||(user[0].dataValues.typeUser == 0)) {
+            return 'asset-details.ejs'
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return 'asset-detailsview.ejs'
+    }
 
-module.exports = {verifyToken, isAdmin, isUser , navigationBar, isAdminOrUser}
+}
+
+module.exports = {verifyToken, isAdmin, isUser , navigationBar, isAdminOrUser,details}
