@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('../partials/head') %>
-    <title><%= title %></title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('../partials/head') %>
+    <title>
+      <%= title %>
+    </title>
 </head>
+
 <body>
-    <%- include('../'+navBar) %>
+  <%- include('../'+navBar) %>
     <a href="/" style="color: white" class="btn btn-dark mx-5 mt-5 ">
-        <div class="mx-2 my-0">
-            <p class="my-0"><i class="fa-solid fa-arrow-left-long"></i> Inicio</p>
-        </div>
+      <div class="mx-2 my-0">
+        <p class="my-0"><i class="fa-solid fa-arrow-left-long"></i> Inicio</p>
+      </div>
     </a>
-    <div class="container py-5 h-100" style="align-items: cente; max-width: 400px;">
-        <h2>Perfil usuario</h2>
-    </div>
-    <div class="card-body">
-        <table class="table table-dark table-bordered ">
+
+    <div class="container h-100 justify-content-center align-items-center" style="max-width: 600px;">
+      <div class="card mt-5">
+        <div class="card-header p-4 justify-content-center align-items-center">
+          <h3 style="text-align:center" >Perfil usuario</h3>
+        </div>
+
+        <div class="card-body">
+          <table class="table table-dark table-bordered ">
             <thead>
               <tr>
                 <th scope="col" class="table-secondary" style="text-align:center">Nombre Completo</th>
@@ -27,12 +35,12 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-light" style="text-align:center"> Marcos Chait</td>
-                <td class="table-light" style="text-align:center"> Marquitos el rankeado</td>
+                <td class="table-light" style="text-align:center"> <%= user[0][0].nameUser + ' ' + user[0][0].last_name %></td>
+                <td class="table-light" style="text-align:center"> <%= user[0][0].UserName %></td>
               </tr>
             </tbody>
-        </table>
-        <table class="table table-dark table-bordered ">
+          </table>
+          <table class="table table-dark table-bordered ">
             <thead>
               <tr>
                 <th scope="col" class="table-secondary" style="text-align:center">Email</th>
@@ -41,12 +49,12 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-light" style="text-align:center"> XXMarcosXX.com</td>
-                <td class="table-light" style="text-align:center"> Admin supremo del sexo </td>
+                <td class="table-light" style="text-align:center"> <%= user[0][0].email %></td>
+                <td class="table-light" style="text-align:center"> <%= user[0][0].position %></td>
               </tr>
             </tbody>
-        </table>
-        <table class="table table-dark table-bordered ">
+          </table>
+          <table class="table table-dark table-bordered ">
             <thead>
               <tr>
                 <th scope="col" class="table-secondary" style="text-align:center">Rut</th>
@@ -54,13 +62,15 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-light" style="text-align:center"> 11.111.111-1</td>
+                <td class="table-light" style="text-align:center"> <%= user[0][0].id_users %></td>
               </tr>
             </tbody>
-        </table>
+          </table>
         </div>
+      </div>
     </div>
-    
+
 </body>
 <%- include('../partials/footer') %>
-</html>
+
+  </html>

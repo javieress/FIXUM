@@ -50,8 +50,17 @@ const asset = db.define('Asset', {
 module.exports = {
     list: async function () {
         const assetList = await asset.findAll()
-        return assetList
+        
+        return assetList;
+       
     },
+    detailList: async function(){
+        const assetDetail=await db.query('SELECT Assets.id,Assets.quantity,Assets.price,Assets.id_assetType,Assets.id_location,Assets.isActive,Assets.createdAt,Assets.updatedAt,Assets.id_users_in_charge,Assets.asset_name,Assets.description,AssetTypes.assetType,Locations.locations FROM Assets inner join AssetTypes on Assets.id_assetType=AssetTypes.id inner join Locations on Assets.id_location=Locations.id')
+        console.log(assetDetail)
+        return assetDetail
+
+    },
+
     post: async function (req, res) {
         const name = req.body['new-asset-name']
         const assetType = req.body['new-asset-assetType']
@@ -120,7 +129,14 @@ module.exports = {
 
     },
     TotalAssetsByLocation: async function(){
-        const totalAssetsByLocation=await db.query('Select Locations.locations,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from Assets inner join Locations on Locations.id=Assets.id_location group by Locations.locations')
+        const totalAssetsByLocation=await db.query('Select Locations.locations,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from Assets right join Locations on Locations.id=Assets.id_location group by Locations.locations')
+        for(let i in totalAssetsByLocation[0]){
+            if(totalAssetsByLocation[0][i].Cantidad==null){
+                totalAssetsByLocation[0][i].Cantidad='0'
+                totalAssetsByLocation[0][i].Total='0'
+            }
+        }
+
         return totalAssetsByLocation
     },
     get: async function(req,res){

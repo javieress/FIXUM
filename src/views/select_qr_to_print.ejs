@@ -1,73 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%- include('partials/head') %>
-    <title><%= title %></title>
-    <script src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-    <script src="js/table.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
+        <title>
+            <%= title %>
+        </title>
+        <script src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script src="js/table.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.css">
 </head>
+
 <body>
     <%- include(navBar) %>
+        <a href="/" style="color: white" class="btn btn-dark mx-5 mt-5 ">
+            <div class="mx-2 my-0">
+                <p class="my-0"><i class="fa-solid fa-arrow-left-long"></i> Inicio</p>
+            </div>
+        </a>
 
- <div class = "container h-100 mt -5"> 
-    <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-xl-9">
-            <div class="card" style="border-radius: 15px;">
-                <div class="card-header p-4">
-                    <h3>Seleccione los ítems para imprimir sus QR</h3>
-                </div>
-                          
-                    <div class = "card-body">
-                        <div class="table-responsive">
-                            
-                            <form  name = "formulario_tabla" action="/print" method = "POST" >
-                            
-                                <div>
-                                    <table id = "tabla" class="table table-hover display" cellspacing="0" width="100%">
-                                        
-                                        
-                                        <thead>
-                                            <tr>
-                                                <th scope = "col" id = "0">Nombre activo</th>
-                                                <th scope = "col" id = "1">Tipo</th>
-                                                <th scope = "col" id = "2">Ubicación</th>
-                                                <th scope = "col">Seleccionar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <% for( let i in assetList) { %>
-
-                                            <tr>
-                                                <td scope = "row"><%= assetList[i].dataValues.asset_name %></td>
-                                                <td scope = "row"><%= assetList[i].dataValues.assetType %></td>
-                                                <td scope = "row"><%= assetList[i].dataValues.locations %></td>
-                                                <td scope = "row"><input name = 'id' type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>,<%= assetList[i].dataValues.asset_name%>'/> </td>
-                                                
-                                            </tr>
-
-                                        <% } %>
-                                        </tbody>
-                                    </table>
-                                    <div class="px-5 py-4">
-                                        <button type="button" onclick="seleccionarTodo()" class="btn btn-dark btn-lg">Seleccionar todo</button>
-                                        <button type="button" onclick="desmarcarTodo()" class="btn btn-dark btn-lg">Eliminar selecciones</button>
-                                        <button type="button" onclick = "verificacion()" id = "boton_imprimir" class="btn btn-dark btn-lg" title = "Descargar un zip con los QR">Descargar QR</button>
-                                    </div>
-                                </div>     
-                            </form>
+        <div class="container h-100 mt -5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-9">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-header p-4">
+                            <h3>Seleccione los ítems para imprimir sus QR</h3>
                         </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+
+                                <form name="formulario_tabla" action="/print" method="POST">
+
+                                    <div>
+                                        <table id="tabla" class="table table-hover display" cellspacing="0"
+                                            width="100%">
+
+
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" id="0">Nombre activo</th>
+                                                    <th scope="col" id="1">Tipo</th>
+                                                    <th scope="col" id="2">Ubicación</th>
+                                                    <th scope="col">Seleccionar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for( let i in assetList[0]) { %>
+
+
+
+                                                    <tr>
+                                                        <td scope="row">
+                                                            <%= assetList[0][i].asset_name %>
+                                                        </td>
+                                                        <td scope="row">
+                                                            <%= assetList[0][i].assetType %>
+                                                        </td>
+                                                        <td scope="row">
+                                                            <%= assetList[0][i].locations %>
+                                                        </td>
+                                                        <td scope="row"><input name='id' type='checkbox' id='id'
+                                                                value='<%= assetList[0][i].id %>,<%= assetList[0][i].asset_name%>' />
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <% } %>
+                                            </tbody>
+                                        </table>
+                                        <div class="px-5 py-4">
+                                            <button type="button" onclick="seleccionarTodo()"
+                                                class="btn btn-dark btn-lg">Seleccionar todo</button>
+                                            <button type="button" onclick="desmarcarTodo()"
+                                                class="btn btn-dark btn-lg">Eliminar selecciones</button>
+                                            <button type="button" onclick="verificacion()" id="boton_imprimir"
+                                                class="btn btn-dark btn-lg"
+                                                title="Descargar un zip con los QR">Descargar QR</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
-                
+                </div>
             </div>
         </div>
-    </div>
-</div>  
 </body>
 
 <%- include('partials/footer') %>
@@ -77,176 +101,69 @@
 <script>
 
     function seleccionarTodo() {
-        var checks = document.getElementsByName('id'); 
+        var checks = document.getElementsByName('id');
         for (var i = 0, j = checks.length; i < j; i++) {
             checks[i].checked = true;
         }
     }
     function desmarcarTodo() {
-        var checks = document.getElementsByName('id'); 
+        var checks = document.getElementsByName('id');
         for (var i = 0, j = checks.length; i < j; i++) {
             checks[i].checked = false;
         }
-    }   
+    }
     function validate() {
-        $(document).ready(function() {
-                $('#tabla').dataTable().fnDestroy();
-        } );
+        $(document).ready(function () {
+            $('#tabla').dataTable().fnDestroy();
+        });
         var cont = 0;
-        var checks = document.getElementsByName('id'); 
+        var checks = document.getElementsByName('id');
         for (var i = 0, j = checks.length; i < j; i++) {
-            
-            if(checks[i].checked == true){
+
+            if (checks[i].checked == true) {
                 cont++;
             }
         }
-        $(document).ready(function() {
-                $('#tabla').dataTable();
-            } );
-        if (cont >= 2){
+        $(document).ready(function () {
+            $('#tabla').dataTable();
+        });
+        if (cont >= 2) {
             return true;
         }
         return false;
     }
 
-    function verificacion(){
-        
-        if (!validate()){
-            
+    function verificacion() {
+
+        if (!validate()) {
+
             event.preventDefault();
             alert('Debes seleccionar al menos dos ítems para imprimir sus QR');
         }
-        else if (confirm('¿Estás seguro de imprimir estos ítems?')){ 
+        else if (confirm('¿Estás seguro de descargar los QR de estos ítems?')){ 
             document.getElementById("boton_imprimir").disabled = true;
-            document.getElementById("boton_imprimir").setAttribute("title", "Espere un momento...");
-            document.getElementById("boton_imprimir").innerHTML = "Espere un momento";
+            document.getElementById("boton_imprimir").setAttribute("title", "Espere unos segundos...");
+            document.getElementById("boton_imprimir").innerHTML = "Espere unos segundos...";
             $(document).ready(function() {
                 $('#tabla').dataTable().fnDestroy();
-            } );
+            });
             document.formulario_tabla.submit();
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('#tabla').dataTable();
-            } );
+            });
 
-            var delayInMilliseconds = 2000; 
+            var delayInMilliseconds = 6000; 
 
-            setTimeout(function() {
+            setTimeout(function () {
                 document.getElementById("boton_imprimir").disabled = false;
                 document.getElementById("boton_imprimir").innerHTML = "Descargar QR";
                 document.getElementById("boton_imprimir").setAttribute("title", "Descargar un zip con los QR");
             }, delayInMilliseconds);
-            
+
         }
-        else{
+        else {
             event.preventDefault();
         }
     }
-    /*
-    function refresh(id_filtro,indice_columna){
-        
-        var tabla = document.getElementById('tabla');
-
-        var busqueda = document.getElementById(id_filtro).value.toLowerCase();
-        var celda_comparar = "";
-        
-        for (var i = 1; i < tabla.rows.length; i++) {
-            
-            celda_comparar = tabla.rows[i].getElementsByTagName('td')[indice_columna];
-            
-            if (busqueda == celda_comparar.innerHTML.toLowerCase()){
-                //Revisar esto.
-
-                //Si cumple con el criterio y no está siendo mostrada, se muestra.
-                if (tabla.rows[i].style.display == 'none'){
-                    tabla.rows[i].style.display  = '';
-                }
-            }
-            else{ //Si no cumple con el criterio
-
-                //y está siendo mostrada
-                if (tabla.rows[i].style.display == ''){
-                    tabla.rows[i].style.display = 'none';
-                }
-            }
-        }
-    }
-
-    function fill_options_select(id_filtro, indice_columna){
-        const $select = document.getElementById(id_filtro);
-
-        const primera_vacia = document.createElement('option');
-        primera_vacia.value = '';
-        primera_vacia.text = '';
-        primera_vacia.setAttribute("selected","selected");
-        $select.appendChild(primera_vacia);
-
-        const tabla = document.getElementById('tabla');
-
-        const valores_unicos = new Set();
-        
-        for (var j = 1; j < tabla.rows.length; j++){
-            celda = tabla.rows[j].getElementsByTagName('td')[indice_columna].innerHTML;
-            valores_unicos.add(celda);
-        } 
-        
-        for (let item of valores_unicos.keys()){
-            var option = document.createElement('option');
-            var valor = item;
-            console.log(valor);
-            option.value = valor;
-            option.text = valor;
-            $select.appendChild(option);
-        }
-    }
-
-    fill_options_select("filtro_tipo",1);
-    fill_options_select("filtro_ubicacion",2);
-
-    function buscar(){
-        var tabla = document.getElementById('tabla');
-            var busqueda = document.getElementById('filtro_nombre').value.toLowerCase();
-            var cellsOfRow="";
-            var found=false;
-            var compareWith="";
-            for (var i = 1; i < tabla.rows.length; i++) {
-                cellsOfRow = tabla.rows[i].getElementsByTagName('td');
-                found = false;
-                for (var j = 0; j < cellsOfRow.length && !found; j++) { compareWith = cellsOfRow[j].innerHTML.toLowerCase(); if (busqueda.length == 0 || (compareWith.indexOf(busqueda) > -1))
-                    {
-                        found = true;
-                    }
-                }
-                if(found)
-                {
-                    //Si no está siendo mostrada, se cambia
-                    if (tabla.rows[i].style.display == 'none'){
-                        tabla.rows[i].style.display = '';
-                    }
-                    
-                } else {
-                    //Si está siendo mostrada, se quita
-
-                    if (tabla.rows[i].style.display == ''){
-                        tabla.rows[i].style.display = 'none';
-                    }            
-                }
-            }
-    }
-
-    function select_all(){
-
-        var tabla = document.getElementById('tabla');
-
-        for (var j = 1; j < tabla.rows.length; j++){
-            var celda = tabla.rows[j].getElementsByTagName('td')[3];
-            var box = celda.checked;
-            
-            console.log(box);
-            
-            if (tabla.rows[j].style.display == ''){
-                celda.checked = true;
-            }
-        } 
-    }
-    */
+    
 </script>

@@ -5,6 +5,7 @@ const asset = require('../controllers/asset.controller')
 const assetTypes=require('../controllers/asset-type.controller')
 
 const auth = require('../middlewares/authJwt')
+const printerController = require('../controllers/printer.controller')
 
 router.get('/',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
     res.render('./reports/reports.ejs',{title: ' | Reportes', navBar: await auth.navigationBar(req)})
@@ -25,6 +26,7 @@ router.get('/totalAssetsByLocation',auth.verifyToken,auth.isAdmin,async (req,res
     const totalAssetsByLocation = await asset.TotalAssetsByLocation()
     res.render('./reports/totalAssetsByLocation.ejs',{title: ' | Total por Ubicacion', totalAssetsByLocation: await totalAssetsByLocation, navBar: await auth.navigationBar(req)})
 })
+router.get('/csv', printerController.download_csv)
 
 
 

@@ -61,18 +61,10 @@ app.use('/reports',reportsRouter)
 app.use('/details',detailsRouter)
 app.use('/qr',qrRouter)
 app.use('/auth',authsRouter)
-app.use((err,req,res,next) => {
-    res.send('Ha ocurrido un error')
-})
-
 app.use('/edit',editRouter)
-
-
-
-// app.use(express.urlencoded()); 
-// app.use(express.json());  
-
-// app.post('/user-register',Auth.register)
+app.use((err,req,res,next) => {
+    res.redirect('/error')
+})
 
 // static files
 app.use(express.static(path.join(__dirname,'public')))
@@ -80,7 +72,3 @@ app.use(express.static(path.join(__dirname,'public')))
 app.listen(app.get('port'), () => {
     console.log('Server on port',app.get('port'));
 })
-
-app.use(function(req, res){
-    res.status(404).redirect("/error");
-});

@@ -25,11 +25,19 @@
         <div class="container mt-5 " style="border-radius: 15px ; flex-direction: column;">
             <div class="card" style="border-radius: 15px ; flex-direction: column;">
                 <div class="card-header p-4 justify-content-center align-items-center">
-                    <h3>Valor Total por Activo </h3>
+                    <div class = "row">
+                        <div class = "col">
+                        <h3>Valor Total por Activo </h3>
+                        </div>
+                        
+                        <div class = "col">
+                        <button type = "button" id = "boton_descargar" style="color: green; float: right;" onclick = "bloquear_boton()" class="btn bg-success text-white" title = "Descarga un archivo CSV con la información general de todos los activos"><i class="fa-solid fa-file-csv"></i> Descargar CSV</button>
+                        </div>
+                    </div>       
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="tabla" class="table table-hover display" cellspacing="0" width="100%">
+                        <table id="tabla" name = "tabla" class="table table-hover display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -75,7 +83,25 @@
                 </div>
             </div>
         </div>
+    
 </body>
 <%- include('../partials/footer') %>
 
 </html>
+
+<script>
+    function bloquear_boton(){
+        document.location.replace("/reports/csv");
+        var delayInMilliseconds = 6000; 
+        document.getElementById("boton_descargar").disabled = true;
+        document.getElementById("boton_descargar").setAttribute("title", "Espere unos segundos...");
+        document.getElementById("boton_descargar").innerHTML = "Espere unos segundos...";
+
+    
+    setTimeout(function () {
+        document.getElementById("boton_descargar").disabled = false;
+        document.getElementById("boton_descargar").innerHTML = "<i class='fa-solid fa-file-csv'></i> Descargar CSV";
+        document.getElementById("boton_descargar").setAttribute("title", "Descarga un archivo CSV con la información general de todos los activos");
+        }, delayInMilliseconds);
+    }
+</script>
