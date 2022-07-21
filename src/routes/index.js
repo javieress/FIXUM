@@ -24,7 +24,7 @@ router.get('/login',async (req,res,next) => {
         res.redirect('/')
     }else{
         const navBar = await navigationBar(req)
-        res.render('login.ejs',{title: ' | Login',message: '', navBar: navBar })
+        res.render('login.ejs',{title: ' | Inicio de Sesión',message: '', navBar: navBar })
     }
 })
 
@@ -53,11 +53,11 @@ router.get('/notifications',verifyToken,isAdmin,notificationsController.get)
 //pruebas de home
 router.get('/homeA',async (req,res,next) => {
     const navBar = await navigationBar(req)
-    res.render('home/homeAdmin.ejs',{title: ' | Home Admin', navBar: navBar })
+    res.render('home/homeAdmin.ejs',{title: ' | Inicio', navBar: navBar })
 })
 router.get('/homeU',async (req,res,next) => {
     const navBar = await navigationBar(req)
-    res.render('home/homeUser.ejs',{title: ' | Home', navBar: navBar })
+    res.render('home/homeUser.ejs',{title: ' | Inicio', navBar: navBar })
 })
 
 // solo prueba del creador de qr
