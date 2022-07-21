@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <%- include('partials/head') %>
-    <title><%= title %></title>
-  </head>
-  <body>
-    <%- include(navBar) %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%- include('partials/head') %>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <%- include(navBar) %>
 
     <a href="/" style="color: white" class="btn btn-dark mx-5 mt-5 ">
       <div class="mx-2 my-0">
-          <p class="my-0"><i class="fa-solid fa-arrow-left-long"></i> Inicio</p>
+        <p class="my-0"><i class="fa-solid fa-arrow-left-long"></i> Inicio</p>
       </div>
-  </a>
+    </a>
 
     <div class="container h-100 mt-5">
 
@@ -30,7 +34,9 @@
 
             </div>
 
-            <div class="col-md-12 px-5 py-4"><%-message%></div>      
+            <div class="col-md-12 px-5 py-4">
+              <%-message%>
+            </div>
 
             <div class="col-md-12">
 
@@ -38,22 +44,23 @@
 
               <select id="cam-list" class="form-select">
 
-                  <option value="environment" selected>Default</option>
-                  <option value="user">User Facing</option>
+                <option value="environment" selected>Default</option>
+                <option value="user">User Facing</option>
 
               </select>
             </div>
-            
+
             <div class="col-md-12 py-4">
 
               <form action="/qr/scan" method="post" name="Resultado">
 
-                <input type="hidden" name="qrResult" id="qrResult" readonly="" placeholder="Resultado" class="form-control"/>
+                <input type="hidden" name="qrResult" id="qrResult" readonly="" placeholder="Resultado"
+                  class="form-control" />
 
               </form>
-              
+
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -67,33 +74,34 @@
       const camList = document.getElementById('cam-list');
       const camQrResult = document.getElementById('cam-qr-result');
       const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
-  
+
       function setResult(label, result) {
         scanner.stop();
-        document.getElementById('qrResult').value=result.data;
+        document.getElementById('qrResult').value = result.data;
         document.Resultado.submit();
       }
-  
+
       // ####### Web Cam Scanning #######
-  
+
       const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
-          highlightScanRegion: true,
-          highlightCodeOutline: true,
+        highlightScanRegion: true,
+        highlightCodeOutline: true,
       });
-  
+
       scanner.start().then(() => {
-          QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
-              const option = document.createElement('option');
-              option.value = camera.id;
-              option.text = camera.label;
-              camList.add(option);
-          }));
+        QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
+          const option = document.createElement('option');
+          option.value = camera.id;
+          option.text = camera.label;
+          camList.add(option);
+        }));
       });
-  
+
       camList.addEventListener('change', event => {
-          scanner.setCamera(event.target.value);
+        scanner.setCamera(event.target.value);
       });
-  </script>
-  </body>
-  <%- include('partials/footer') %>
+    </script>
+</body>
+<%- include('partials/footer') %>
+
 </html>

@@ -61,18 +61,10 @@ app.use('/reports',reportsRouter)
 app.use('/details',detailsRouter)
 app.use('/qr',qrRouter)
 app.use('/auth',authsRouter)
-app.use((err,req,res,next) => {
-    res.send('Ha ocurrido un error')
-})
-
 app.use('/edit',editRouter)
-
-
-
-// app.use(express.urlencoded()); 
-// app.use(express.json());  
-
-// app.post('/user-register',Auth.register)
+app.use((err,req,res,next) => {
+    res.send('Ha ocurrido un error').redirect('/')
+})
 
 // static files
 app.use(express.static(path.join(__dirname,'public')))

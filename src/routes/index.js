@@ -60,14 +60,6 @@ router.get('/homeU',async (req,res,next) => {
     res.render('home/homeUser.ejs',{title: ' | Inicio', navBar: navBar })
 })
 
-// solo prueba del creador de qr
-router.get('/qr-generator',async (req,res,next) => {
-    // res.render('qr-code-generator.ejs',{title: 'FIXUM'})
-    const navBar = await navigationBar(req)
-    res.render('qr-code-generator.ejs',{title: ' | Generador QR', navBar: navBar })
-
-})
-
 router.get('/print', verifyToken, isAdminOrUser, async(req,res,next) => {
     const navBar = await navigationBar(req)
     res.render('select_qr_to_print.ejs',{title: ' | Imprimir QR', assetList: await assetController.detailList(), navBar: navBar})
