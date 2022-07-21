@@ -41,13 +41,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <% for( let i in assetList) { %>
+                                        <% for( let i in assetList[0]) { %>
+
+                
 
                                             <tr>
-                                                <td scope = "row"><%= assetList[i].dataValues.asset_name %></td>
-                                                <td scope = "row"><%= assetList[i].dataValues.assetType %></td>
-                                                <td scope = "row"><%= assetList[i].dataValues.locations %></td>
-                                                <td scope = "row"><input name = 'id' type='checkbox' id='id' value= '<%= assetList[i].dataValues.id %>,<%= assetList[i].dataValues.asset_name%>'/> </td>
+                                                <td scope = "row"><%= assetList[0][i].asset_name %></td>
+                                                <td scope = "row"><%= assetList[0][i].assetType %></td>
+                                                <td scope = "row"><%= assetList[0][i].locations %></td>
+                                                <td scope = "row"><input name = 'id' type='checkbox' id='id' value= '<%= assetList[0][i].id %>,<%= assetList[0][i].asset_name%>'/> </td>
                                                 
                                             </tr>
 

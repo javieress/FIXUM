@@ -70,7 +70,7 @@ router.get('/qr-generator',async (req,res,next) => {
 
 router.get('/print', verifyToken, isAdminOrUser, async(req,res,next) => {
     const navBar = await navigationBar(req)
-    res.render('select_qr_to_print.ejs',{title: ' | Imprimir QR', assetList: await assetController.list(), navBar: navBar})
+    res.render('select_qr_to_print.ejs',{title: ' | Imprimir QR', assetList: await assetController.detailList(), navBar: navBar})
 })
 router.post('/print', printerController.create_qr_download)
 
