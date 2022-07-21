@@ -1,38 +1,38 @@
 
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize');
 const db = require("../database/conection2")
 
 
-const users=db.define('User', {
-    
+const users = db.define('User', {
+
     id_users: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey:true
+        primaryKey: true
     },
     pwd: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     nameUser: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     last_name: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     id_position: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     },
     typeUser: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull: false
     },
     UserName: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     salt: {
         type: DataTypes.STRING,
@@ -71,7 +71,7 @@ module.exports = {
                     salt: newUser.salt,
                 }
             );
-            
+
         } catch (error) {
             console.log(error.message);
         }
@@ -79,12 +79,12 @@ module.exports = {
 
 
     },
-    findOneRut:async function (req,res) {
-        const user_Creado= await users.findOne({ where: { id_users:req.body['new-user-rut']}});
+    findOneRut: async function (req, res) {
+        const user_Creado = await users.findOne({ where: { id_users: req.body['new-user-rut'] } });
         return user_Creado;
     },
-    findOneUserName:async function (req,res) {
-        const userss= await users.findOne({ where: { UserName:req.body['new-user-username']}});
+    findOneUserName: async function (req, res) {
+        const userss = await users.findOne({ where: { UserName: req.body['new-user-username'] } });
         return userss;
     },
     get: async function (id) {
@@ -118,41 +118,41 @@ module.exports = {
 
     },
     delete: async function (req, res) {
-        const {id} = req.params
+        const { id } = req.params
         try {
             await users.destroy({
                 where: {
-                  id_users: id
+                    id_users: id
                 }
-              });
-              return true
-        } catch (error) {
-           console.log(error)
-           return false
-        }
-        
-    },
-    updatePassword:async function(req,res){
-        const pwd=req.body['new-user-password']
-        const userPwd=req.body['new-userpwd-id']
-        try {
-            await users.update({ pwd:pwd }, {
-                where: {
-                  id_users:userPwd
-                }
-              });
-              return true;
-            
+            });
+            return true
         } catch (error) {
             console.log(error)
             return false
-            
+        }
+
+    },
+    updatePassword: async function (req, res) {
+        const pwd = req.body['new-user-password']
+        const userPwd = req.body['new-userpwd-id']
+        try {
+            await users.update({ pwd: pwd }, {
+                where: {
+                    id_users: userPwd
+                }
+            });
+            return true;
+
+        } catch (error) {
+            console.log(error)
+            return false
+
         }
     },
-    getUserWithPosition: async function(id){
-        const userFound = await db.query("select * from users inner join userPositions on users.id_position = userPositions.id where users.id_users = '"+id+"'")
+    getUserWithPosition: async function (id) {
+        const userFound = await db.query("select * from users inner join userPositions on users.id_position = userPositions.id where users.id_users = '" + id + "'")
         return userFound
     }
-        
-    
+
+
 }

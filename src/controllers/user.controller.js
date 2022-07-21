@@ -58,7 +58,7 @@ function validationPwd(req, res) {
 module.exports = {
     index: async function (req, res) {
         try {
-            res.render('./register/user-register.ejs', { title: ' | Registro de Usuario', message: '', userPosition: await userPositionList.list() , navBar: await auth.navigationBar(req) })
+            res.render('./register/user-register.ejs', { title: ' | Registro de Usuario', message: '', userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
         } catch (err) {
             console.log(err.message)
         }
@@ -75,7 +75,7 @@ module.exports = {
 
             if (Fn.validaRut(req.body['new-user-rut']) && validationUserLenght(req, res) && validationName(req, res) && validationLastName(req, res) && validationPwd(req, res)) {
 
-                const sameRut = await user.findOneRut(req, res) 
+                const sameRut = await user.findOneRut(req, res)
                 const sameUsername = await user.findOneUserName(req, res);
 
                 if (sameUsername != null) {
@@ -109,7 +109,6 @@ module.exports = {
                         email: email,
                         salt, salt,
                     }
-                    console.log(newUser);
                     const createdUser = await user.post(newUser)
 
                     const token = jwt.sign({ _id: createdUser.dataValues.id_users }, 'adInfinitum123', { expiresIn: 86400 })
@@ -158,38 +157,38 @@ module.exports = {
             if (validationUserLenght(req, res) && validationName(req, res) && validationLastName(req, res)) {
 
                 const user_esta = await user.get(req.body['new-user-rut'])
-                const sameName = await user.findOneUserName(req,res)
+                const sameName = await user.findOneUserName(req, res)
 
                 if (user_esta[0] == null) {
                     res.redirect('/register/user-edit/' + req.body['new-user-rut'])
                 }
-                else if(user_esta[0].dataValues.UserName == req.body['new-user-username']){
-                    
+                else if (user_esta[0].dataValues.UserName == req.body['new-user-username']) {
+
                     const updated = await user.update(req)
-                    
+
                     if (updated) {
-                        res.render('./register/user-edit.ejs',{title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: 'Usuario editado con éxito',userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
+                        res.render('./register/user-edit.ejs', { title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: 'Usuario editado con éxito', userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
                     }
                     else {
 
-                        res.render('./register/user-edit.ejs',{title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "Verifique que los valores ingresados sean correctos",userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
+                        res.render('./register/user-edit.ejs', { title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "Verifique que los valores ingresados sean correctos", userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
                     }
                 }
-                else if(sameName){
-                        res.render('./register/user-edit.ejs',{title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "El nombre de usuario ya existe",userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
-                }else{
-                    const updated =  await user.update(req)
+                else if (sameName) {
+                    res.render('./register/user-edit.ejs', { title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "El nombre de usuario ya existe", userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
+                } else {
+                    const updated = await user.update(req)
                     if (updated) {
-                        res.render('./register/user-edit.ejs',{title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: 'Usuario editado con éxito',userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
+                        res.render('./register/user-edit.ejs', { title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: 'Usuario editado con éxito', userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
                     }
                     else {
                         // res.redirect('/register/user-edit/' + req.body['new-user-rut'])
-                        res.render('./register/user-edit.ejs',{title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "Verifique que los valores ingresados sean correctos",userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
+                        res.render('./register/user-edit.ejs', { title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "Verifique que los valores ingresados sean correctos", userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
                     }
                 }
             }
             else {
-                res.render('./register/user-edit.ejs',{title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "Verifique que los valores ingresados sean correctos",userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req)})
+                res.render('./register/user-edit.ejs', { title: ' | Editar Usuario', user: await user.get(req.body['new-user-rut']), message: "Verifique que los valores ingresados sean correctos", userPosition: await userPositionList.list(), navBar: await auth.navigationBar(req) })
             }
 
 
@@ -218,30 +217,30 @@ module.exports = {
 
 
     },
-    updatePassword:async function(req,res){
+    updatePassword: async function (req, res) {
         let message = ''
-        if(validationPwd(req,res)){
+        if (validationPwd(req, res)) {
             const salt = await bcrypt.genSalt()
             const hashed = await bcrypt.hash(req.body['new-user-password'], salt)
-            req.body['new-user-password']=hashed
+            req.body['new-user-password'] = hashed
 
 
-            const updatedPwd = await user.updatePassword(req,res)
+            const updatedPwd = await user.updatePassword(req, res)
             if (updatedPwd) {
                 message = 'Se cambió la contraseña con éxito'
-                res.render('./register/password-edit.ejs',{title: ' | Editar Contraseña de Usuario', user: await user.get(req.body['new-userpwd-id']), message: message, navBar: await auth.navigationBar(req)})
+                res.render('./register/password-edit.ejs', { title: ' | Editar Contraseña de Usuario', user: await user.get(req.body['new-userpwd-id']), message: message, navBar: await auth.navigationBar(req) })
             }
             else {
                 message = 'Error con la contraseña'
-                res.render('./register/password-edit.ejs',{title: ' | Editar Contraseña de Usuario', user: await user.get(req.body['new-userpwd-id']), message: message, navBar: await auth.navigationBar(req)})
+                res.render('./register/password-edit.ejs', { title: ' | Editar Contraseña de Usuario', user: await user.get(req.body['new-userpwd-id']), message: message, navBar: await auth.navigationBar(req) })
             }
 
 
-            
+
 
         }
     },
-    getUserWithPosition: async function(req,res){
+    getUserWithPosition: async function (req, res) {
 
         try {
             let { id } = req.params
