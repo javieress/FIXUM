@@ -1,4 +1,3 @@
-const { render } = require("ejs");
 var QRCode = require('qrcode');
 const fs = require('fs');
 var AdmZip = require("adm-zip");

@@ -1,7 +1,4 @@
-const config = require('../config/dbconfig')
-const sql = require('mssql')
 const userPosition = require('../models/UserPosition')
-const bodyParser = require('body-parser');
 const UserPosition = require('../models/UserPosition');
 
 const auth = require('../middlewares/authJwt')

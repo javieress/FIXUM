@@ -1,4 +1,3 @@
-const assetController = require('../controllers/asset.controller')
 
 module.exports={
 

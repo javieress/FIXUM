@@ -1,7 +1,4 @@
-const config = require('../config/dbconfig')
-const sql = require('mssql')
 const assetType = require('../models/Asset-Type')
-const bodyParser = require('body-parser')
 const auth = require('../middlewares/authJwt')
 
 

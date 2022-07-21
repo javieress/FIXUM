@@ -1,8 +1,5 @@
-const config = require('../config/dbconfig')
-const sql = require('mssql')
-const asset = require('../models/Asset')
-const bodyParser = require('body-parser')
 
+const asset = require('../models/Asset')
 const assetTypeController = require('../controllers/asset-type.controller')
 const locationController = require('../controllers/location.controller')
 const userController = require('../controllers/user.controller')

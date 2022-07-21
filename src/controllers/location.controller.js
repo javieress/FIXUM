@@ -1,7 +1,4 @@
-const config = require('../config/dbconfig')
-const sql = require('mssql')
 const location = require('../models/Location')
-const bodyParser = require('body-parser')
 const auth = require('../middlewares/authJwt')
 
 

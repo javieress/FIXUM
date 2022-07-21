@@ -1,12 +1,6 @@
-// import { DataTypes } from 'sequelize';
-// import db from "../database/conection2";
 
 const {DataTypes} = require('sequelize');
 const db = require("../database/conection2")
-
-const bcrypt = require('bcrypt');
-const { user } = require('../config/dbconfig');
-const saltRounds = 10;
 
 
 const users=db.define('User', {
