@@ -9,14 +9,15 @@ const printerController = require('../controllers/printer.controller')
 const qrController = require('../controllers/qr-reader.controller')
 const userController = require('../controllers/user.controller');
 const authController = require('../auth/auth.controller')
-const {verifyToken, isAdmin ,navigationBar,isAdminOrUser,isUser} = require('../middlewares/authJwt')
+const {verifyToken, isAdmin ,navigationBar,isAdminOrUser,isUser,mainView} = require('../middlewares/authJwt')
 const User = require('../models/User');
 
 const notificationsController = require('../controllers/notifications.controller')
 
 router.get('/',async (req,res,next) => {
     const navBar = await navigationBar(req)
-    res.render('index.ejs',{title: '  FIXUM', navBar: navBar })
+    const main = await mainView(req,res)
+    res.render('home/'+main,{title: '  FIXUM', navBar: navBar })
 })
 
 router.get('/login',async (req,res,next) => {
@@ -34,11 +35,11 @@ router.get('/logout',verifyToken,async (req,res,next) => {
 
 router.get('/admin-profile',verifyToken,isAdmin,async (req,res,next)=> {
     const navBar = await navigationBar(req)
-    res.render('./profiles/admin-profile.ejs',{title: ' | Perfil Administrador', navBar: navBar })
-})
+    res.render('./profiles/admin-profile.ejs',{title: ' | Perfil Administrador', navBar: navBar, user: await userController.getUserWithPosition(req,res)})
+    })
 router.get('/user-profile',verifyToken,isUser,async (req,res,next) => {
     const navBar = await navigationBar(req)
-    res.render('./profiles/user-profile.ejs',{title: ' | Perfil Usuario', navBar: navBar })
+    res.render('./profiles/user-profile.ejs',{title: ' | Perfil Usuario', navBar: navBar , user: await userController.getUserWithPosition(req,res)})
 })
 router.get('/contact',async (req,res,next) => {
     const navBar = await navigationBar(req)
@@ -51,14 +52,14 @@ router.get('/scan',async (req,res,next) => {
 router.get('/notifications',verifyToken,isAdmin,notificationsController.get)
 
 //pruebas de home
-router.get('/homeA',async (req,res,next) => {
-    const navBar = await navigationBar(req)
-    res.render('home/homeAdmin.ejs',{title: ' | Inicio', navBar: navBar })
-})
-router.get('/homeU',async (req,res,next) => {
-    const navBar = await navigationBar(req)
-    res.render('home/homeUser.ejs',{title: ' | Inicio', navBar: navBar })
-})
+// router.get('/homeA',async (req,res,next) => {
+//     const navBar = await navigationBar(req)
+//     res.render('home/homeAdmin.ejs',{title: ' | Inicio', navBar: navBar })
+// })
+// router.get('/homeU',async (req,res,next) => {
+//     const navBar = await navigationBar(req)
+//     res.render('home/homeUser.ejs',{title: ' | Inicio', navBar: navBar })
+// })
 
 router.get('/print', verifyToken, isAdminOrUser, async(req,res,next) => {
     const navBar = await navigationBar(req)

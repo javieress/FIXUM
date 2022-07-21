@@ -112,5 +112,25 @@ const details = async (req,res,next) => {
     }
 
 }
+const mainView = async (req,res,next) => {
+    try {
+        const token = req.session.token
+        if (!token) return 'homeUser.ejs'
+        else {
+            const decoded = jwt.verify(token, process.env.SECRET)
+            req.userId = decoded._id
+            const user = await User.get(req.userId)
+            if ((user[0].dataValues.typeUser == 0)) {
+                return 'homeRegisterUser.ejs'
+            }
+            else if((user[0].dataValues.typeUser == 1)){
+                return 'homeAdmin.ejs'
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        return 'homeUser.ejs'
+    }
+}
 
-module.exports = {verifyToken, isAdmin, isUser , navigationBar, isAdminOrUser,details}
+module.exports = {verifyToken, isAdmin, isUser , navigationBar, isAdminOrUser,details,mainView}

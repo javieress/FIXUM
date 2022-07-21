@@ -146,20 +146,21 @@ module.exports = {
 
     },
     get: async function (req, res) {
-
         try {
             let { id } = req.params
             if (!id) {
                 id = req.query['id']
                 if (!id) {
-                    id = req.user._id
+                    id = req.userId
+                    if (!id) {
+                        id = req.user._id
+                    }
                 }
-                return await user.get(id)
             }
             return await user.get(id)
         } catch (error) {
+            console.log(error)
             res.redirect('/error')
-
         }
 
     },
@@ -250,8 +251,27 @@ module.exports = {
             
 
         }
+    },
+    getUserWithPosition: async function(req,res){
 
-      
+        try {
+            let { id } = req.params
+            if (!id) {
+                id = req.query['id']
+                if (!id) {
+                    id = req.userId
+                    if (!id) {
+                        id = req.user._id
+                    }
+                }
+            }
+            return await user.getUserWithPosition(id)
+        } catch (error) {
+            console.log(error)
+            res.redirect('/error')
+        }
+
     }
+
 
 }

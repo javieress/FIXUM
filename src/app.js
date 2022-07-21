@@ -63,7 +63,7 @@ app.use('/qr',qrRouter)
 app.use('/auth',authsRouter)
 app.use('/edit',editRouter)
 app.use((err,req,res,next) => {
-    res.send('Ha ocurrido un error').redirect('/')
+    res.redirect('/error')
 })
 
 // static files

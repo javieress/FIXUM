@@ -5,6 +5,7 @@ const {DataTypes} = require('sequelize');
 const db = require("../database/conection2")
 
 const bcrypt = require('bcrypt');
+const { user } = require('../config/dbconfig');
 const saltRounds = 10;
 
 
@@ -98,7 +99,6 @@ module.exports = {
                 id_users: id
             }
         })
-
         return userFound
     },
     update: async function (req, res) {
@@ -154,8 +154,10 @@ module.exports = {
             return false
             
         }
-      
-
+    },
+    getUserWithPosition: async function(id){
+        const userFound = await db.query("select * from users inner join userPositions on users.id_position = userPositions.id where users.id_users = '"+id+"'")
+        return userFound
     }
         
     
