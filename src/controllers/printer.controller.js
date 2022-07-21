@@ -2,6 +2,8 @@ const { render } = require("ejs");
 var QRCode = require('qrcode');
 const fs = require('fs');
 var AdmZip = require("adm-zip");
+const assetController = require("./asset.controller.js");
+
 
 async function crear_qr(paginas, nombres){
     for (var i = 0; i < paginas.length; i++){
@@ -59,18 +61,22 @@ module.exports = {create_qr_download: async function(req, res){
 
 
     setTimeout(function() {
-        var zip = new AdmZip();
 
+        const fecha = new Date();
+
+        var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth()+1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() +"-"+fecha.getMinutes();
+        var zip = new AdmZip();
+        var ruta_zip = 'src/public/img/Codigos_QR_'+texto_fecha+'.zip';
         var ruta = 'src/public/img/img_qr';
         zip.addLocalFolder(ruta);
         
-        zip.writeZip('src/public/img/descargar.zip');
+        zip.writeZip(ruta_zip);
 
     }, delayInMilliseconds);
 
     
     setTimeout(function() {
-        res.download('./src/public/img/descargar.zip'); 
+        res.download('./'+ ruta_zip); 
 
     }, delayInMilliseconds);
 
@@ -87,7 +93,7 @@ module.exports = {create_qr_download: async function(req, res){
 
     setTimeout(function() {
         
-        fs.unlink('src/public/img/descargar.zip', (err) => {
+        fs.unlink(ruta_zip, (err) => {
             if (err) {
                 console.error(err)
                 return
@@ -97,5 +103,43 @@ module.exports = {create_qr_download: async function(req, res){
     }, 5000);   
 
 
+}
+, download_csv: async function(req, res){
+    const fecha = new Date();
+    var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth()+1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() +"-"+fecha.getMinutes();
+
+    var ruta_csv = "Datos_activos_"+texto_fecha+".csv";
+    //id, nombre, tipo, ubicacion, precio, cantidad
+    const datos = await assetController.list();
+    var contenido = "";
+
+    for (var i = 0; i < datos.length; i++){
+        console.log(datos[i].dataValues.id);
+        contenido = contenido + ","+datos[i].dataValues.id;
+    }
+
+    fs.writeFile(ruta_csv,contenido, (err => {
+        if (err) throw err;
+
+        console.log("listo rey");
+    }))
+
+    setTimeout(function() {
+        res.download(ruta_csv); 
+        
+
+    }, 5000);  
+
+    setTimeout(function() {
+
+        fs.unlink(ruta_csv, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+        });
+
+    }, 5000);  
+    
 }
 }

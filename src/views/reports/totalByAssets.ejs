@@ -26,10 +26,12 @@
             <div class="card" style="border-radius: 15px ; flex-direction: column;">
                 <div class="card-header p-4 justify-content-center align-items-center">
                     <h3>Valor Total por Activo </h3>
+
+                    <a href="/reports/csv" style="color: red" class="btn btn-dark col-md-6">Descargar CSV</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="tabla" class="table table-hover display" cellspacing="0" width="100%">
+                        <table id="tabla" name = "tabla" class="table table-hover display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -75,6 +77,7 @@
                 </div>
             </div>
         </div>
+    
 </body>
 <%- include('../partials/footer') %>
 
