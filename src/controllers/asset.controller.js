@@ -43,7 +43,7 @@ function validationDescription(req,res){
 
 module.exports={
     index: async function(req,res){
-        res.render('./register/asset-register.ejs',{title: ' | Activos', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})
+        res.render('./register/asset-register.ejs',{title: ' | Registro de Activo', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})
     },
     list: async function(){
         return await asset.list()
@@ -103,16 +103,16 @@ module.exports={
                 const updated = await asset.update(req, res)
                 if (updated) {
                     message+="Activo actualizado correctamente"
-                    res.render('./register/asset-edit.ejs',{title: ' | Edit', asset: await asset.get(req,res),message: message,location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})    
+                    res.render('./register/asset-edit.ejs',{title: ' | Editar Activo', asset: await asset.get(req,res),message: message,location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})    
                 }
                 else {
                     message+="Verifique que los valores ingresados sean correctos"
-                    res.render('./register/asset-edit.ejs',{title: ' | Edit', asset: await asset.get(req,res),message: message,location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})    
+                    res.render('./register/asset-edit.ejs',{title: ' | Editar Activo', asset: await asset.get(req,res),message: message,location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})    
                 }
             }
             else{
                 message+="Verifique que los valores ingresados sean correctos"
-                res.render('./register/asset-edit.ejs',{title: ' | Edit', asset: await asset.get(req,res),message: message,location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})    
+                res.render('./register/asset-edit.ejs',{title: ' | Editar Activo', asset: await asset.get(req,res),message: message,location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})    
             }
         } catch (error) {
             console.log(error)
