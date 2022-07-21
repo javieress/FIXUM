@@ -116,10 +116,10 @@
             event.preventDefault();
             alert('Debes seleccionar al menos dos ítems para imprimir sus QR');
         }
-        else if (confirm('¿Estás seguro de imprimir estos ítems?')){ 
+        else if (confirm('¿Estás seguro de descargar los QR de estos ítems?')){ 
             document.getElementById("boton_imprimir").disabled = true;
-            document.getElementById("boton_imprimir").setAttribute("title", "Espere un momento...");
-            document.getElementById("boton_imprimir").innerHTML = "Espere un momento";
+            document.getElementById("boton_imprimir").setAttribute("title", "Espere unos segundos...");
+            document.getElementById("boton_imprimir").innerHTML = "Espere unos segundos...";
             $(document).ready(function() {
                 $('#tabla').dataTable().fnDestroy();
             } );
@@ -128,7 +128,7 @@
                 $('#tabla').dataTable();
             } );
 
-            var delayInMilliseconds = 2000; 
+            var delayInMilliseconds = 6000; 
 
             setTimeout(function() {
                 document.getElementById("boton_imprimir").disabled = false;
