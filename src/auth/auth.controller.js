@@ -61,8 +61,13 @@ const Auth = {
         }
     },
     logout: async(req,res,next) => {
-        await req.session.destroy()
-        res.redirect('/')
+        try {
+            await req.session.destroy()
+            res.redirect('/')
+        } catch (error) {
+            console.log(error);
+        }
+       
     }
 }
 
