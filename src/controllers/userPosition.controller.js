@@ -15,7 +15,7 @@ function validationUserPositionLenght(req, res) {
 }
 module.exports = {
     index: async function (req, res) {
-        res.render('./register/UserPosition-register.ejs', { title: ' |Cargos', message: '', navBar: await auth.navigationBar(req) })
+        res.render('./register/UserPosition-register.ejs', { title: ' | Registro de Cargo', message: '', navBar: await auth.navigationBar(req) })
     },
     list: async function () {
         return await userPosition.list()
@@ -33,7 +33,7 @@ module.exports = {
         } else {
             message += "Verifique que los valores ingresados sean correctos"
         }
-        res.render('./register/userPosition-register.ejs', { title: ' | Registrar Cargos', message: message, navBar: await auth.navigationBar(req) })
+        res.render('./register/userPosition-register.ejs', { title: ' | Registro de Cargo', message: message, navBar: await auth.navigationBar(req) })
     },
     update: async function (req, res) {
         let message = ''
@@ -41,7 +41,7 @@ module.exports = {
             const updated = await userPosition.update(req, res)
             if (updated) {
                 message = 'El cargo se actualizó con éxito'
-                res.render('./register/userPosition-edit.ejs', { title: ' | Actualizar Cargos', userPosition: await userPosition.get(req, res), message: message, navBar: await auth.navigationBar(req) })
+                res.render('./register/userPosition-edit.ejs', { title: ' | Editar Cargo', userPosition: await userPosition.get(req, res), message: message, navBar: await auth.navigationBar(req) })
             }
             else {
                 const positionUpdated =
@@ -54,7 +54,7 @@ module.exports = {
                             }
                         }]
                 message = "Verifique que los valores ingresados sean correctos"
-                res.render('./register/userPosition-edit.ejs', { title: ' | Actualizar Cargos', userPosition: positionUpdated, message: message, navBar: await auth.navigationBar(req) })
+                res.render('./register/userPosition-edit.ejs', { title: ' | Editar Cargo', userPosition: positionUpdated, message: message, navBar: await auth.navigationBar(req) })
 
             }
         }
@@ -69,7 +69,7 @@ module.exports = {
                         }
                     }]
             message = "Verifique que los valores ingresados sean correctos"
-            res.render('./register/userPosition-edit.ejs', { title: ' | Actualizar Cargos', userPosition: positionUpdated, message: message, navBar: await auth.navigationBar(req) })
+            res.render('./register/userPosition-edit.ejs', { title: ' | Editar Cargo', userPosition: positionUpdated, message: message, navBar: await auth.navigationBar(req) })
 
         }
 

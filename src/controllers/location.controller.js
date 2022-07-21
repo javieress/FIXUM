@@ -35,7 +35,7 @@ module.exports = {
             } else {
                 message += "Maximo de caracteres superado"
             }
-            res.render('./register/location-register.ejs', { title: ' | Registro Ubicaciones', message: message ,navBar: await auth.navigationBar(req)})
+            res.render('./register/location-register.ejs', { title: ' | Registro de Ubicación', message: message ,navBar: await auth.navigationBar(req)})
         } catch (error) {
             console.log(error)
             res.redirect('/error')
@@ -49,7 +49,7 @@ module.exports = {
                 const updated = await location.update(req, res)
                 if (updated) {
                     message = 'La ubicación se actualizó con éxito'
-                    res.render('./register/location-edit.ejs',{title: ' | Edit', location: await location.get(req,res),message: message, navBar: await auth.navigationBar(req)})
+                    res.render('./register/location-edit.ejs',{title: ' | Editar Ubicación', location: await location.get(req,res),message: message, navBar: await auth.navigationBar(req)})
                 }
                 else {
                     const locationUpdated =
@@ -61,7 +61,7 @@ module.exports = {
                                     locations: ''
                                 }
                             }]
-                    res.render('./register/location-edit.ejs', { title: ' | Actualizar Ubicaciones', location: locationUpdated, message: 'Error no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
+                    res.render('./register/location-edit.ejs', { title: ' | Editar Ubicación', location: locationUpdated, message: 'Error no se pudo hacer la modificacion' ,navBar: await auth.navigationBar(req)})
 
                 }
             }
@@ -72,7 +72,7 @@ module.exports = {
                         locations: ''
                     }
                 }]
-                res.render('./register/location-edit.ejs', { title: ' | Actualizar Ubicaciones', location: locationUpdated, message: 'Texto ingresado supera el máximo de caracteres' ,navBar: await auth.navigationBar(req)})
+                res.render('./register/location-edit.ejs', { title: ' | Editar Ubicación', location: locationUpdated, message: 'Texto ingresado supera el máximo de caracteres' ,navBar: await auth.navigationBar(req)})
             }
         } catch (error) {
             console.log(error)

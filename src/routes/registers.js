@@ -39,7 +39,7 @@ router.get('/asset-edit/:id',auth.verifyToken,auth.isAdminOrUser, async (req,res
 
 //locations
 router.get('/location',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
-    res.render('./register/location-register.ejs',{title: ' | Registro de Ubicacion',message: '', navBar: await auth.navigationBar(req)})
+    res.render('./register/location-register.ejs',{title: ' | Registro de Ubicación',message: '', navBar: await auth.navigationBar(req)})
 })
 router.post('/location',auth.verifyToken,auth.isAdmin,locationController.post)
 router.get('/location-delete/:id',auth.verifyToken,auth.isAdmin,locationController.delete)
