@@ -61,9 +61,9 @@
                                         </td>
                                       
                                         <td>
-                                        <a class="btn btn-outline-success mt-1 col-md-6" href="/register/user-edit/<%=Users[i].id_users%>" style="max-width: 100px;"> Editar </a>
-                                        <a class="btn btn-outline-primary mt-1 col-md-6" href="/register/user-edit-password/<%=Users[i].id_users%>" style="max-width: 180px;">Cambiar Contraseña</a>
-                                        <button class="btn btn-outline-danger mt-1 col-md-6" onclick="eliminar('<%=Users[i].id_users%>')" style="max-width: 100px;"> Eliminar </button>
+                                        <a class="btn btn-success mt-1 col-md-6" href="/register/user-edit/<%=Users[i].id_users%>" style="max-width: 100px;" title="Editar"><i class="fa-solid fa-pencil"></i></a>
+                                        <a class="btn btn-primary mt-1 col-md-6" href="/register/user-edit-password/<%=Users[i].id_users%>" style="max-width: 100px;" title="Cambiar Contraseña"><i class="fa-solid fa-key"></i></a>
+                                        <button class="btn btn-danger mt-1 col-md-6" onclick="eliminar('<%=Users[i].id_users%>')" style="max-width: 100px;" title="Eliminar"><i class="fa-solid fa-xmark"></i></button>
                                         
                                         </td>
                                     </tr>
