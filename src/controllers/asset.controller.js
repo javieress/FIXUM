@@ -48,6 +48,15 @@ module.exports={
     list: async function(){
         return await asset.list()
     },
+    detailList: async function(){
+        try {
+            return await asset.detailList()
+        } catch (error) {
+            console.log(error)
+            
+        }
+
+    },
     post: async function (req,res) {
         let message=''
         try {
