@@ -129,7 +129,14 @@ module.exports = {
 
     },
     TotalAssetsByLocation: async function(){
-        const totalAssetsByLocation=await db.query('Select Locations.locations,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from Assets inner join Locations on Locations.id=Assets.id_location group by Locations.locations')
+        const totalAssetsByLocation=await db.query('Select Locations.locations,sum(Assets.quantity)as Cantidad,(sum(Assets.price*Assets.quantity))as Total from Assets right join Locations on Locations.id=Assets.id_location group by Locations.locations')
+        for(let i in totalAssetsByLocation[0]){
+            if(totalAssetsByLocation[0][i].Cantidad==null){
+                totalAssetsByLocation[0][i].Cantidad='0'
+                totalAssetsByLocation[0][i].Total='0'
+            }
+        }
+
         return totalAssetsByLocation
     },
     get: async function(req,res){
