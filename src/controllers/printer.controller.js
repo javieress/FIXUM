@@ -141,7 +141,5 @@ module.exports = {create_qr_download: async function(req, res){
 
     }, 5000);  
     
-
-    
 }
 }
