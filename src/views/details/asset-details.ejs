@@ -146,9 +146,8 @@
               <a href="/register/asset-edit/<%=asset[0].dataValues.id%>" class="btn btn-dark btn-lg">Modificar</a>
             </div>
             <div class="bd-highlight ms-auto">
-              <form action="/register/asset-delete/<%=asset[0].dataValues.id%>" method="post">
+              <form action="/register/asset-delete/<%=asset[0].dataValues.id%>" method="get">
                     <button type="submit" class="btn btn-danger btn-lg">Eliminar</button>
-                    <!-- <a href="/register/asset-delete/<%=//asset[0].dataValues.id%>" class="btn btn-danger">Eliminar</a> -->
               </form>
             </div>
         </div>
