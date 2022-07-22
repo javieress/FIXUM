@@ -75,7 +75,11 @@ router.get('/error', async (req, res, next) => {
 // Ruta de vista de información
 router.get('/info',verifyToken,isAdmin,async (req,res,next)=> {
     const navBar = await navigationBar(req)
-    res.render('index.ejs',{ title: ' | Info', navBar: navBar})
+    res.render('info.ejs',{ title: ' | Info', navBar: navBar})
 })
+router.get('/user-manual',verifyToken,isAdmin,printerController.downloadUserManual)
+router.get('/admin-manual',verifyToken,isAdmin,printerController.downloadAdminManual)
+router.get('/db-doc',verifyToken,isAdmin,printerController.downloadDbDocumentation)
+
 
 module.exports = router

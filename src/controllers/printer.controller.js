@@ -138,7 +138,29 @@ module.exports = {
             });
 
         }, 6000);
+    },
+    downloadAdminManual: async (req,res)=>{
+        setTimeout(function () {
+            res.download('src/public/docs/Manual_de_uso_para_Administradores.pdf');
 
+
+        }, 5000);
+
+    },
+    downloadUserManual: async (req,res)=>{
+        setTimeout(function () {
+            res.download('src/public/docs/Manual de Usuario.pdf');
+
+
+        }, 5000);
+
+    },
+    downloadDbDocumentation: async (req,res)=>{
+        setTimeout(function () {
+            res.download('src/public/docs/Documentación BD.pdf');
+
+
+        }, 5000);
 
     }
 }
