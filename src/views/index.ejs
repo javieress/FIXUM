@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('partials/head') %>
-    <title><%= title %></title>
+        <title>
+            <%= title %>
+        </title>
 </head>
+
 <body>
     <%- include(navBar) %>
-    <div class="container h-100 justify-content-center" style="max-width: 1000px;">
+    <a href="/" style="color: white" class="btn btn-dark mx-5 mt-5 ">
+        <div class="mx-2 my-0">
+            <p class="my-0"><i class="fa-solid fa-arrow-left-long"></i> Inicio</p>
+        </div>
+    </a>
+    <div class="container h-100 justify-content-center" style="max-width: 800px;">
         <div class="card mt-5">
-            <div class="card-header p-4">
-                <h3>Home</h3>
+            <div class="card-header p-4" >
+                <h3>Información Útil</h3>
             </div>
             <div class="card-body">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark col-md-6" href="/register/asset" style="max-width: 300px;">Agregar activo</a>
-                    <a class="btn btn-dark col-md-6" href="/edit/Assets" style="max-width: 300px;">Editar activo</a>
+                <div class="row align-items-center justify-content-center m-2">
+                    <div class="btn-group-vertical" role="group" style="max-width: 500px;">
+                        <a class="btn btn-dark mt-1" href="/reports/last-10-added">Manual de uso de administrador</a>
+                    </div>
                 </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    
-                    <a class="btn btn-dark mt-1 col-md-6" href="/register/user" style="max-width: 300px;">Agregar usuario</a>
-                    <a class="btn btn-dark mt-1 col-md-6" href="/edit/Users" style="max-width: 300px;">Editar usuario</a>
-
+                <hr class="mx-n3">
+                <div class="row align-items-center justify-content-center m-2">
+                    <div class="btn-group-vertical" role="group" style="max-width: 500px;">
+                        <a class="btn btn-dark mt-1" href="/reports/totalByAssets">Manual de uso de usuario</a>
+                    </div>
                 </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark mt-1 col-md-6" href="/register/location" style="max-width: 300px;">Agregar ubicación</a>
-                    <a class="btn btn-dark mt-1 col-md-6" href="/edit/location" style="max-width: 300px;">Editar ubicación</a>
-                    
-                </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark mt-1 col-md-6" href="/register/asset-type" style="max-width: 300px;">Agregar tipo de activo</a>
-                    <a class="btn btn-dark mt-1 col-md-6" href="/edit/AssetTypes" style="max-width: 300px;">Editar tipo de activo</a>
-
-                </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark mt-1 col-md-6" href="/register/user-position" style="max-width: 300px;">Agregar cargo</a>
-                    <a class="btn btn-dark mt-1 col-md-6" href="/edit/UserPosition" style="max-width: 300px;">Editar cargo</a>
-
-                </div>
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <a class="btn btn-dark mt-1 col-md-6" href="/notifications" style="max-width: 300px;">Notificar</a>
-                    <a class="btn btn-dark mt-1 col-md-6" href="/qr-generator" style="max-width: 300px;">Generador qr</a>
-
+                <hr class="mx-n3">
+                <div class="row align-items-center justify-content-center m-2">
+                    <div class="btn-group-vertical" role="group" style="max-width: 500px;">
+                        <a class="btn btn-dark mt-1" href="/reports/totalByAssetsTypes">Documentación de base de datos</a>
+                    </div>
                 </div>
             </div>
         </div>
+       
     </div>
 </body>
 <%- include('partials/footer') %>
+
 </html>

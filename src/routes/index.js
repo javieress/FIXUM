@@ -72,4 +72,10 @@ router.get('/error', async (req, res, next) => {
     res.render('error.ejs', { title: ' | Error', navBar: navBar })
 })
 
+// Ruta de vista de información
+router.get('/info',verifyToken,isAdmin,async (req,res,next)=> {
+    const navBar = await navigationBar(req)
+    res.render('index.ejs',{ title: ' | Info', navBar: navBar})
+})
+
 module.exports = router
