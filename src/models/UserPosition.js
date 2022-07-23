@@ -1,58 +1,55 @@
-// import { DataTypes } from "sequelize";
-// import db from "../database/conection2";
-
-const {DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize');
 const db = require("../database/conection2")
 
-const userPosition=db.define('UserPosition', {
+const userPosition = db.define('UserPosition', {
 
     id: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey:true,
-        autoIncrement:true
-        
+        primaryKey: true,
+        autoIncrement: true
+
     },
     position: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     }
-    
-    }
+
+}
 )
 
-module.exports={
+module.exports = {
     list: async function () {
 
-        const UsersPositionList=await userPosition.findAll()    
-        return  UsersPositionList;
+        const UsersPositionList = await userPosition.findAll()
+        return UsersPositionList;
     },
-    post: async function(req, res) {
-        let position=req.body['new-user-position']
-        
+    post: async function (req, res) {
+        let position = req.body['new-user-position']
+
 
         try {
             await userPosition.create(
 
                 {
-                    position : position  
-                    
+                    position: position
+
                 }
             );
-            
+
         } catch (error) {
             console.log(error.message);
-            
+
         }
 
         return true;
 
 
     },
-   
-    get:async function(req,res) {
-        let {id} = req.params
-        if (!id){
+
+    get: async function (req, res) {
+        let { id } = req.params
+        if (!id) {
             id = req.body['new-user-position-id']
         }
         const UserPositionFound = await userPosition.findAll({
@@ -60,21 +57,21 @@ module.exports={
                 id: id
             }
         })
-        
+
         return UserPositionFound
-                
+
     },
     update: async function (req, res) {
 
-        try{
+        try {
             await userPosition.update({ position: req.body['new-user-position'] }, {
                 where: {
-                  id: req.body['new-user-position-id']
+                    id: req.body['new-user-position-id']
                 }
-              })
+            })
 
             return true
-        }catch(err){
+        } catch (err) {
             console.log(err)
             return false
         }
@@ -82,20 +79,20 @@ module.exports={
     },
     delete: async function (req, res) {
 
-        const {id} = req.params
+        const { id } = req.params
         try {
             await userPosition.destroy({
                 where: {
-                  id: id
+                    id: id
                 }
-              });
-              return true
+            });
+            return true
         } catch (error) {
-           console.log(error)
-           return false
+            console.log(error)
+            return false
         }
-      
+
     }
-    
+
 }
 

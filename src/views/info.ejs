@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include('../partials/head') %>
-    <title><%= title %></title>
+    <%- include('partials/head') %>
+        <title>
+            <%= title %>
+        </title>
 </head>
+
 <body>
-    <%- include('../'+navBar) %>
+    <%- include(navBar) %>
     <a href="/" style="color: white" class="btn btn-dark mx-5 mt-5 ">
         <div class="mx-2 my-0">
             <p class="my-0"><i class="fa-solid fa-arrow-left-long"></i> Inicio</p>
@@ -16,31 +20,25 @@
     </a>
     <div class="container h-100 justify-content-center" style="max-width: 800px;">
         <div class="card mt-5">
-            <div class="card-header p-4">
-                <h3>Reportes</h3>
+            <div class="card-header p-4" >
+                <h3>Información Útil</h3>
             </div>
             <div class="card-body">
                 <div class="row align-items-center justify-content-center m-2">
                     <div class="btn-group-vertical" role="group" style="max-width: 500px;">
-                        <a class="btn btn-dark mt-1" href="/reports/last-10-added">Últimos 10 activos agregados/modificados</a>
+                        <a class="btn btn-dark mt-1" href="/admin-manual"><i class="fa-solid fa-download"></i> Manual de uso de administrador</a>
                     </div>
                 </div>
                 <hr class="mx-n3">
                 <div class="row align-items-center justify-content-center m-2">
                     <div class="btn-group-vertical" role="group" style="max-width: 500px;">
-                        <a class="btn btn-dark mt-1" href="/reports/totalByAssets">Total Valor por Activo</a>
+                        <a class="btn btn-dark mt-1" href="/user-manual"><i class="fa-solid fa-download"></i> Manual de uso de usuario</a>
                     </div>
                 </div>
                 <hr class="mx-n3">
                 <div class="row align-items-center justify-content-center m-2">
                     <div class="btn-group-vertical" role="group" style="max-width: 500px;">
-                        <a class="btn btn-dark mt-1" href="/reports/totalByAssetsTypes">Total Valor por Tipo Activo</a>
-                    </div>
-                </div>
-                <hr class="mx-n3">
-                <div class="row align-items-center justify-content-center m-2">
-                    <div class="btn-group-vertical" role="group" style="max-width: 500px;">
-                        <a class="btn btn-dark mt-1" href="/reports/totalAssetsByLocation">Total Activos por Ubicación</a>
+                        <a class="btn btn-dark mt-1" href="/db-doc"><i class="fa-solid fa-download"></i> Documentación de base de datos</a>
                     </div>
                 </div>
             </div>
@@ -48,5 +46,6 @@
        
     </div>
 </body>
-<%- include('../partials/footer') %>
+<%- include('partials/footer') %>
+
 </html>

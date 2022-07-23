@@ -10,7 +10,7 @@ const userPosition = require('../controllers/userPosition.controller')
 
 const auth = require('../middlewares/authJwt')
 
-//Usuarios
+// Rutas de Usuarios
 router.get('/user',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
     res.render('./register/user-register.ejs',{title: ' | Registro de Usuario',message: '',userPosition: await userPosition.list(), navBar: await auth.navigationBar(req)})
 })
@@ -25,7 +25,7 @@ router.get('/user-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,next) 
     res.render('./register/user-edit.ejs',{title: ' | Editar Usuario', user: await userController.get(req,res), message: '',userPosition: await userPosition.list(), navBar: await auth.navigationBar(req)})
 })
 
-//assets
+// Rutas de Activos
 router.get('/asset',auth.verifyToken,auth.isAdminOrUser,async (req,res,next) => {
     console.log('aqui');
     res.render('./register/asset-register.ejs',{title: ' | Registro de Activo',message: '', location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})
@@ -37,7 +37,7 @@ router.get('/asset-edit/:id',auth.verifyToken,auth.isAdminOrUser, async (req,res
     res.render('./register/asset-edit.ejs',{title: ' | Editar Activo', asset: await assetController.get(req,res),message: '',location: await locationController.list(), assetType: await assetTypeController.list(),user: await userController.list(), navBar: await auth.navigationBar(req)})
 })
 
-//locations
+// Rutas de Ubicaciones
 router.get('/location',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
     res.render('./register/location-register.ejs',{title: ' | Registro de Ubicación',message: '', navBar: await auth.navigationBar(req)})
 })
@@ -48,7 +48,7 @@ router.get('/location-edit/:id',auth.verifyToken,auth.isAdminOrUser, async (req,
     res.render('./register/location-edit.ejs',{title: ' | Editar Ubicación', location: await locationController.get(req,res),message: '', navBar: await auth.navigationBar(req)})
 })
 
-//asset types
+// Rutas de Tipos de Activos
 router.get('/asset-type',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
     res.render('./register/asset-type-register.ejs', { title: ' | Registro de Tipo de Activos', message: '' , navBar: await auth.navigationBar(req)})
 })
@@ -59,7 +59,7 @@ router.get('/asset-type-edit/:id',auth.verifyToken,auth.isAdmin, async (req,res,
     res.render('./register/asset-type-edit.ejs',{title: ' | Editar Tipo de Activos', assetType: await assetTypeController.get(req,res), message: '', navBar: await auth.navigationBar(req)})
 })
 
-//UserPosition
+// Rutas de Cargos
 router.get('/user-position',auth.verifyToken,auth.isAdmin,async (req,res,next) => {
     res.render('./register/userPosition-register.ejs', { title: ' | Registro de Cargo', message: '', navBar: await auth.navigationBar(req)})
 })
@@ -70,9 +70,10 @@ router.get('/userPosition-edit/:id',auth.verifyToken,auth.isAdmin, async (req,re
     res.render('./register/userPosition-edit.ejs',{title: ' | Editar Cargo', userPosition: await userPosition.get(req,res), message: '', navBar: await auth.navigationBar(req)})
 })
 
+// Ruta de contacto
+router.post('/contact',mailController.contact)
 
-router.post('/contact',auth.verifyToken,auth.isAdmin,mailController.contact)
-
+// Ruta de notificaciones
 router.post('/notification',auth.verifyToken,auth.isAdmin,mailController.adminNotification)
 
 module.exports = router

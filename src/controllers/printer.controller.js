@@ -4,150 +4,163 @@ var AdmZip = require("adm-zip");
 const assetController = require("./asset.controller.js");
 
 
-async function crear_qr(paginas, nombres){
-    for (var i = 0; i < paginas.length; i++){
-        var imagen = await QRCode.toFile('src/public/img/img_qr/qr_'+ nombres[i] +'.png', paginas[i], {
+async function crear_qr(paginas, nombres) {
+    for (var i = 0; i < paginas.length; i++) {
+        var imagen = await QRCode.toFile('src/public/img/img_qr/qr_' + nombres[i] + '.png', paginas[i], {
             color: {
                 dark: '#000000',
                 light: '#ffffff'
-            }, function(err){
+            }, function(err) {
                 if (err) throw err
-                console.log("Pagina: "+ paginas[i] + " lista :)");
+                console.log("Pagina: " + paginas[i] + " lista :)");
             }
         });
     }
 }
 
-module.exports = {create_qr_download: async function(req, res){
-    console.log("hola xd");
-    
-    var datos = req.body["id"];
-    
-    var paginas = [];
-    var nombres = [];
+module.exports = {
+    create_qr_download: async function (req, res) {
 
-    console.log(datos.length);
+        var datos = req.body["id"];
 
-    const fecha = new Date();
+        var paginas = [];
+        var nombres = [];
 
-    var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth()+1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() +"-"+fecha.getMinutes();
 
-    var ruta_zip = 'src/public/img/Codigos_QR_'+texto_fecha+'.zip';
+        const fecha = new Date();
 
-    
-    for (var i = 0; i < datos.length; i++){
-        var spliteado = datos[i].split(",");
+        var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth() + 1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() + "-" + fecha.getMinutes();
 
-        var id_aux = spliteado[0];
-        
-        if (spliteado.length > 2){
-            console.log("aaa");
-            var resto = spliteado.splice(0,1);
-            var nombre = resto.join(",");
+        var ruta_zip = 'src/public/img/Codigos_QR_' + texto_fecha + '.zip';
+
+
+        for (var i = 0; i < datos.length; i++) {
+            var spliteado = datos[i].split(",");
+
+            var id_aux = spliteado[0];
+
+            if (spliteado.length > 2) {
+                var resto = spliteado.splice(0, 1);
+                var nombre = resto.join(",");
+            }
+            else {
+                var nombre = spliteado[1];
+            }
+            var url = "https://fixum.herokuapp.com/details/" + id_aux;
+            paginas.push(url);
+            nombres.push(nombre);
+
         }
-        else{
-            var nombre = spliteado[1];
-        }
-        var url = "https://fixum.herokuapp.com/details/"+id_aux;
-        paginas.push(url);
-        nombres.push(nombre);
-
-    }
-    
-    console.log("---");
-    console.log(paginas);
-    console.log(nombres);
-
-    var delayInMilliseconds = 4000; 
+        var delayInMilliseconds = 4000;
 
 
-    crear_qr(paginas,nombres);
+        crear_qr(paginas, nombres);
 
 
-    setTimeout(function() {
+        setTimeout(function () {
 
-        var zip = new AdmZip();
-        
-        var ruta = 'src/public/img/img_qr';
-        zip.addLocalFolder(ruta);
-        
-        zip.writeZip(ruta_zip);
+            var zip = new AdmZip();
 
-    }, delayInMilliseconds);
+            var ruta = 'src/public/img/img_qr';
+            zip.addLocalFolder(ruta);
 
-    
-    setTimeout(function() {
-        res.download('./'+ ruta_zip); 
+            zip.writeZip(ruta_zip);
 
-    }, delayInMilliseconds);
+        }, delayInMilliseconds);
 
-    setTimeout(function() {
-        for (var i = 0; i < paginas.length; i++){
-            fs.unlink('src/public/img/img_qr/qr_'+ nombres[i] +'.png', (err) => {
+
+        setTimeout(function () {
+            res.download('./' + ruta_zip);
+
+        }, delayInMilliseconds);
+
+        setTimeout(function () {
+            for (var i = 0; i < paginas.length; i++) {
+                fs.unlink('src/public/img/img_qr/qr_' + nombres[i] + '.png', (err) => {
+                    if (err) {
+                        console.error(err)
+                        return
+                    }
+                });
+            }
+        }, delayInMilliseconds);
+
+        setTimeout(function () {
+
+            fs.unlink(ruta_zip, (err) => {
                 if (err) {
                     console.error(err)
                     return
                 }
             });
-        }
-    }, delayInMilliseconds);
 
-    setTimeout(function() {
-        
-        fs.unlink(ruta_zip, (err) => {
-            if (err) {
-                console.error(err)
-                return
-            }
-        });
-
-    }, 5000);   
+        }, 5000);
 
 
-}
-, download_csv: async function(req, res){
-    const fecha = new Date();
-    var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth()+1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() +"-"+fecha.getMinutes();
-
-    var encabezado = "ID, NOMBRE, TIPO, UBICACIÓN, PRECIO UNITARIO, CANTIDAD, FECHA INGRESO, FECHA ÚLTIMA MODIFICACIÓN\r\n"; //Revisar salto de linea
-    var ruta_csv = "src/public/csv/Datos_activos_"+texto_fecha+".csv";
-    //id, nombre, tipo, ubicacion, precio, cantidad
-    const datos = await assetController.detailList();
-    var contenido = encabezado;
-    console.log("Total datos:"+ datos[0].length)
-
-    for (var i = 0; i < datos[0].length; i++){
-        console.log("Dato: "+ datos[0][i].id);
-        var datos_fila = [datos[0][i].id, datos[0][i].asset_name, datos[0][i].assetType, datos[0][i].locations, datos[0][i].price, datos[0][i].quantity, datos[0][i].createdAt, datos[0][i].updatedAt];
-        
-        contenido = contenido + datos_fila.join(",")+ "\r\n";
     }
+    , download_csv: async function (req, res) {
+        const fecha = new Date();
+        var texto_fecha = fecha.getDate() + "_" + (fecha.getMonth() + 1) + "_" + fecha.getFullYear() + "___" + fecha.getHours() + "-" + fecha.getMinutes();
 
-    
-    fs.writeFile(ruta_csv,contenido, (err => {
-        if (err) throw err;
+        var encabezado = "ID, NOMBRE, TIPO, UBICACIÓN, PRECIO UNITARIO, CANTIDAD, FECHA INGRESO, FECHA ÚLTIMA MODIFICACIÓN\r\n"; //Revisar salto de linea
+        var ruta_csv = "src/public/csv/Datos_activos_" + texto_fecha + ".csv";
+        //id, nombre, tipo, ubicacion, precio, cantidad
+        const datos = await assetController.detailList();
+        var contenido = encabezado;
+        console.log("Total datos:" + datos[0].length)
 
-        console.log("listo rey");
-    }))
+        for (var i = 0; i < datos[0].length; i++) {
+            console.log("Dato: " + datos[0][i].id);
+            var datos_fila = [datos[0][i].id, datos[0][i].asset_name, datos[0][i].assetType, datos[0][i].locations, datos[0][i].price, datos[0][i].quantity, datos[0][i].createdAt, datos[0][i].updatedAt];
 
-    setTimeout(function() {
-        res.download(ruta_csv); 
-        
+            contenido = contenido + datos_fila.join(",") + "\r\n";
+        }
 
-    }, 5000);  
 
-    
-    setTimeout(function() {
+        fs.writeFile(ruta_csv, contenido, (err => {
+            if (err) throw err;
+        }))
 
-        fs.unlink(ruta_csv, (err) => {
-            if (err) {
-                console.error(err)
-                return
-            }
-        });
+        setTimeout(function () {
+            res.download(ruta_csv);
 
-    }, 6000);  
-    
-    
-}
+
+        }, 5000);
+
+
+        setTimeout(function () {
+
+            fs.unlink(ruta_csv, (err) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+            });
+
+        }, 6000);
+    },
+    downloadAdminManual: async (req,res)=>{
+        setTimeout(function () {
+            res.download('src/public/docs/Manual_de_uso_para_Administradores.pdf');
+
+
+        }, 5000);
+
+    },
+    downloadUserManual: async (req,res)=>{
+        setTimeout(function () {
+            res.download('src/public/docs/Manual de Usuario.pdf');
+
+
+        }, 5000);
+
+    },
+    downloadDbDocumentation: async (req,res)=>{
+        setTimeout(function () {
+            res.download('src/public/docs/Documentación BD.pdf');
+
+
+        }, 5000);
+
+    }
 }
