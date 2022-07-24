@@ -5,7 +5,7 @@ module.exports = {
         var check = false;
         const text = JSON.stringify(req.body.qrResult);
         var id = "";
-        if (text.includes('localhost') || text.includes('herokuapp')) {
+        if (text.includes('localhost') || text.includes('herokuapp') || text.includes('fixum')) {
             var lines = text.split('/');
             lines = lines[lines.length - 1];
             lines = lines.split('"');
